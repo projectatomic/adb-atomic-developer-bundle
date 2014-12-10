@@ -14,11 +14,6 @@
 
 ### Fedora 20
 #### Virtual Box, VMWare
-??
-#### libvirt
-??
-
-#### Virtual Box, VMWare
 
 [https://vagrantcloud.com/box-cutter/boxes/fedora20](https://vagrantcloud.com/box-cutter/boxes/fedora20)
 
