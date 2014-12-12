@@ -3,10 +3,10 @@
 export PATH="/bin:/usr/bin"
 STATUS=0
 
-#get the plugin installed
+echo "get the plugin installed"
 vagrant plugin install vagrant-registration
 
-#do we have any now?
+echo "do we have any plugins now?"
 exec 5>&1 && OUTPUT=$(vagrant plugin list | tee >(cat - >&5))
 if [ $? -ne 0 ]; then
     STATUS=$?
@@ -14,7 +14,7 @@ if [ $? -ne 0 ]; then
     exit $STATUS
 fi
 
-#do we have the reg plugin?
+echo "do we have the vagrant-registration plugin?"
 TEST=$(echo "$OUTPUT" | grep vagrant-registration)
 STATUS=$?
 if [ -z "$TEST" ]; then
@@ -24,18 +24,19 @@ if [ -z "$TEST" ]; then
     exit $STATUS
 fi
 
-#lets pull over the vagrantfile to test
+echo "let's pull over the vagrantfile to test"
+rm ./Vagrantfile
 ln -s ../../components/standalone-rhel/Vagrantfile ./
 
-#lets try and bring the machine up
-OUTPUT=$(vagrant up | tee >(cat - >&5))
+echo "let's try and bring the machine up"
+exec 5>&1 && OUTPUT=$(vagrant up | tee >(cat - >&5))
 STATUS=$?
 if [ $? -ne 0 ]; then
     echo "Failed to bring up the machine: Launch FAILED"
     exit $STATUS
 fi
 
-#lets test that we can connect
+echo "let's test that we can connect"
 OUTPUT=$(vagrant ssh -c 'echo \"connected!\"' | tee >(cat - >&5))
 STATUS=$?
 TEST=$(echo "$OUTPUT" | grep connected)
@@ -44,7 +45,7 @@ if [ -z "$TEST" ]; then
     exit $STATUS
 fi
 
-#lets test that we are subscribed
+echo "let's test that we are subscribed"
 OUTPUT=$(vagrant ssh -c 'sudo subscription-manager status' | tee >(cat - >&5))
 STATUS=$?
 TEST=$(echo "$OUTPUT" | grep Current)
@@ -53,8 +54,8 @@ if [ -z "$TEST" ]; then
     exit $STATUS
 fi
 
-#time to clean up
+echo "time to clean up"
 vagrant destroy -f
 rm -rf .vagrant.d Vagrantfile
 
-echo "Test(s) complete!"
+echo "tests complete!"
