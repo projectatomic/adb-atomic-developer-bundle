@@ -1,5 +1,4 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
 Vagrant.configure("2") do |config|
   config.vm.define "app" do |app|
     app.vm.provider "docker" do |d|
