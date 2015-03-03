@@ -1,5 +1,5 @@
 #Approach
-The project has chosen Vagrant as a semi-universal way of describing development environments and, in related projects, made sure that Vagrant works well on the three target platforms. 
+The project has chosen Vagrant as a semi-universal way of describing development environments and, in related projects, made sure that Vagrant works well on the three target platforms (Fedora, RHEL, and CentOS). 
 
 In order to support this endeavor, the OS communities have started to make official "Vagrant boxes" available for both the main-line OS and the Atomic variants that are pre-configured to support container development.  
 
