@@ -1,48 +1,28 @@
 ## Virt OS
 
-### RHEL7
-#### Virtual Box, VMWare
-??
-#### libvirt
-??
-
-### RHEL Atomic
-#### Virtual Box, VMWare
-??
-#### libvirt
-??
+Waiting for official links
 
 ### Fedora 20
 #### Virtual Box, VMWare
-
-[https://vagrantcloud.com/box-cutter/boxes/fedora20](https://vagrantcloud.com/box-cutter/boxes/fedora20)
-
 #### libvirt
-
-[https://vagrantcloud.com/gildub/boxes/fedora20](https://vagrantcloud.com/gildub/boxes/fedora20)
-
-### Fedora 21 
-[https://vagrantcloud.com/box-cutter/boxes/fedora21](https://vagrantcloud.com/box-cutter/boxes/fedora21) < not sure which variant this is
-#### Virtual Box, VMWare
-??
-#### libvirt
-??
-
-### Fedora 21 Server
-#### Virtual Box, VMWare
-??
-#### libvirt
-??
 
 ### Fedora 21 Cloud
 #### Virtual Box, VMWare
-??
 #### libvirt
-??
+
+### Fedora 21 Atomic
+#### Virtual Box, VMWare
+#### libvirt
+
+### RHEL7
+#### Virtual Box, VMWare
+#### libvirt
+
+### RHEL Atomic
+#### Virtual Box, VMWare
+#### libvirt
 
 ### CentOS 7
 #### Virtual Box, VMWare
-[https://vagrantcloud.com/jayunit100/boxes/centos7](https://vagrantcloud.com/jayunit100/boxes/centos7)
 #### libvirt
-??
 
