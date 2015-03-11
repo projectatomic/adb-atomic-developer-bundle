@@ -5,8 +5,8 @@ Vagrant.configure('2') do |config|
   # it is important that the name of this box is "default"
   config.vm.define :default do |vagrant_host|
     # Box name
-    vagrant_host.vm.box = 'rhel-7.1-atomic'
-    vagrant_host.vm.hostname = "rhel-7-atomic-host"
+    vagrant_host.vm.box = 'rhel-atomic-7'
+    vagrant_host.vm.hostname = "rhel-atomic-7-docker-host"
     config.vm.synced_folder './', '/vagrant', type: 'rsync', disabled: true
     config.vm.synced_folder './', '/mnt/vagrant', type: 'rsync'
     config.nfs.functional = false
