@@ -11,8 +11,12 @@ Vagrant.configure('2') do |config|
     config.vm.synced_folder './', '/mnt/vagrant', type: 'rsync'
     config.nfs.functional = false
 
+    vagrant_host.vm.provision 'shell', inline: "sudo systemctl stop docker > /dev/null 2>&1 || :" #in case this isn't first run
+    vagrant_host.vm.provision 'shell', inline: "sudo groupadd docker > /dev/null 2>&1 || : "
+    vagrant_host.vm.provision 'shell', inline: "sudo usermod -a -G docker vagrant"
     vagrant_host.vm.provision 'shell', inline: "sudo systemctl enable docker && sudo systemctl start docker"
-    vagrant_host.vm.provision 'shell', inline: "sudo chown root:vagrant /var/run/docker.sock"
+    vagrant_host.vm.provision 'shell', inline: "sudo chown root:docker /var/run/docker.sock"
+    vagrant_host.vm.provision 'shell', inline: "sudo systemctl enable docker && sudo systemctl start docker"
   end
 end
 
