@@ -13,7 +13,7 @@ If you are planning to use RHEL or RHEL-Atomic as your host, you may be interest
 If you would like to use any of the atomic variants (e.g. fedora-atomic, centos-atomic, or rhel-atomic), you should install the [vagrant-atomic](https://github.com/projectatomic/vagrant-atomic) plugin which will "inform" vagrant of the special [VM Guest Type](http://docs.vagrantup.com/v2/plugins/guests.html) of atomic, which needs to be treated slightly differently from a normal Fedora/CentOS/RHEL
 
 ##Additional Resources
-[Dockerfile Lint](https://github.com/redhataccess/dockerfile_lint):  The objective here is to design a set of recommended choices, implemented as rules, that can be run against a Dockerfile to show that it has "good quality.."
+[Dockerfile Lint](https://github.com/projectatomic/dockerfile_lint):  The objective here is to design a set of recommended choices, implemented as rules, that can be run against a Dockerfile to show that it has "good quality.."
 
 [Atomic Run Tool](https://github.com/projectatomic/atomic): A tool to allow docker images to carry both installation and runtime information directly with the image. 
 
