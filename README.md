@@ -10,6 +10,7 @@
 I used Fedora 21 and libvirt backend to run the vagrant box. 
 ##Setting up Vagrant on Fedora 21
 To install Vagrant on Fedora 21
+
 ```yum/dnf install -y vagrant-libvirt vagrant```
 ##Running the Vagrant box on Fedora21 with Vagrant and libvirt
 ``` 
@@ -32,3 +33,5 @@ Example: (following commands should be run inside the Vagrant box)
 docker pull centos
 docker run -t -i centos /bin/bash
 ```
+``Note``
+I am in the process of uploading the image to https://atlas.hashicorp.com/
