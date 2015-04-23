@@ -41,4 +41,9 @@ Example: (following commands should be run inside the Vagrant box)
 docker pull centos
 docker run -t -i centos /bin/bash
 ```
+##Future roadmap
+Planning to add below packages to the box and I am open to suggestion.
+* Add kubernets, etcd to the vagrant box
+* Add atomic command i.e. https://github.com/projectatomic/atomic
 
+`You are welcome to send pull requests too.`
