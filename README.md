@@ -10,15 +10,23 @@
 I used Fedora 21 and libvirt backend to run the vagrant box. 
 ##Setting up Vagrant on Fedora 21
 To install Vagrant on Fedora 21
-
 ```yum/dnf install -y vagrant-libvirt vagrant```
 ##Running the Vagrant box on Fedora21 with Vagrant and libvirt
+
+I have also uploaded the images in https://atlas.hashicorp.com/lalatendum/boxes/centos7-docker
+
+`Step-1` : Initialising a new Vagrant environment by creating a Vagrantfile
 ``` 
-    mkdir centos-vagrant/
-    cd centos-vagrant
     wget http://cbs.centos.org/kojifiles/work/tasks/480/10480/centos-7-container-scratch-1-1.x86_64.rhevm.ova
     vagrant box add centos7-docker centos-7-container-scratch-1-1.x86_64.rhevm.ova
     vagrant init centos7-docker
+```
+Or
+```
+    vagrant init lalatendum/centos7-docker
+```
+`Step-2` : To start the vagrant image and ssh in to it, please run following command
+```
     vagrant up
     vagrant ssh
 ```
@@ -33,5 +41,4 @@ Example: (following commands should be run inside the Vagrant box)
 docker pull centos
 docker run -t -i centos /bin/bash
 ```
-``Note``
-I am in the process of uploading the image to https://atlas.hashicorp.com/
+
