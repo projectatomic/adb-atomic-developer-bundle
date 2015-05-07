@@ -26,21 +26,18 @@ logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=768 --grow 
 logvol / --fstype ext4 --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
 reboot
 
-repo --name=virtsig-release    --baseurl=http://cbs.centos.org/repos/virt7-release/x86_64/os/
-repo --name=virtsig-testing    --baseurl=http://cbs.centos.org/repos/virt7-testing/x86_64/os/
-
 %packages
 docker
 @development
 deltarpm
 rsync
 git
-atomic
 kubernetes
 etcd
 flannel
 bash-completion
 man-pages
+atomic
 @core
 
 %end
