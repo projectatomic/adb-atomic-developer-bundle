@@ -1,0 +1,15 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#Vagrant file for libvirt/kvm provider
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "lalatendum/nulecule-dev"
+  
+  config.vm.provider "libvirt" do |libvirt|
+    libvirt.driver = "kvm"
+    libvirt.memory = 2048
+  end
+
+end
+
