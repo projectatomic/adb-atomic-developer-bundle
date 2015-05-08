@@ -1,4 +1,5 @@
 #!/bin/sh
+#To see all options in koji -p command check "koji -p cbs image-build --help"
 
 koji -p cbs image-build \
   centos-7-container-scratch 1  bananas7-el7 \
@@ -13,6 +14,8 @@ koji -p cbs image-build \
   --ova-option vsphere_ova_format=vagrant-virtualbox \
   --ova-option rhevm_ova_format=vagrant-libvirt \
   --ova-option vagrant_sync_directory=/home/vagrant/sync \
+  --repo http://mirror.centos.org/centos/7/extras/x86_64/\
+  --repo http://mirror.centos.org/centos/7/updates/x86_64/\
   --scratch \
   --nowait \
   --disk-size=10

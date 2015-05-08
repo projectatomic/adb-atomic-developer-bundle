@@ -31,6 +31,13 @@ docker
 @development
 deltarpm
 rsync
+git
+kubernetes
+etcd
+flannel
+bash-completion
+man-pages
+atomic
 @core
 
 %end
