@@ -51,10 +51,33 @@ mv -f /tmp/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
-#enable docker
-#this seems to be completely ignored, not sure why, will worry about it later < langdon@redhat.com
+#enable Kubernetes master services
+#etcd kube-apiserver kube-controller-manager kube-scheduler
+
+systemctl enable etcd
+systemctl start etcd
+
+systemctl enable kube-apiserver
+systemctl start kube-apiserver
+
+systemctl enable kube-controller-manager
+systemctl start kube-controller-manager
+
+systemctl enable kube-scheduler
+systemctl start kube-scheduler
+
+#enable Kubernetes minion services
+#kube-proxy kubelet docker
+systemctl enable kube-proxy
+systemctl start kube-proxy
+
+
+systemctl enable kubelet
+systemctl start kubelet
+
 systemctl enable docker
 systemctl start docker
+
 groupadd docker
 usermod -a -G docker vagrant
 
