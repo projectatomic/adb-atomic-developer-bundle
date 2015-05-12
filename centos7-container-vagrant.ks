@@ -38,6 +38,10 @@ flannel
 bash-completion
 man-pages
 atomic
+docker-registry
+nfs-utils
+PyYAML
+libyaml-devel
 @core
 
 %end
