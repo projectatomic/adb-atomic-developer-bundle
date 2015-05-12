@@ -4,7 +4,7 @@
 * Checkout/git clone this repository
 * Run the ```do_vagrant_cbs.sh```
 
-```Here is the latest koji scratch build I did : http://cbs.centos.org/koji/taskinfo?taskID=13213```
+```Here is the latest koji scratch build I did : http://cbs.centos.org/koji/taskinfo?taskID=13349```
 
 ##Running the Vagrant box
 I used Fedora 21 and libvirt backend to run the vagrant box. 
@@ -17,7 +17,7 @@ The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev
 
 `Step-1` : Initialising a new Vagrant environment by creating a Vagrantfile
 ``` 
-    wget http://cbs.centos.org/kojifiles/work/tasks/3214/13214/centos-7-container-scratch-1-1.x86_64.rhevm.ova
+    wget http://cbs.centos.org/kojifiles/work/tasks/3350/13350/centos-7-container-scratch-1-1.x86_64.rhevm.ova
     vagrant box add centos7-docker centos-7-container-scratch-1-1.x86_64.rhevm.ova
     vagrant init centos7-docker
 ```
@@ -63,7 +63,10 @@ Nulecule: https://github.com/projectatomic/nulecule
 * bash-completion
 * man-pages
 * atomic
-
+* docker-registry
+* nfs-utils
+* PyYAML
+* libyaml-devel
 ##Future roadmap
 
 `You are welcome to send pull requests too.`
