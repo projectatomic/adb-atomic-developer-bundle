@@ -48,8 +48,8 @@ libyaml-devel
 
 %post
 # Needed to allow this to boot a second time with an unknown MAC
-grep -v HWADDR /etc/sysconfig/network-scripts/ifcfg-eth0 > /tmp/ifcfg-eth0
-mv -f /tmp/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
+sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 
 # sudo
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
