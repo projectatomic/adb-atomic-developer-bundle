@@ -27,8 +27,9 @@ logvol / --fstype ext4 --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
 reboot
 
 %packages
-docker
+@core
 @development
+docker
 deltarpm
 rsync
 git
@@ -42,7 +43,7 @@ docker-registry
 nfs-utils
 PyYAML
 libyaml-devel
-@core
+tuned
 
 %end
 
@@ -50,6 +51,9 @@ libyaml-devel
 # Needed to allow this to boot a second time with an unknown MAC
 sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
+
+# set tuned profile to force virtual-guest
+tuned-adm profile virtual-guest
 
 # sudo
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
