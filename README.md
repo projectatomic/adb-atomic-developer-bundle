@@ -1,4 +1,7 @@
 #CentOS Vagrant box with container tools.
+
+This vagrant box is based on CentOS7. So it would have latest packages from CentOS7.
+
 ##Building the Vagrant box in CBS(CentOS build system)
 * Get access for building images in CBS. Refer http://wiki.centos.org/HowTos/CommunityBuildSystem
 * Checkout/git clone this repository
@@ -67,6 +70,7 @@ Nulecule: https://github.com/projectatomic/nulecule
 * nfs-utils
 * PyYAML
 * libyaml-devel
+
 ##Future roadmap
 
 `You are welcome to send pull requests too.`
