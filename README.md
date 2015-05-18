@@ -49,7 +49,7 @@ docker run -t -i centos /bin/bash
 Login to the vagrant box using `vagrant ssh` command. 
 
 Then follow the below link for running an example atomic application
-Refer: https://registry.hub.docker.com/u/aweiteka/helloapache/
+Refer: https://registry.hub.docker.com/u/projectatomic/helloapache/
 
 Atomicapp: https://github.com/projectatomic/atomicapp
 Nulecule: https://github.com/projectatomic/nulecule
