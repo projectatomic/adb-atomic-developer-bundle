@@ -48,6 +48,15 @@ docker run -t -i centos /bin/bash
 ##Running atomic app inside the vagrant box
 Login to the vagrant box using `vagrant ssh` command. 
 
+Run ```kubectl get minions```
+
+The outout should look like below
+```
+$kubectl get minions
+NAME                LABELS              STATUS
+127.0.0.1           <none>              Ready
+```
+
 Then follow the below link for running an example atomic application
 Refer: https://registry.hub.docker.com/u/projectatomic/helloapache/
 
