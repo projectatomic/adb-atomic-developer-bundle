@@ -15,7 +15,7 @@ To provide ready to use  development environment for [atomicapp](https://github.
 
 You are welcome to raise issues, send pull requests.
 
-##Communication channels 
+###Communication channels
 
-* IRC: #nulecule
-* Mailing List: https://www.redhat.com/mailman/listinfo/container-tools
+* IRC: #nulecule (On Freenode)
+* Mailing List: [container-tools@redhat.com](https://www.redhat.com/mailman/listinfo/container-tools)
