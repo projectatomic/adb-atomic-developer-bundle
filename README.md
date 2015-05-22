@@ -1,4 +1,4 @@
-#CentOS Vagrant box with container tools.
+#Vagrant box for atomicapp
 
 ##Purpose
 
