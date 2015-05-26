@@ -2,7 +2,7 @@
 #To see all options in koji -p command check "koji -p cbs image-build --help"
 
 koji -p cbs image-build \
-  centos-7-container-scratch 1  bananas7-el7 \
+  centos-7-atomicapp 1  bananas7-el7 \
   http://mirror.centos.org/centos/7/os/x86_64/ x86_64 \
   --release=1 \
   --distro RHEL-7.0 \
