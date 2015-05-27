@@ -12,7 +12,40 @@ To install Vagrant with libvirt backend in Fedora 21
 
 CentOS
 ======
-TBD
+Vagrant packages are not available in CentOS core. However these are available throgh Fedora Copr and SCL(i.e. softwarecollections.org).
+
+Here are the commands to get Vagrant in CentOS
+
+::
+
+  $cat > /etc/yum.repos.d/vagrant.repo <<- EOM
+
+  [jstribny-vagrant1]
+  name=Copr repo for vagrant1 owned by jstribny
+  baseurl=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/epel-7-x86_64/
+  gpgcheck=1
+  gpgkey=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/pubkey.gpg
+  enabled=1
+
+  [ruby200-copr]
+  name=ruby200-copr
+  baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ruby200-el7/epel-7-x86_64/
+  enabled=1
+  gpgcheck=0
+
+  [ror40-copr]
+  name=ror40-copr
+  baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ror40-el7/epel-7-x86_64/
+  enabled=1
+  gpgcheck=0
+
+  EOM
+
+  $yum -y -d 0 install vagrant1 rsync
+
+  $service libvirtd start
+
+  $scl enable vagrant1 bash
 
 ------------------------
 Running the Vagrant box
