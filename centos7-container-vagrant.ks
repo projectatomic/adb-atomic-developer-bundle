@@ -63,28 +63,15 @@ sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 #etcd kube-apiserver kube-controller-manager kube-scheduler
 
 systemctl enable etcd
-systemctl start etcd
 
-systemctl enable kube-apiserver
-systemctl start kube-apiserver
-
-systemctl enable kube-controller-manager
-systemctl start kube-controller-manager
-
-systemctl enable kube-scheduler
-systemctl start kube-scheduler
+systemctl enable kube-apiserver kube-controller-manager kube-scheduler
 
 #enable Kubernetes minion services
 #kube-proxy kubelet docker
 
-systemctl enable kube-proxy
-systemctl start kube-proxy
-
-systemctl enable kubelet
-systemctl start kubelet
+systemctl enable kube-proxy kubelet
 
 systemctl enable docker
-systemctl start docker
 
 groupadd docker
 usermod -a -G docker vagrant
