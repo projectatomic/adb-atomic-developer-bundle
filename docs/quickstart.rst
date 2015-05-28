@@ -51,7 +51,7 @@ Here are the commands to get Vagrant in CentOS
 Running the Vagrant box
 ------------------------
 
-The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev
+The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev . However you dont have to download the box image manually. The following steps will take care of it implicitly.
 
 *Step-1* : Initialising a new Vagrant environment by creating a Vagrantfile
 
