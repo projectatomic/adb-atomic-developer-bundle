@@ -5,9 +5,9 @@ Quick start guide to run the Vagrant box.
 Setting up Vagrant
 --------------------
 
-Fedora 21
+Fedora 21/22
 =========
-To install Vagrant with libvirt backend in Fedora 21
+To install Vagrant with libvirt backend in Fedora 21/22
 ``yum/dnf install -y vagrant-libvirt vagrant``
 
 CentOS
