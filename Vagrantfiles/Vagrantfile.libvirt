@@ -4,7 +4,7 @@
 #Vagrant file for libvirt/kvm provider
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "lalatendum/nulecule-dev"
+  config.vm.box = "atomicapp/dev"
   
   config.vm.provider "libvirt" do |libvirt|
     libvirt.driver = "kvm"
