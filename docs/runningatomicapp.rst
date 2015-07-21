@@ -4,13 +4,13 @@ Running atomic app inside the vagrant box
 
 Login to the vagrant box using ``vagrant ssh`` command. 
 
-Run ``kubectl get minions`` to check if k8s has setup as expected.
+Run ``kubectl get nodes`` to check if k8s has setup as expected.
 
 The outout should look like below
 
 ::
 
-    $kubectl get minnions                                                                         
+    $ kubectl get nodes                                                                         
 
     NAME                LABELS              STATUS
     127.0.0.1           <none>              Ready
