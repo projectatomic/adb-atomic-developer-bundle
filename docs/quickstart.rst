@@ -65,6 +65,20 @@ The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev . Howe
 
 vagrant ssh should take you inside of the Vagrant box
 
+Manually downloading the Vagrant box image
+==========================================
+
+If the above steps do not download the Vagrant image or you have very low internet bandwidth, then you can manually download the box image and start it.
+
+The images are kept at: http://cloud.centos.org/centos/7/vagrant/x86_64/images/
+::
+
+  #To get the libvirt image
+  $wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.rhevm.ova
+
+  #To get the virtual box image
+  $wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.vsphere.ova
+
 To destroy the Vagrant box
 ==========================
     **vagrant destroy**
