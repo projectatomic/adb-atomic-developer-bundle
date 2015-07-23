@@ -74,10 +74,22 @@ The images are kept at: http://cloud.centos.org/centos/7/vagrant/x86_64/images/
 ::
 
   #To get the libvirt image
-  $wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.rhevm.ova
+  $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.rhevm.ova
 
   #To get the virtual box image
-  $wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.vsphere.ova
+  $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.vsphere.ova
+
+  #Add the image to vagrant
+  $ vagrant box add atomicappbox <local path to the downloded image>
+
+  #Initialize the atomicapp vagrant box
+  $ vagrant init atomicappbox
+
+  #Start the atomicapp vagrant box
+  $ vagrant up
+
+  #SSH in to it
+  $ vagrant ssh
 
 To destroy the Vagrant box
 ==========================
