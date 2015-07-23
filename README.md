@@ -1,18 +1,18 @@
-#Vagrant box for atomicapp
+#Vagrant box for Atomic App
 
 ##Purpose
 
-To provide ready to use  development environment for [Atomicapp](https://github.com/projectatomic/atomicapp) and [Nulecule](https://github.com/projectatomic/atomicapp).
+To provide ready to use  development environment for [Atomic App](https://github.com/projectatomic/atomicapp) and [Nulecule](https://github.com/projectatomic/atomicapp).
 
 `Here is more about the obective and purpose of creating the Vagrant based development environment:`
 
-* The vagrant box should have all the tools and library required for developing [Nulecule](https://github.com/projectatomic/atomicapp) based atomicapps.
-    * E.g. We have plan to add tools like [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) and [Nulecule DEV assistant](https://github.com/devassistant/dap-nulecule). Check [here for details](https://github.com/LalatenduMohanty/centos7-container-app-vagrant-box/labels/enhancement)
+* The vagrant box should have all the tools and library required for developing [Nulecule](https://github.com/projectatomic/atomicapp) based Atomic Apps.
+    * E.g. We have plan to add tools like [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) and [Nulecule DevAssistant](https://github.com/devassistant/dap-nulecule). Check [here for details](https://github.com/LalatenduMohanty/centos7-container-app-vagrant-box/labels/enhancement)
 * This box will be complimentary to [CentOS Community Container Pipeline](http://wiki.centos.org/ContainerPipeline).
-    * That would help developers test the Nulecule based atomicapp locally on the vagrant box/boxes before sending the pull request to the [CentOS Community Container Pipeline index](https://github.com/kbsingh/cccp-index)
-* The base Vagrant box will contain the atomicapp providers e.g.  [OpenShift](https://github.com/openshift).
+    * That would help developers test the Atomic App locally on the vagrant box/boxes before sending the pull request to the [CentOS Community Container Pipeline index](https://github.com/kbsingh/cccp-index)
+* The base Vagrant box will contain the Atomic App providers e.g.  [OpenShift](https://github.com/openshift).
     * We are working on integrating OpenShift Vagrant box for developers with this.
-    * The idea is , developers should be able to use OpenShift for deploying the application and then reuse the config files for developing Nulecule spec for an application.
+    * The idea is , developers should be able to use OpenShift for deploying the application and then reuse the config files for developing Nulecule Specification for an application.
     * Or an atomic application based on the nulecule specification with OpenShift provider should be able to deploy on it. 
 * The idea is to create base boxes using distributions build system and then use solution like [Oh-my-vagrant](https://github.com/purpleidea/oh-my-vagrant) for multibox dev environment.
     * As of now we are building the base boxes through [CBS](http://cbs.centos.org/koji/).
@@ -24,7 +24,7 @@ To provide ready to use  development environment for [Atomicapp](https://github.
 ##Documentation
 
 * [Building the Vagrant box](docs/build.rst)
-* [Quickstart to the atomicapp vagrant box](docs/quickstart.rst)
+* [Quickstart to the Atomic App vagrant box](docs/quickstart.rst)
 * [Running atomicapp](docs/runningatomicapp.rst)
 * [Whats inside the Vagrant box](docs/whatsinside.rst)
 
