@@ -13,7 +13,7 @@ koji -p cbs image-build \
   --format=rhevm-ova \
   --ova-option vsphere_ova_format=vagrant-virtualbox \
   --ova-option rhevm_ova_format=vagrant-libvirt \
-  --ova-option vagrant_sync_directory=/home/vagrant/sync \
+  --ova-option vagrant_sync_directory=/vagrant \
   --repo http://mirror.centos.org/centos/7/extras/x86_64/\
   --repo http://mirror.centos.org/centos/7/updates/x86_64/\
   --scratch \
