@@ -1,21 +1,38 @@
-#How to Use
-Describing how to use these components is both very easy and very difficult. Hopefully, this makes sense. For more details on the why and how of this project, see [Motivation](motivation.md)
+#Vagrant box for Atomic App
 
-##Basics
- 1. Install Vagrant: You should be able to get it from the repos for your Linux distro or from [vagrantup.com](http://www.vagrantup.com). In the case of CentOS as your host OS, a software collection is being worked on which will, likely, reside at [scl.o](https://www.softwarecollections.org/en/) (please watch for updates).
- 2. Install libvirt/KVM or VirtualBox: Currently, we are actively expecting users to use one of those two virtualization providers. However, VMWare may work as well with some finagling.
- 3. Clone the repo: git clone git@github.com:projectatomic/adb-atomic-developer-bundle.git
- 4. Use the Vagrantfiles as a basis for your own projects.
+##Purpose
 
-##Additional Features
-If you are planning to use RHEL or RHEL-Atomic as your host, you may be interested in the automatic registration features of the vagrant plugin "[vagrant-registration](https://github.com/projectatomic/adb-vagrant-registration)."
+To provide ready to use  development environment for [Atomic App](https://github.com/projectatomic/atomicapp) and [Nulecule](https://github.com/projectatomic/atomicapp).
 
-If you would like to use any of the atomic variants (e.g. fedora-atomic, centos-atomic, or rhel-atomic), you should install the [vagrant-atomic](https://github.com/projectatomic/vagrant-atomic) plugin which will "inform" vagrant of the special [VM Guest Type](http://docs.vagrantup.com/v2/plugins/guests.html) of atomic, which needs to be treated slightly differently from a normal Fedora/CentOS/RHEL
+`Here is more about the obective and purpose of creating the Vagrant based development environment:`
 
-##Additional Resources
-[Dockerfile Lint](https://github.com/projectatomic/dockerfile_lint):  The objective here is to design a set of recommended choices, implemented as rules, that can be run against a Dockerfile to show that it has "good quality.."
+* The vagrant box should have all the tools and library required for developing [Nulecule](https://github.com/projectatomic/atomicapp) based Atomic Apps.
+    * E.g. We have plan to add tools like [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) and [Nulecule DevAssistant](https://github.com/devassistant/dap-nulecule). Check [here for details](https://github.com/LalatenduMohanty/centos7-container-app-vagrant-box/labels/enhancement)
+* This box will be complimentary to [CentOS Community Container Pipeline](http://wiki.centos.org/ContainerPipeline).
+    * That would help developers test the Atomic App locally on the vagrant box/boxes before sending the pull request to the [CentOS Community Container Pipeline index](https://github.com/kbsingh/cccp-index)
+* The base Vagrant box will contain the Atomic App providers e.g.  [OpenShift](https://github.com/openshift).
+    * We are working on integrating OpenShift Vagrant box for developers with this.
+    * The idea is , developers should be able to use OpenShift for deploying the application and then reuse the config files for developing Nulecule Specification for an application.
+    * Or an atomic application based on the nulecule specification with OpenShift provider should be able to deploy on it. 
+* The idea is to create base boxes using distributions build system and then use solution like [Oh-my-vagrant](https://github.com/purpleidea/oh-my-vagrant) for multibox dev environment.
+    * As of now we are building the base boxes through [CBS](http://cbs.centos.org/koji/).
+* This project will inherit from [projectatomic/adb-atomic-developer-bundle](https://github.com/projectatomic/adb-atomic-developer-bundle/) and will consolidate the work already done.
 
-[Atomic Run Tool](https://github.com/projectatomic/atomic): A tool to allow docker images to carry both installation and runtime information directly with the image. 
+*Note:*
+*Project Atomic already provides Vgarant boxes for CentOS and Fedora, but we can not reuse those as we need an environment which can be modified by the developers.*
 
-#Next
-Let us know what else you think would be helpful.
+##Documentation
+
+* [Building the Vagrant box](docs/build.rst)
+* [Quickstart to the Atomic App vagrant box](docs/quickstart.rst)
+* [Running atomicapp](docs/runningatomicapp.rst)
+* [Whats inside the Vagrant box](docs/whatsinside.rst)
+
+##How to contribute?
+
+You are welcome to raise issues, send pull requests.
+
+###Communication channels
+
+* IRC: #nulecule (On Freenode)
+* Mailing List: [container-tools@redhat.com](https://www.redhat.com/mailman/listinfo/container-tools)
