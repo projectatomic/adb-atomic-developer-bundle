@@ -1,4 +1,3 @@
-#repo http://mirror.centos.org/centos/7/os/x86_64/
 install
 text
 keyboard us
@@ -27,84 +26,29 @@ logvol / --fstype ext4 --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
 reboot
 
 %packages
-@core
-@development
 docker
+@development
 deltarpm
 rsync
-screen
-git
-kubernetes
-etcd
-flannel
-bash-completion
-man-pages
-atomic
-docker-registry
 nfs-utils
-PyYAML
-libyaml-devel
-tuned
+screen
+@core
 
 %end
 
 %post
 # Needed to allow this to boot a second time with an unknown MAC
-sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
-sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
-
-#Fixing issue #29
-cat << EOF > kube-apiserver.service
-[Unit]
-Description=Kubernetes API Server
-Documentation=https://github.com/GoogleCloudPlatform/kubernetes
-After=network.target
-
-[Service]
-EnvironmentFile=-/etc/kubernetes/config
-EnvironmentFile=-/etc/kubernetes/apiserver
-User=kube
-ExecStart=/usr/bin/kube-apiserver \\
-            \$KUBE_LOGTOSTDERR \\
-            \$KUBE_LOG_LEVEL \\
-            \$KUBE_ETCD_SERVERS \\
-            \$KUBE_API_ADDRESS \\
-            \$KUBE_API_PORT \\
-            \$KUBELET_PORT \\
-            \$KUBE_ALLOW_PRIV \\
-            \$KUBE_SERVICE_ADDRESSES \\
-            \$KUBE_ADMISSION_CONTROL \\
-            \$KUBE_API_ARGS
-Restart=on-failure
-LimitNOFILE=65536
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-mv kube-apiserver.service /etc/systemd/system/
-systemctl daemon-reload
-
-# set tuned profile to force virtual-guest
-tuned-adm profile virtual-guest
+grep -v HWADDR /etc/sysconfig/network-scripts/ifcfg-eth0 > /tmp/ifcfg-eth0
+mv -f /tmp/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0
 
 # sudo
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
-#enable Kubernetes master services
-#etcd kube-apiserver kube-controller-manager kube-scheduler
-
-systemctl enable etcd
-
-systemctl enable kube-apiserver kube-controller-manager kube-scheduler
-
-#enable Kubernetes minion services
-#kube-proxy kubelet docker
-
-systemctl enable kube-proxy kubelet
+#enable docker
+#this seems to be completely ignored, not sure why, will worry about it later < langdon@redhat.com
 systemctl enable docker
-
+systemctl start docker
 groupadd docker
 usermod -a -G docker vagrant
 
