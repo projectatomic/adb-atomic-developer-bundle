@@ -11,5 +11,9 @@ Vagrant.configure(2) do |config|
     libvirt.memory = 1048
   end
 
+  config.vm.provider "virtualbox" do |vbox|
+    vbox.memory = 1024
+  end
+
 end
 
