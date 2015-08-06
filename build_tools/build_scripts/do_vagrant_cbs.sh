@@ -7,7 +7,7 @@ koji -p cbs image-build \
   --release=1 \
   --distro RHEL-7.0 \
   --ksver RHEL7 \
-  --kickstart=./centos7-container-vagrant.ks \
+  --kickstart=./build_tools/kickstarts/centos-7-kubernetes-vagrant.ks \
   --format=qcow2 \
   --format=vsphere-ova \
   --format=rhevm-ova \
