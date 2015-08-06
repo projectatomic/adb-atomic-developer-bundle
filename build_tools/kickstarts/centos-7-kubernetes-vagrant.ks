@@ -36,7 +36,6 @@ screen
 git
 kubernetes
 etcd
-flannel
 bash-completion
 man-pages
 atomic
