@@ -33,6 +33,7 @@ docker
 deltarpm
 rsync
 screen
+wget
 git
 kubernetes
 etcd
