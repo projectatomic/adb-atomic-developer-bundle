@@ -1,4 +1,6 @@
-#Vagrant box for Atomic App
+#Atomic Developer Bundle
+
+Short form Adb
 
 ##Purpose
 
@@ -7,7 +9,7 @@ To provide ready to use  development environment for [Atomic App](https://github
 `Here is more about the obective and purpose of creating the Vagrant based development environment:`
 
 * The vagrant box should have all the tools and library required for developing [Nulecule](https://github.com/projectatomic/atomicapp) based Atomic Apps.
-    * E.g. We have plan to add tools like [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) and [Nulecule DevAssistant](https://github.com/devassistant/dap-nulecule). Check [here for details](https://github.com/LalatenduMohanty/centos7-container-app-vagrant-box/labels/enhancement)
+    * E.g. We have plan to add tools like [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) and [Nulecule DevAssistant](https://github.com/devassistant/dap-nulecule).
 * This box will be complimentary to [CentOS Community Container Pipeline](http://wiki.centos.org/ContainerPipeline).
     * That would help developers test the Atomic App locally on the vagrant box/boxes before sending the pull request to the [CentOS Community Container Pipeline index](https://github.com/kbsingh/cccp-index)
 * The base Vagrant box will contain the Atomic App providers e.g.  [OpenShift](https://github.com/openshift).
@@ -16,7 +18,6 @@ To provide ready to use  development environment for [Atomic App](https://github
     * Or an atomic application based on the nulecule specification with OpenShift provider should be able to deploy on it. 
 * The idea is to create base boxes using distributions build system and then use solution like [Oh-my-vagrant](https://github.com/purpleidea/oh-my-vagrant) for multibox dev environment.
     * As of now we are building the base boxes through [CBS](http://cbs.centos.org/koji/).
-* This project will inherit from [projectatomic/adb-atomic-developer-bundle](https://github.com/projectatomic/adb-atomic-developer-bundle/) and will consolidate the work already done.
 
 *Note:*
 *Project Atomic already provides Vgarant boxes for CentOS and Fedora, but we can not reuse those as we need an environment which can be modified by the developers.*
