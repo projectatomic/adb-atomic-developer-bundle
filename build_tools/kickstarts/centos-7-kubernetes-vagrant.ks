@@ -19,11 +19,11 @@ clearpart --all --drives=vda
 user --name=vagrant --password=vagrant
 
 part biosboot --fstype=biosboot --size=1
-part /boot --fstype ext4 --size=200 --ondisk=vda
-part pv.2 --size=1 --grow --ondisk=vda
-volgroup VolGroup00 --pesize=32768 pv.2
-logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=768 --grow --maxsize=1536
-logvol / --fstype ext4 --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
+part /boot --size=300 --fstype="xfs"
+part pv.01 --grow
+volgroup vg001 pv.01
+logvol / --size=8192 --fstype="xfs" --name=root --vgname=vg001
+
 reboot
 
 %packages
@@ -49,6 +49,20 @@ tuned
 %end
 
 %post
+
+# Setting storage for docker
+# http://www.projectatomic.io/blog/2015/06/notes-on-fedora-centos-and-docker-storage-drivers/
+if [ -b /dev/mapper/vg001-root ]; then
+  lvcreate -l 8%FREE -n docker-meta vg001
+  lvcreate -l 100%FREE -n docker-data vg001
+
+  cat <<EOF >> /etc/sysconfig/docker-storage
+
+DOCKER_STORAGE_OPTIONS=--storage-opt dm.fs=xfs --storage-opt dm.datadev=/dev/mapper/vg001-docker--data --storage-opt dm.metadatadev=/dev/mapper/vg001-docker--meta
+
+EOF
+fi
+
 # Needed to allow this to boot a second time with an unknown MAC
 sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
