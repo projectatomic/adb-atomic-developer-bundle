@@ -1,7 +1,7 @@
 #Motivation
 Many people are considering using containers as a method of distributing applications. If you search the internet there is a lot of content similar to developing "hello world" but not much with regards to "enterprise container development." How is this different? Well, when developing with containers, much of the rules about application architecture, while not "different," are certainly more strictly enforced. For example, "decomposition of applications in to services." In a traditional application environment, on a virtual machine, for example, nothing really enforces that the services are actually independent until, during scale-out, you find out the hard way (unless you did really good testing). With containers, you find out immediately because the service isolation is enforced at any scale. 
 
-With this project, we are hoping to gather recommendations, architectural justifications, approaches, etc. that support development with containers after you have graduated from toying with containers and are truly looking to deliver enterprise-class applications.
+With this project, we are hoping to gather recommendations, architectural justifications, approaches, etc. that support development with containers after you have graduated from playing with containers and are truly looking to deliver enterprise-class applications.
 
 The project also provides tools to simplify re-architecting applications to leverage containers and the development of new applications based on containers. 
 
