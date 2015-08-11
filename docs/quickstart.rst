@@ -51,24 +51,24 @@ Here are the commands to get Vagrant in CentOS
 Running the Vagrant box
 ------------------------
 
-The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev . However you dont have to download the box image manually. The following steps will take care of it implicitly.
+The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev . However you don't have to download the box image manually. The following steps will take care of it implicitly.
 
 *Step-1* : Initialising a new Vagrant environment by creating a Vagrantfile
 
     **vagrant init atomicapp/dev**
 
-*Step-2* : To start the vagrant image and ssh in to it, please run following command
+*Step-2* : To start the vagrant image and ssh in to it, run following command
 
     **vagrant up**
     
     **vagrant ssh**
 
-vagrant ssh should take you inside of the Vagrant box
+vagrant ssh should place you inside of the Vagrant box
 
 Manually downloading the Vagrant box image
 ==========================================
 
-If the above steps do not download the Vagrant image or you have very low internet bandwidth, then you can manually download the box image and start it.
+If the above steps fail to download the Vagrant image or you have very low internet bandwidth, you can then manually download the box image and start it.
 
 The images are kept at: http://cloud.centos.org/centos/7/vagrant/x86_64/images/
 ::
@@ -98,7 +98,7 @@ To destroy the Vagrant box
 Running docker inside the Vagrant box
 =====================================
 
-Inside the vagrant box, you should be run docker containers
+Inside the vagrant box, you should be able to run docker containers
 Example: (following commands should be run inside the Vagrant box)
 
     **docker pull centos**
