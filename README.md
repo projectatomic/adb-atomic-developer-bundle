@@ -31,9 +31,14 @@ To provide ready to use  development environment for [Atomic App](https://github
 
 ##How to contribute?
 
-You are welcome to raise issues, send pull requests.
+* You are welcome to raise issues, send pull requests.
 
-###Communication channels
+###Contribute to documentation
+
+* Documentations are in [reStructuredText](http://docutils.sourceforge.net/rst.html) as it integrates well with [readthedocs](https://readthedocs.org) project.
+* Here is an [online reStructuredText editor](http://rst.ninjs.org) for reference.
+
+##Communication channels
 
 * IRC: #nulecule (On Freenode)
 * Mailing List: [container-tools@redhat.com](https://www.redhat.com/mailman/listinfo/container-tools)
