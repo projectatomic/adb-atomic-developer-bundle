@@ -105,6 +105,5 @@ Example: (following commands should be run inside the Vagrant box)
     
     **docker run -t -i centos /bin/bash**
 
-**For running atomicapp in the Vagrant box refer below [1] page**
-
-[1] https://github.com/LalatenduMohanty/centos7-container-app-vagrant-box/blob/master/docs/runningatomicapp.rst/
+For running atomicapp in the Vagrant box refer documentaion for `Runng Atomic App 
+<https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/runningatomicapp.rst>`_.
