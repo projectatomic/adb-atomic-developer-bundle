@@ -4,7 +4,9 @@ Short form Adb
 
 ##Purpose
 
-To provide ready to use  development environment for [Atomic App](https://github.com/projectatomic/atomicapp) and [Nulecule](https://github.com/projectatomic/atomicapp).
+To provide ready to use  development environment for developers who want to package their applications in Linux containers.
+
+In the same line this should serve as a ready to use environment for [Atomic App](https://github.com/projectatomic/atomicapp) and [Nulecule](https://github.com/projectatomic/atomicapp).
 
 `Here is more about the obective and purpose of creating the Vagrant based development environment:`
 
