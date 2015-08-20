@@ -50,19 +50,6 @@ tuned
 
 %post
 
-# Setting storage for docker
-# http://www.projectatomic.io/blog/2015/06/notes-on-fedora-centos-and-docker-storage-drivers/
-if [ -b /dev/mapper/vg001-root ]; then
-  lvcreate -l 8%FREE -n docker-meta vg001
-  lvcreate -l 100%FREE -n docker-data vg001
-
-  cat <<EOF >> /etc/sysconfig/docker-storage
-
-DOCKER_STORAGE_OPTIONS=--storage-opt dm.fs=xfs --storage-opt dm.datadev=/dev/mapper/vg001-docker--data --storage-opt dm.metadatadev=/dev/mapper/vg001-docker--meta
-
-EOF
-fi
-
 # Needed to allow this to boot a second time with an unknown MAC
 sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
