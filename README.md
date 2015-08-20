@@ -29,6 +29,7 @@ In the same line this should serve as a ready to use environment for [Atomic App
 * [Building the Vagrant box](docs/build.rst)
 * [Quickstart to the Atomic App vagrant box](docs/quickstart.rst)
 * [Running atomicapp](docs/runningatomicapp.rst)
+* [Update the box](docs/updating-thebox.rst)
 * [Whats inside the Vagrant box](docs/whatsinside.rst)
 
 ##How to contribute?
