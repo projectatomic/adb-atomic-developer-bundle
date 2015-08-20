@@ -56,11 +56,7 @@ if [ -b /dev/mapper/vg001-root ]; then
   lvcreate -l 8%FREE -n docker-meta vg001
   lvcreate -l 100%FREE -n docker-data vg001
 
-  cat <<EOF >> /etc/sysconfig/docker-storage
-
-DOCKER_STORAGE_OPTIONS=--storage-opt dm.fs=xfs --storage-opt dm.datadev=/dev/mapper/vg001-docker--data --storage-opt dm.metadatadev=/dev/mapper/vg001-docker--meta
-
-EOF
+  sed -i.back '/DOCKER_STORAGE_OPTIONS=*/c\DOCKER_STORAGE_OPTIONS="--storage-opt dm.fs=xfs --storage-opt dm.datadev=/dev/mapper/vg001-docker--data --storage-opt dm.metadatadev=/dev/mapper/vg001-docker--meta"'  /etc/sysconfig/docker-storage
 fi
 
 # Needed to allow this to boot a second time with an unknown MAC
