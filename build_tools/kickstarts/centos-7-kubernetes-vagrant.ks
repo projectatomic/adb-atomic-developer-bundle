@@ -97,7 +97,7 @@ sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 mkdir -p /etc/pki/kube-apiserver/
 openssl genrsa -out /etc/pki/kube-apiserver/serviceaccount.key 2048
 
-sed -i.back '/KUBE_API_ARGS=*/c\KUBE_API_ARGS="/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/apiserver
+sed -i.back '/KUBE_API_ARGS=*/c\KUBE_API_ARGS="--service_account_key_file=/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/apiserver
 
 sed -i.back '/KUBE_CONTROLLER_MANAGER_ARGS=*/c\KUBE_CONTROLLER_MANAGER_ARGS="--service_account_private_key_file=/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/controller-manager
 
