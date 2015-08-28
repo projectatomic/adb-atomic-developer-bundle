@@ -1,5 +1,5 @@
 ==========================================
-Running atomic app inside the vagrant box
+Running Atomic App inside the vagrant box
 ==========================================
 
 Login to the vagrant box using ``vagrant ssh`` command. 
@@ -15,12 +15,9 @@ The outout should look like below
     NAME                LABELS              STATUS
     127.0.0.1           <none>              Ready
 
-Then follow the below link for running an example atomic application
-
-Refer: https://registry.hub.docker.com/u/projectatomic/helloapache/
+The `helloapache`<https://registry.hub.docker.com/u/projectatomic/helloapache/>`_ can be used to test your installation.
 
 *Related projects*
 
-* Atomicapp: https://github.com/projectatomic/atomicapp
-
+* Atomic App: https://github.com/projectatomic/atomicapp
 * Nulecule: https://github.com/projectatomic/nulecule
