@@ -24,11 +24,11 @@ Boxes are built using the CentOS powered [Community Build System](http://cbs.cen
 
 ##Documentation
 
+* [Architecture and Roadmap](docs/architecture.rst)
 * [Building the Vagrant box](docs/build.rst)
 * [Quickstart to the Atomic App vagrant box](docs/quickstart.rst)
 * [Running atomicapp](docs/runningatomicapp.rst)
 * [Update the box](docs/updating-thebox.rst)
-* [Whats inside the Vagrant box](docs/whatsinside.rst)
 
 ##How to contribute?
 
