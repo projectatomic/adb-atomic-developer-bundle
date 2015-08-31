@@ -1,6 +1,8 @@
-=====================================
+==================================
 What does this vagrant box contain
-=====================================
+==================================
+
+The following yum packages or groups are installed:
 
 * docker
 * @development

@@ -1,28 +1,26 @@
-#Atomic Developer Bundle
+#Atomic Developer Bundle (ADB)
 
-Short form Adb
+##Purpose and Goal
 
-##Purpose
+To provide a ready to use development environment for developers creating container-based applications.  This environment will support a developer in packaging their application service components into containers and defining the entire application for ease of installation and testing.  While the environment can be used from the beginning of the development process, it is expected that most users will have their core code working prior to starting the containerization process.  You may find reading the original project [motivation](docs/motivation.md) useful.
 
-To provide ready to use  development environment for developers who want to package their applications in Linux containers.
+Ultimately, the project expects to deliver a virtual machine that supports:
 
-In the same line this should serve as a ready to use environment for [Atomic App](https://github.com/projectatomic/atomicapp) and [Nulecule](https://github.com/projectatomic/atomicapp).
+* **Providing docker support to unsupported platforms (i.e. Microsoft Windows, Mac OS X, etc.)**
+* Enabling host-based development tools such as Eclipse to access the build environments inside the ADB
+* **Kubernetes orchestration for local testing of applications**
+* Platform as a Service (PAAS) local testing and remote integration for [OpenShift](https://github.com/openshift).
+* Enabling a workflow for define once, run anywhere that allows configuration for Openshift to be resused for Kubernetes
+* **Application definition using the [Nulecule](https://github.com/projectatomic/nulecule) specification**
+* The [Nulecule DevAssistant](https://github.com/devassistant/dap-nulecule) to make defining applications easier by providing a scaffold
+* Application definition enablement using the [Atomic App](https://github.com/projectatomic/atomicapp) Nulecule reference implementation
+* [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) to drive atomicapp builds within the ADB
+* This ability to push applications into the [CentOS Community Container Pipeline](http://wiki.centos.org/ContainerPipeline) via a pull request to the [CentOS Community Container Pipeline index](https://github.com/kbsingh/cccp-index)
+* Supporting multi-node local testing and building using solutions like [Oh-my-vagrant](https://github.com/purpleidea/oh-my-vagrant)
 
-`Here is more about the obective and purpose of creating the Vagrant based development environment:`
+**Note: The most recent release is Beta 2.  Bolded items above have been started or are working in this beta.**
 
-* The vagrant box should have all the tools and library required for developing [Nulecule](https://github.com/projectatomic/atomicapp) based Atomic Apps.
-    * E.g. We have plan to add tools like [atomicapp-builder](https://github.com/bkabrda/atomicapp-builder) and [Nulecule DevAssistant](https://github.com/devassistant/dap-nulecule).
-* This box will be complimentary to [CentOS Community Container Pipeline](http://wiki.centos.org/ContainerPipeline).
-    * That would help developers test the Atomic App locally on the vagrant box/boxes before sending the pull request to the [CentOS Community Container Pipeline index](https://github.com/kbsingh/cccp-index)
-* The base Vagrant box will contain the Atomic App providers e.g.  [OpenShift](https://github.com/openshift).
-    * We are working on integrating OpenShift Vagrant box for developers with this.
-    * The idea is , developers should be able to use OpenShift for deploying the application and then reuse the config files for developing Nulecule Specification for an application.
-    * Or an atomic application based on the nulecule specification with OpenShift provider should be able to deploy on it. 
-* The idea is to create base boxes using distributions build system and then use solution like [Oh-my-vagrant](https://github.com/purpleidea/oh-my-vagrant) for multibox dev environment.
-    * As of now we are building the base boxes through [CBS](http://cbs.centos.org/koji/).
-
-*Note:*
-*Project Atomic already provides Vgarant boxes for CentOS and Fedora, but we can not reuse those as we need an environment which can be modified by the developers.*
+Boxes are built using the CentOS powered [Community Build System](http://cbs.centos.org/koji/).  Boxes are delivered via Hashicorp's [Atlas](https://atlas.hashicorp.com/atomicapp/boxes/dev).  While Project Atomic already provides vagrant boxes for CentOS and Fedora, we can not reuse these as we have specific build requirements not enabled by default.
 
 ##Documentation
 
@@ -38,7 +36,7 @@ In the same line this should serve as a ready to use environment for [Atomic App
 
 ###Contribute to documentation
 
-* Documentations are in [reStructuredText](http://docutils.sourceforge.net/rst.html) as it integrates well with [readthedocs](https://readthedocs.org) project.
+* Documentations is in [reStructuredText](http://docutils.sourceforge.net/rst.html) as it integrates well with [readthedocs](https://readthedocs.org) project.
 * Here is an [online reStructuredText editor](http://rst.ninjs.org) for reference.
 
 ##Communication channels

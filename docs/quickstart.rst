@@ -1,9 +1,10 @@
-=========================================
-Quick start guide to run the Vagrant box.
-=========================================
---------------------
-Setting up Vagrant
---------------------
+======================
+Quick start to the ADB
+======================
+
+---------------
+Installing Vagrant
+---------------
 
 Fedora 21/22
 =========
@@ -47,23 +48,35 @@ Here are the commands to get Vagrant in CentOS
 
   $scl enable vagrant1 bash
 
-------------------------
-Running the Vagrant box
-------------------------
+Microsoft Windows
+======
+1. Follow the directions at [vagrantup.com](https://docs.vagrantup.com/v2/installation/index.html)
+2. Install an `ssh` client.  Two options are:
+   * [Cygwin](https://cygwin.com/install.html)
+   * [mingw](http://www.mingw.org/)
+   * Putty is not recommended as it doesn't currently interface with vagrant
 
-The image is available in https://atlas.hashicorp.com/atomicapp/boxes/dev . However you don't have to download the box image manually. The following steps will take care of it implicitly.
+Mac OS X
+======
+Follow the directions at [vagrantup.com](https://docs.vagrantup.com/v2/installation/index.html)
 
-*Step-1* : Initialising a new Vagrant environment by creating a Vagrantfile
+---------------------
+Using the Vagrant box
+---------------------
+
+The image is available at https://atlas.hashicorp.com/atomicapp/boxes/dev . However you don't have to download the box image manually. The following steps will cause vagrant to do the download.
+
+1. Initialising a new Vagrant environment by creating a Vagrantfile:
 
     **vagrant init atomicapp/dev**
 
-*Step-2* : To start the vagrant image and ssh in to it, run following command
+2. Start the vagrant image and ssh in to it, run following command:
 
     **vagrant up**
     
     **vagrant ssh**
 
-vagrant ssh should place you inside of the Vagrant box
+The result of vagrant ssh will be a shell prompt inside of the vagrant box.
 
 Manually downloading the Vagrant box image
 ==========================================
@@ -95,11 +108,11 @@ To destroy the Vagrant box
 ==========================
     **vagrant destroy**
 
-Running docker inside the Vagrant box
-=====================================
+Using docker inside the Vagrant box
+===================================
 
-Inside the vagrant box, you should be able to run docker containers
-Example: (following commands should be run inside the Vagrant box)
+Inside the vagrant box, you should be able to run docker containers.
+Example: (the following commands should be run inside the Vagrant box)
 
     **docker pull centos**
     
@@ -108,5 +121,5 @@ Example: (following commands should be run inside the Vagrant box)
 Running Atomic App in the Vagrant box
 ====================================
 
-Refer documentaion for `Runng Atomic App 
-<https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/runningatomicapp.rst>`_.
+Please see `Running Atomic App 
+<https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/runningatomicapp.rst>`_ for more information.

@@ -3,18 +3,18 @@ How to update the vagrant box to latest version
 ==========================================
 
 --------------------
-If you are using image from atlas.hashicorp.com
+If you are using the image from atlas.hashicorp.com
 --------------------
 
-To check if a nwer version of box available at https://atlas.hashicorp.com/atomicapp/boxes/dev
+To check if a newer version of the box is available at https://atlas.hashicorp.com/atomicapp/boxes/dev run:
 
-* Run ``vagrant box outdated`` 
+``vagrant box outdated`` 
 
-If a newer version is available, the outout should look like below
+If a newer version is available, the output should look like this:
 
 ::
 
-    [root@n7 atomicapp-dev]# vagrant box outdated
+    # vagrant box outdated
 
     Checking if box 'atomicapp/dev-testing' is up to date...
     A newer version of the box 'atomicapp/dev-testing' is available! You currently
