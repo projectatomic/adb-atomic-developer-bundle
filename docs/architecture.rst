@@ -42,7 +42,10 @@ Containers providing the following functionality:
   * OpenShift - A PAAS environment for source-to-image container execution in a devops pattern
   * [Atomic App](https://github.com/projectatomic/atomicapp) - The [Nulecule](https://github.com/projectatomic/nulecule) container application specification reference implementation
   * [atomic-reactor](https://github.com/projectatomic/atomic-reactor) - a python based container builder
-  * [DevAssistant](http://www.devassistant.org/) - used to provide templates for [Dockerfiles](https://github.com/devassistant/dap-docker) and [Nulecule](https://github.com/devassistant/dap-nulecule) - possibly using this container: https://github.com/devassistant/da-docker-nulecule
+  * [DevAssistant](http://www.devassistant.org/) - used to provide templates for [Dockerfiles](https://github.com/devassistant/dap-docker) and [Nulecule](https://github.com/devassistant/dap-nulecule) - possibly using this container: https://github.com/devassistant/da-docker-nulecule - see [Issue #39](https://github.com/projectatomic/adb-atomic-developer-bundle/issues/39)
+
+Additional Containers pre-loaded for quicker access:
+  * Latest Centos Base Image - see [Issue #25](https://github.com/projectatomic/adb-atomic-developer-bundle/issues/25)
 
 
 ----------------------
