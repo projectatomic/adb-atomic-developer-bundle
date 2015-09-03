@@ -58,7 +58,9 @@ Detailed `installation instructions <docs/installing.rst>`_ are available.  Inst
 What does interacting with the ADB look like?
 =============================================
 
-Today all work is done inside the vagrant box.  To access the ADB, use the ``vagrant ssh`` command.  Once you are logged in you can run ``docker`` and the other tools.  More information about `using the ADB <docs/usinging.rst>`_ is available.
+Today most users will do all of their work inside the vagrant box.  To access the ADB, use the ``vagrant ssh`` command.  Once you are logged in you can run ``docker`` and the other tools.  More information about `using the ADB <docs/using.rst>`_ is available.
+
+However, the docker daemon inside of the vagrant box can now be exposed to the host system and used from there.  Information about `using the ADB <docs/using.rst>`_ on the host is available.
 
 Documentation
 =============
