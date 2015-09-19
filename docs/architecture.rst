@@ -2,7 +2,7 @@
 Architecture and Roadmap for the ADB
 ====================================
 
-The Atomic Developer Bundle is a constantly evolving platform.  As such, this document should be considered carefully relative to both what is shipping, what issues and pull requests are open, and the date of last revision.  This document begins with the architecture for what will become version 2.0 of the ADB.  The roamap that follows is quite speculative.
+The Atomic Developer Bundle is a constantly evolving platform.  As such, this document should be considered carefully relative to both what is shipping, what issues and pull requests are open, and the date of last revision.  This document begins with the architecture for what will become version 2.0 of the ADB.  The roadmap that follows is quite speculative.
 
 The ADB is a stable CentOS Core installation with docker container and orchestration capability.  Many of the tools and features are provided by containers drawn from other sources.
 
@@ -14,7 +14,7 @@ Version 2.0 Goals
 
 * Enabling host-based development tools such as Eclipse to access the build environments inside the ADB
 * Platform as a Service (PAAS) local testing and remote integration for OpenShift.
-* Enabling a workflow for define once, run anywhere that allows configuration for Openshift to be resused for Kubernetes
+* Enabling a workflow for define once, run anywhere that allows configuration for Openshift to be reused for Kubernetes
 * The Nulecule DevAssistant to make defining applications easier by providing a scaffold
 * Application definition enablement using the Atomic App Nulecule reference implementation
 * atomicapp-builder to drive atomicapp builds within the ADB

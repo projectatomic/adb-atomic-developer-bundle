@@ -27,7 +27,7 @@ Installing the Atomic Developer Bundle
 
 * CentOS
 
-  Vagrant packages are not available in CentOS core. However these are available throgh Fedora Copr and SCL(i.e. softwarecollections.org).
+  Vagrant packages are not available in CentOS core. However these are available through Fedora Copr and SCL(i.e. softwarecollections.org).
 
   Here are the commands to get Vagrant in CentOS
 
