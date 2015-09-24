@@ -38,7 +38,14 @@ These boxes contains the following components from the latest CentOS Core:
     * libyaml-devel
   * atomic - The `Atomic CLI <https://github.com/projectatomic/atomic>`_
   * docker-registry
-  * docker - The docker daemon is configured to expose a TLS protected TCP port so that vagrant host based tools can access it
+  * docker
+    
+    The docker daemon is configured to expose a TLS protected TCP port so that vagrant host based tools can access it.  This is accomplished in three steps:
+
+    1. The systemd startup for docker inside of the ADB will generate TLS certificates if they don't already exist.
+    2. The user of the ADB exposes the docker daemon port in their Vagrantfile
+    3. The certificates are copied out by the `vagrant-adbinfo plugin.<https://github.com/bexelbie/vagrant-adbinfo>`_
+
   * kubernetes
   * File Synchronization
 
