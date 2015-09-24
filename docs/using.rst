@@ -11,7 +11,7 @@ Principles
   * use a source control system
   * mount your code into the box from your host system
 
-  Doing these things is beyond the scope of this document.  Consult your Operating System manuals and the `Vagrant <http://vagrantup.com/>` website for more details.
+  Doing these things is beyond the scope of this document.  Consult your Operating System manuals and the `Vagrant <http://vagrantup.com/>`_ website for more details.
 
 Starting the Vagrant Box
 ========================
@@ -72,7 +72,7 @@ Today, the only support is for the exposure of the docker daemon port.  The dock
 
    ``vagrant plugin install vagrant-adbinfo``
 
-More information about the vagrant-adbinfo plugin is `available in the source repository.<https://github.com/bexelbie/vagrant-adbinfo>`_
+More information about the vagrant-adbinfo plugin is `available in the source repository <https://github.com/bexelbie/vagrant-adbinfo>`_
 
 2. If you haven't already, modify your Vagrantfile to expose the docker daemon port by adding this line:
 
