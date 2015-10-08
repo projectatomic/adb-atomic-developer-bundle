@@ -81,10 +81,10 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
   ::
 
     #To get the libvirt image
-    $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.rhevm.ova
+    $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-Atomicapp-Dev-<latest>.box
 
     #To get the virtual box image
-    $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/centos-7-atomicapp-dev-1-1.x86_64.vsphere.ova
+    $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-Atomicapp-Dev-<latest>.box
 
   Once you have downloaded the image, you can add it to ``vagrant`` with this command:
 
