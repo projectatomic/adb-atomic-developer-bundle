@@ -26,6 +26,8 @@ Starting the Vagrant Box
     
    ``vagrant up``
 
+   **Note:** On Fedora and CentOS you may need to specify which virtualization provider to use.  For example, to use VirtualBox, the command would be ``vagrant up --provider virtualbox``
+
 Using the box via SSH
 =====================
    
