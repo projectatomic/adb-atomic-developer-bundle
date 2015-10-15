@@ -2,8 +2,71 @@
 Installing the Atomic Developer Bundle
 ======================================
 
+------------------------------------
+1. Install a Virtualization Provider
+------------------------------------
+
+Two virtualization providers have been tested with the ADB.
+
+* Microsoft Windows and Mac OS X
+
+  The suggested virtualization provider is `VirtualBox <https://www.virtualbox.org/>`_.  Installation instructions are available `online <https://www.virtualbox.org/manual/UserManual.html>`_.  While the latest stable shipping release should work, the majority of testing has been done with version 5.0.0 on Mac OS X and **XXX** on Microsoft Windows.
+
+* Fedora
+
+  Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
+
+  * VirtualBox Installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.
+
+    A summary of the installation is listed below:
+
+    ::
+
+      $ dnf install dkms
+      $ curl -O http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+      $ mv virtualbox.repo /etc/yum.repos.d/
+      $ dnf install VirtualBox-4.3
+      $ sudo /etc/init.d/vboxdrv setup
+    
+    While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.
+
+  * libvirt is shipped in both Fedora and Centos.  Installation is similar for both distributions:
+
+    * Fedora
+    
+      ``$ yum/dnf install @virtualization``
+      ``$ systemctl start libvirtd``
+      ``$ systemctl enable libvirtd``
+
+* CentOS 
+
+  Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
+
+  * VirtualBox Installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.  `CentOS specific instructions <https://wiki.centos.org/HowTos/Virtualization/VirtualBox>`_ are also available.
+
+    While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.  **Note:** Currently the CentOS ``vagrant`` packages below only support versions 4.0, 4.1, 4.2, and 4.3.
+
+    A summary of the installation is listed below:
+
+    ::
+
+      $ yum install epel-release
+      $ yum install dkms
+      $ curl -O http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+      $ mv virtualbox.repo /etc/yum.repos.d/
+      $ yum install VirtualBox-4.3
+      $ sudo /etc/init.d/vboxdrv setup
+    
+  * libvirt is shipped Centos and the preferred installation uses the distribution packages:
+
+    * CentOS
+    
+      ``$ yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer``
+      ``$ systemctl start libvirtd``
+      ``$ systemctl enable libvirtd``
+
 ------------------
-1. Install Vagrant
+2. Install Vagrant
 ------------------
 
 * Microsoft Windows
@@ -21,19 +84,23 @@ Installing the Atomic Developer Bundle
 
 * Fedora 21/22
 
-  To install Vagrant with libvirt backend in Fedora 21/22
+  To install Vagrant with VirtualBox in Fedora 21/22
 
-  ``yum/dnf install -y vagrant-libvirt vagrant``
+  ``$ yum/dnf install -y vagrant``
+
+  To install Vagrant with libvirt in Fedora 21/22
+
+  ``$ yum/dnf install -y vagrant-libvirt vagrant``
 
 * CentOS
 
-  Vagrant packages are not available in CentOS core. However these are available through Fedora Copr and SCL(i.e. softwarecollections.org).
+  Vagrant packages are not available in CentOS core. However they are available through Fedora Copr and `Software Collections <http://softwarecollections.org>`_.
 
   Here are the commands to get Vagrant in CentOS
 
   ::
   
-    $cat > /etc/yum.repos.d/vagrant.repo <<- EOM
+    $ cat > /etc/yum.repos.d/vagrant.repo <<- EOM
   
     [jstribny-vagrant1]
     name=Copr repo for vagrant1 owned by jstribny
@@ -56,14 +123,12 @@ Installing the Atomic Developer Bundle
   
     EOM
   
-    $yum -y -d 0 install vagrant1 rsync
+    $ yum -y install vagrant1 rsync
   
-    $service libvirtd start
-  
-    $scl enable vagrant1 bash
+    $ scl enable vagrant1 bash
 
 -------------------
-2. Download the ADB
+3. Download the ADB
 -------------------
 
 There are two ways to download the ADB.  You can have ``vagrant`` do it for you the first time you install it or you can download it manually.
