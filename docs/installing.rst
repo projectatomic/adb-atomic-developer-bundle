@@ -30,13 +30,13 @@ Two virtualization providers have been tested with the ADB.
     
     While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.
 
-  * libvirt is shipped in both Fedora and Centos.  Installation is similar for both distributions:
-
-    * Fedora
+  * libvirt is shipped in both Fedora and CentOS.  Installation is similar for both distributions:
     
-      ``$ yum/dnf install @virtualization``
-      ``$ systemctl start libvirtd``
-      ``$ systemctl enable libvirtd``
+    ::
+    
+      $ yum/dnf install @virtualization
+      $ systemctl start libvirtd
+      $ systemctl enable libvirtd
 
 * CentOS 
 
@@ -57,13 +57,13 @@ Two virtualization providers have been tested with the ADB.
       $ yum install VirtualBox-4.3
       $ sudo /etc/init.d/vboxdrv setup
     
-  * libvirt is shipped Centos and the preferred installation uses the distribution packages:
-
-    * CentOS
+  * libvirt is shipped in CentOS and the preferred installation uses the distribution packages:
     
-      ``$ yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer``
-      ``$ systemctl start libvirtd``
-      ``$ systemctl enable libvirtd``
+    ::
+    
+      $ yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer
+      $ systemctl start libvirtd
+      $ systemctl enable libvirtd
 
 ------------------
 2. Install Vagrant
