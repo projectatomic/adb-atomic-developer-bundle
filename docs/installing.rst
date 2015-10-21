@@ -32,7 +32,7 @@ Two virtualization providers have been tested with the ADB.
 
   * Installing libvirt dependencies can be skipped as they are automatically installed together with `vagrant-libvirt` package.
 
-* CentOS 
+* CentOS
 
   Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
 
