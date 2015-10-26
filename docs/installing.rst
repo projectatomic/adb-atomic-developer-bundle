@@ -30,7 +30,7 @@ Two virtualization providers have been tested with the ADB.
     
     While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.
 
-  * libvirt-provider is shipped in Fedora. Summary of installation is listed below:
+  * libvirt provider for vagrant is enabled using *vagrant-libvirt* package which is shipped in Fedora. Summary of installation is listed below:
     
     ::
 
@@ -57,7 +57,7 @@ Two virtualization providers have been tested with the ADB.
       $ yum install VirtualBox-4.3
       $ sudo /etc/init.d/vboxdrv setup
 
-  * libvirt-provider is not available in CentOS core however it is available through Fedora Copr and `Software Collections <http://softwarecollections.org>`_.
+  * libvirt provider for vagrant is enabled using *vagrant1-vagrant-libvirt* packages which is not available in CentOS core however it is available through Fedora Copr and `Software Collections <http://softwarecollections.org>`_ other core dependencies like libvirt will taken from CentOS offical repo.
 
 .. _vagrantRepo:
 
