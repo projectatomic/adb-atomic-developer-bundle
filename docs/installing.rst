@@ -30,15 +30,15 @@ Two virtualization providers have been tested with the ADB.
     
     While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.
 
-  * libvirt is shipped in both Fedora and CentOS.  Installation is similar for both distributions:
+  * libvirt provider for vagrant is enabled using *vagrant-libvirt* package which is shipped in Fedora. Summary of installation is listed below:
     
     ::
-    
-      $ yum/dnf install @virtualization
+
+      $ yum/dnf install vagrant-libvirt
       $ systemctl start libvirtd
       $ systemctl enable libvirtd
 
-* CentOS 
+* CentOS
 
   Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
 
@@ -56,14 +56,43 @@ Two virtualization providers have been tested with the ADB.
       $ mv virtualbox.repo /etc/yum.repos.d/
       $ yum install VirtualBox-4.3
       $ sudo /etc/init.d/vboxdrv setup
-    
-  * libvirt is shipped in CentOS and the preferred installation uses the distribution packages:
-    
-    ::
-    
-      $ yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer
-      $ systemctl start libvirtd
-      $ systemctl enable libvirtd
+
+  * libvirt provider for vagrant is enabled using *vagrant1-vagrant-libvirt* packages which is not available in CentOS core however it is available through Fedora Copr and `Software Collections <http://softwarecollections.org>`_ other core dependencies like libvirt will taken from CentOS offical repo.
+
+.. _vagrantRepo:
+
+::
+
+      $ cat > /etc/yum.repos.d/vagrant.repo <<- EOM
+        [jstribny-vagrant1]
+        name=Copr repo for vagrant1 owned by jstribny
+        baseurl=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/epel-7-x86_64/
+        gpgcheck=1
+        gpgkey=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/pubkey.gpg
+        enabled=1
+
+        [ruby200-copr]
+        name=ruby200-copr
+        baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ruby200-el7/epel-7-x86_64/
+        enabled=1
+        gpgcheck=0
+
+        [ror40-copr]
+        name=ror40-copr
+        baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ror40-el7/epel-7-x86_64/
+        enabled=1
+        gpgcheck=0
+
+      EOM
+
+
+A summary of the installation is listed below:
+
+::
+
+  $ yum install vagrant1-vagrant-libvirt
+  $ systemctl start libvirtd
+  $ systemctl enable libvirtd
 
 ------------------
 2. Install Vagrant
@@ -95,36 +124,13 @@ Two virtualization providers have been tested with the ADB.
 * CentOS
 
   Vagrant packages are not available in CentOS core. However they are available through Fedora Copr and `Software Collections <http://softwarecollections.org>`_.
+  Set software collection vagrantRepo_.
 
   Here are the commands to get Vagrant in CentOS
 
   ::
-  
-    $ cat > /etc/yum.repos.d/vagrant.repo <<- EOM
-  
-    [jstribny-vagrant1]
-    name=Copr repo for vagrant1 owned by jstribny
-    baseurl=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/epel-7-x86_64/
-    gpgcheck=1
-    gpgkey=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/pubkey.gpg
-    enabled=1
-  
-    [ruby200-copr]
-    name=ruby200-copr
-    baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ruby200-el7/epel-7-x86_64/
-    enabled=1
-    gpgcheck=0
-  
-    [ror40-copr]
-    name=ror40-copr
-    baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ror40-el7/epel-7-x86_64/
-    enabled=1
-    gpgcheck=0
-  
-    EOM
-  
+
     $ yum -y install vagrant1 rsync
-  
     $ scl enable vagrant1 bash
 
 -------------------

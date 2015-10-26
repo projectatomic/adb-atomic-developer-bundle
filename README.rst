@@ -44,8 +44,7 @@ Detailed `installation instructions <docs/installing.rst>`_ are available.  Inst
 
    * For Linux, the recommended provider is `libvirt <http://libvirt.org>`_.  This is packaged for most distributions.
 
-     * Centos 7: ``yum install libvirt``
-     * Fedora 22: ``dnf install libvirt``
+     * `Install recommended provider for CentOS/Fedora <docs/installing.rst>`_
 
 2. Download the latest ADB from `atlas.hashicorp.com <https://atlas.hashicorp.com/boxes/search>`_.  This can be done automatically by vagrant:
 
@@ -53,7 +52,7 @@ Detailed `installation instructions <docs/installing.rst>`_ are available.  Inst
 
 3. Start the ADB
 
-   ``$ vagrant up``
+   ``$ sudo vagrant up``
 
 What does interacting with the ADB look like?
 =============================================
