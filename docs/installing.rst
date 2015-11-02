@@ -30,11 +30,11 @@ Two virtualization providers have been tested with the ADB.
     
     While the latest stable release should work, the majority of testing has been done with version 4.3.30.
 
-  * libvirt is shipped in both Fedora and CentOS.  Installation is similar for both distributions:
+  * libvirt is shipped in Fedora. To install it run:
     
     ::
     
-      $ sudo yum/dnf -y install @virtualization
+      $ sudo dnf -y install @virtualization
       $ sudo systemctl start libvirtd
       $ sudo systemctl enable libvirtd
 
@@ -82,15 +82,15 @@ Two virtualization providers have been tested with the ADB.
 
   Follow the directions at `vagrantup.com <https://docs.vagrantup.com/v2/installation/index.html>`_
 
-* Fedora 21/22
+* Fedora 21/22/23
 
   To install Vagrant with VirtualBox in Fedora 21/22/23
 
-  ``$ sudo yum/dnf install -y vagrant``
+  ``$ sudo dnf install -y vagrant``
 
   To install Vagrant with libvirt in Fedora 21/22/23
 
-  ``$ sudo yum/dnf install -y vagrant-libvirt``
+  ``$ sudo dnf install -y vagrant-libvirt``
 
 * CentOS
 
