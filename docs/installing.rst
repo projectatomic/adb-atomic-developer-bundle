@@ -22,21 +22,21 @@ Two virtualization providers have been tested with the ADB.
 
     ::
 
-      $ dnf install dkms
+      $ sudo dnf -y install dkms
       $ curl -O http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
-      $ mv virtualbox.repo /etc/yum.repos.d/
-      $ dnf install VirtualBox-4.3
+      $ sudo mv virtualbox.repo /etc/yum.repos.d/
+      $ sudo dnf -y install VirtualBox-4.3
       $ sudo /etc/init.d/vboxdrv setup
     
-    While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.
+    While the latest stable release should work, the majority of testing has been done with version 4.3.30.
 
   * libvirt is shipped in both Fedora and CentOS.  Installation is similar for both distributions:
     
     ::
     
-      $ yum/dnf install @virtualization
-      $ systemctl start libvirtd
-      $ systemctl enable libvirtd
+      $ sudo yum/dnf -y install @virtualization
+      $ sudo systemctl start libvirtd
+      $ sudo systemctl enable libvirtd
 
 * CentOS 
 
@@ -50,20 +50,20 @@ Two virtualization providers have been tested with the ADB.
 
     ::
 
-      $ yum install epel-release
-      $ yum install dkms
+      $ sudo yum -y install epel-release
+      $ sudo yum -y install dkms
       $ curl -O http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
-      $ mv virtualbox.repo /etc/yum.repos.d/
-      $ yum install VirtualBox-4.3
+      $ sudo mv virtualbox.repo /etc/yum.repos.d/
+      $ sudo yum -y install VirtualBox-4.3
       $ sudo /etc/init.d/vboxdrv setup
     
   * libvirt is shipped in CentOS and the preferred installation uses the distribution packages:
     
     ::
     
-      $ yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer
-      $ systemctl start libvirtd
-      $ systemctl enable libvirtd
+      $ sudo yum -y install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer
+      $ sudo systemctl start libvirtd
+      $ sudo systemctl enable libvirtd
 
 ------------------
 2. Install Vagrant
@@ -84,13 +84,13 @@ Two virtualization providers have been tested with the ADB.
 
 * Fedora 21/22
 
-  To install Vagrant with VirtualBox in Fedora 21/22
+  To install Vagrant with VirtualBox in Fedora 21/22/23
 
-  ``$ yum/dnf install -y vagrant``
+  ``$ sudo yum/dnf install -y vagrant``
 
-  To install Vagrant with libvirt in Fedora 21/22
+  To install Vagrant with libvirt in Fedora 21/22/23
 
-  ``$ yum/dnf install -y vagrant-libvirt``
+  ``$ sudo yum/dnf install -y vagrant-libvirt``
 
 * CentOS
 
@@ -102,8 +102,10 @@ Two virtualization providers have been tested with the ADB.
   
     $ sudo yum -y install centos-release-scl
     $ sudo yum -y install sclo-vagrant1
-    $ sudo systemctl start libvirtd
     $ sudo scl enable sclo-vagrant1 bash
+    
+    # Start libvirtd if necessary
+    $ sudo systemctl start libvirtd
 
 -------------------
 3. Download the ADB
@@ -123,15 +125,15 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
 
   ::
 
-    #To get the libvirt image
+    # To get the libvirt image
     $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-Atomicapp-Dev-<latest>.box
 
-    #To get the virtual box image
+    # To get the virtual box image
     $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-Atomicapp-Dev-<latest>.box
 
   Once you have downloaded the image, you can add it to ``vagrant`` with this command:
 
   ::
 
-    #Add the image to vagrant
+    # Add the image to vagrant
     $ vagrant box add atomicappbox <local path to the downloded image>
