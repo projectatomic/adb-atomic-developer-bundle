@@ -30,13 +30,7 @@ Two virtualization providers have been tested with the ADB.
     
     While the latest stable release should work, the majority of testing has been done with version 4.3.30.
 
-  * libvirt is shipped in Fedora. To install it run:
-    
-    ::
-    
-      $ sudo dnf -y install @virtualization
-      $ sudo systemctl start libvirtd
-      $ sudo systemctl enable libvirtd
+  * Installing libvirt dependencies can be skipped as they are automatically installed together with `vagrant-libvirt` package.
 
 * CentOS 
 
@@ -57,13 +51,7 @@ Two virtualization providers have been tested with the ADB.
       $ sudo yum -y install VirtualBox-4.3
       $ sudo /etc/init.d/vboxdrv setup
     
-  * libvirt is shipped in CentOS and the preferred installation uses the distribution packages:
-    
-    ::
-    
-      $ sudo yum -y install qemu-kvm qemu-img virt-manager libvirt libvirt-python libvirt-client virt-install virt-viewer
-      $ sudo systemctl start libvirtd
-      $ sudo systemctl enable libvirtd
+  * Installing libvirt dependencies can be skipped as they are automatically installed together with `vagrant-libvirt` package.
 
 ------------------
 2. Install Vagrant
@@ -84,13 +72,21 @@ Two virtualization providers have been tested with the ADB.
 
 * Fedora 21/22/23
 
-  To install Vagrant with VirtualBox in Fedora 21/22/23
+  To install Vagrant with VirtualBox in Fedora 21/22/23:
 
   ``$ sudo dnf install -y vagrant``
 
-  To install Vagrant with libvirt in Fedora 21/22/23
+  To install Vagrant with libvirt in Fedora 21/22/23:
 
-  ``$ sudo dnf install -y vagrant-libvirt``
+  ::
+  
+    $ sudo dnf install -y vagrant-libvirt
+    
+    # Start libvirtd
+    $ sudo systemctl start libvirtd
+
+    # Permanently enable libvirtd
+    $ sudo systemctl enable libvirtd
 
 * CentOS
 
@@ -104,8 +100,11 @@ Two virtualization providers have been tested with the ADB.
     $ sudo yum -y install sclo-vagrant1
     $ sudo scl enable sclo-vagrant1 bash
     
-    # Start libvirtd if necessary
+    # Start libvirtd
     $ sudo systemctl start libvirtd
+
+    # Permanently enable libvirtd
+    $ sudo systemctl enable libvirtd
 
 -------------------
 3. Download the ADB
