@@ -16,7 +16,7 @@ Two virtualization providers have been tested with the ADB.
 
   Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
 
-  * VirtualBox Installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.
+  * VirtualBox installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.
 
     A summary of the installation is listed below:
 
@@ -42,9 +42,9 @@ Two virtualization providers have been tested with the ADB.
 
   Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
 
-  * VirtualBox Installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.  `CentOS specific instructions <https://wiki.centos.org/HowTos/Virtualization/VirtualBox>`_ are also available.
+  * VirtualBox installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.  `CentOS specific instructions <https://wiki.centos.org/HowTos/Virtualization/VirtualBox>`_ are also available.
 
-    While the latest stable shipping release should work, the majority of testing has been done with version 4.3.30.  **Note:** Currently the CentOS ``vagrant`` packages below only support versions 4.0, 4.1, 4.2, and 4.3.
+    While the latest stable release should work, the majority of testing has been done with version 4.3.30.
 
     A summary of the installation is listed below:
 
@@ -90,42 +90,20 @@ Two virtualization providers have been tested with the ADB.
 
   To install Vagrant with libvirt in Fedora 21/22
 
-  ``$ yum/dnf install -y vagrant-libvirt vagrant``
+  ``$ yum/dnf install -y vagrant-libvirt``
 
 * CentOS
 
-  Vagrant packages are not available in CentOS core. However they are available through Fedora Copr and `Software Collections <http://softwarecollections.org>`_.
+  Vagrant packages are not available directly in CentOS core. However they are available through official CentOS `Software Collections <http://softwarecollections.org>`_ builds.
 
-  Here are the commands to get Vagrant in CentOS
+  Here are the commands to get Vagrant in CentOS with `libvirt` support:
 
   ::
   
-    $ cat > /etc/yum.repos.d/vagrant.repo <<- EOM
-  
-    [jstribny-vagrant1]
-    name=Copr repo for vagrant1 owned by jstribny
-    baseurl=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/epel-7-x86_64/
-    gpgcheck=1
-    gpgkey=https://copr-be.cloud.fedoraproject.org/results/jstribny/vagrant1/pubkey.gpg
-    enabled=1
-  
-    [ruby200-copr]
-    name=ruby200-copr
-    baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ruby200-el7/epel-7-x86_64/
-    enabled=1
-    gpgcheck=0
-  
-    [ror40-copr]
-    name=ror40-copr
-    baseurl=http://copr-be.cloud.fedoraproject.org/results/rhscl/ror40-el7/epel-7-x86_64/
-    enabled=1
-    gpgcheck=0
-  
-    EOM
-  
-    $ yum -y install vagrant1 rsync
-  
-    $ scl enable vagrant1 bash
+    $ sudo yum -y install centos-release-scl
+    $ sudo yum -y install sclo-vagrant1
+    $ sudo systemctl start libvirtd
+    $ sudo scl enable sclo-vagrant1 bash
 
 -------------------
 3. Download the ADB
