@@ -20,7 +20,7 @@ How to update the Atomic Developer Bundle to the latest version
      `vagrant box update` to update.
 
 
-  3. If you see the above output, update the ADB vagrant image with this command:
+  3. If you see the above output, update the ADB Vagrant image with this command:
 
      ``vagrant box update``
 

@@ -40,7 +40,7 @@ These boxes contains the following components from the latest CentOS Core:
   * docker-registry
   * docker
     
-    The docker daemon is configured to expose a TLS protected TCP port so that vagrant host based tools can access it.  This is accomplished in three steps:
+    The docker daemon is configured to expose a TLS protected TCP port so that Vagrant host based tools can access it.  This is accomplished in three steps:
 
     1. The systemd startup for docker inside of the ADB will generate TLS certificates if they don't already exist.
     2. The user of the ADB exposes the docker daemon port in their Vagrantfile
@@ -51,7 +51,7 @@ These boxes contains the following components from the latest CentOS Core:
 
     * Possibly via NFS for libvirt
     * Possibly via containerized extensions for VirtualBox
-    * Designed to make sure code can move from the vagrant host to the ADB easily
+    * Designed to make sure code can move from the Vagrant host to the ADB easily
 
 Containers providing the following functionality:
   * OpenShift - A PAAS environment for source-to-image container execution in a devops pattern
