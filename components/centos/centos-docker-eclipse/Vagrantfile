@@ -3,11 +3,17 @@
 
 #Vagrant file for libvirt/kvm and virtualbox provider
 
+# check if plugin is installed on system
+unless Vagrant.has_plugin?("vagrant-adbinfo")
+  raise "vagrant-adbinfo plugin is not installed, run `vagrant plugin install vagrant-adbinfo` to install the plugin."
+end
+
 Vagrant.configure(2) do |config|
   config.vm.box = "atomicapp/dev"
 
   # forward the guest port 2376 of `docker` daemon in guest to host port 2379 for client side tooling to connect
   config.vm.network "forwarded_port", guest: 2376, host: 2379, auto_correct: true
+
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
     libvirt.memory = 1024
