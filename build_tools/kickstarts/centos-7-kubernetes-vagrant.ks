@@ -148,6 +148,9 @@ extfile=tmp.ext
 echo extendedKeyUsage = clientAuth > $extfile
 openssl x509 -req -days 365 -in client.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem -extfile $extfile -passin file:$passfile
 
+# Bind the eth0 connection to the eth0 device
+nmcli connection modify eth0 connection.interface-name eth0
+
 # Clean up
 
 # set the cert path as configured in /etc/sysconfig/docker
