@@ -104,82 +104,69 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4
 chmod 600 /home/vagrant/.ssh/authorized_keys
 chown -R vagrant:vagrant /home/vagrant/.ssh
 
-# Generate certs pair for configuring TLS enabled docker daemon
+# Set up certificate generation on first boot
+# Below is the base64 cert-gen.sh
+cat << EOF > cert-gen.sh.base64
+IyEvYmluL2Jhc2gKIyBHZW5lcmF0ZSBjZXJ0cyBwYWlyIGZvciBjb25maWd1cmluZyBUTFMgZW5h
+YmxlZCBkb2NrZXIgZGFlbW9uCi4gL2V0Yy9zeXNjb25maWcvZG9ja2VyCgppZiBbIC1lICRET0NL
+RVJfQ0VSVF9QQVRIL2NhLnBlbSBdOyB0aGVuCiAgIyBDZXJ0aWZpY2F0ZXMgYWxyZWFkeSBnZW5l
+cmF0ZWQKICBleGl0CmZpCgpmdW5jdGlvbiByYW5kb21TdHJpbmcgewogICAgICAgICMgaWYgYSBw
+YXJhbSB3YXMgcGFzc2VkLCBpdCdzIHRoZSBsZW5ndGggb2YgdGhlIHN0cmluZyB3ZSB3YW50CiAg
+ICAgICAgaWYgW1sgLW4gJDEgXV0gJiYgW1sgIiQxIiAtbHQgMjAgXV07IHRoZW4KICAgICAgICAg
+ICAgICAgIGxvY2FsIG15U3RyTGVuZ3RoPSQxOwogICAgICAgIGVsc2UKICAgICAgICAgICAgICAg
+ICMgb3RoZXJ3aXNlIHNldCB0byBkZWZhdWx0CiAgICAgICAgICAgICAgICBsb2NhbCBteVN0ckxl
+bmd0aD04OwogICAgICAgIGZpCgogICAgICAgIGRkIGlmPS9kZXYvdXJhbmRvbSBicz0xIDI+L2Rl
+di9udWxsIHwgdHIgLWRjICdbOmFsbnVtOl0nIHwgZGQgYnM9MSBjb3VudD0kbXlTdHJMZW5ndGgg
+Mj4vZGV2L251bGwKfQoKIyBHZXQgYSB0ZW1wb3Jhcnkgd29ya3NwYWNlCmRpcj1gbWt0ZW1wIC1k
+YApjZCAkZGlyCgojIEdldCBhIHJhbmRvbSBwYXNzd29yZCBmb3IgdGhlIENBIGFuZCBzYXZlIGl0
+CnBhc3NmaWxlPXRtcC5wYXNzCnBhc3N3b3JkPSQocmFuZG9tU3RyaW5nIDEwKQplY2hvICRwYXNz
+d29yZCA+ICRwYXNzZmlsZQoKIyBHZW5lcmF0ZSB0aGUgQ0EKb3BlbnNzbCBnZW5yc2EgLWFlczI1
+NiAtcGFzc291dCBmaWxlOiRwYXNzZmlsZSAtb3V0IGNhLWtleS5wZW0gMjA0OApvcGVuc3NsIHJl
+cSAtbmV3IC14NTA5IC1wYXNzaW4gZmlsZTokcGFzc2ZpbGUgLWRheXMgMzY1IC1rZXkgY2Eta2V5
+LnBlbSAtc2hhMjU2IC1vdXQgY2EucGVtIC1zdWJqICIvQz0vU1Q9L0w9L089L09VPS9DTj1leGFt
+cGxlLmNvbSIKCiMgR2VuZXJhdGUgU2VydmVyIEtleSBhbmQgU2lnbiBpdApvcGVuc3NsIGdlbnJz
+YSAtb3V0IHNlcnZlci1rZXkucGVtIDIwNDgKb3BlbnNzbCByZXEgLXN1YmogIi9DTj1leGFtcGxl
+LmNvbSIgLW5ldyAta2V5IHNlcnZlci1rZXkucGVtIC1vdXQgc2VydmVyLmNzcgojIEFsbG93IGZy
+b20gcm91dGFibGUgbG9jYWwgSVAKZXh0aXA9YGlwIGFkZHIgc2hvdyBldGgxIDI+L2Rldi9udWxs
+IHwgYXdrICdOUj09MyB7cHJpbnQgJDJ9JyB8IGN1dCAtZjEgLWRcL2AKaWYgW1sgLXogIiRleHRp
+cCIgXV07IHRoZW4KICAgICAgZXh0aXA9YGlwIHJvdXRlIGdldCA4LjguOC44IHwgYXdrICdOUj09
+MSB7cHJpbnQgJE5GfSdgCmZpCmV4dGlwZmlsZT1leHRmaWxlLmNuZgplY2hvIHN1YmplY3RBbHRO
+YW1lID0gSVA6JGV4dGlwID4gJGV4dGlwZmlsZQpvcGVuc3NsIHg1MDkgLXJlcSAtZGF5cyAzNjUg
+LWluIHNlcnZlci5jc3IgLUNBIGNhLnBlbSAtQ0FrZXkgY2Eta2V5LnBlbSAtQ0FjcmVhdGVzZXJp
+YWwgLW91dCBzZXJ2ZXItY2VydC5wZW0gLXBhc3NpbiBmaWxlOiRwYXNzZmlsZSAtZXh0ZmlsZSAk
+ZXh0aXBmaWxlCgojIEdlbmVyYXRlIHRoZSBDbGllbnQgS2V5IGFuZCBTaWduIGl0Cm9wZW5zc2wg
+Z2VucnNhIC1vdXQga2V5LnBlbSAyMDQ4Cm9wZW5zc2wgcmVxIC1zdWJqICcvQ049Y2xpZW50JyAt
+bmV3IC1rZXkga2V5LnBlbSAtb3V0IGNsaWVudC5jc3IKZXh0ZmlsZT10bXAuZXh0CmVjaG8gZXh0
+ZW5kZWRLZXlVc2FnZSA9IGNsaWVudEF1dGggPiAkZXh0ZmlsZQpvcGVuc3NsIHg1MDkgLXJlcSAt
+ZGF5cyAzNjUgLWluIGNsaWVudC5jc3IgLUNBIGNhLnBlbSAtQ0FrZXkgY2Eta2V5LnBlbSAtQ0Fj
+cmVhdGVzZXJpYWwgLW91dCBjZXJ0LnBlbSAtZXh0ZmlsZSAkZXh0ZmlsZSAtcGFzc2luIGZpbGU6
+JHBhc3NmaWxlCgojIENsZWFuIHVwCgojIHNldCB0aGUgY2VydCBwYXRoIGFzIGNvbmZpZ3VyZWQg
+aW4gL2V0Yy9zeXNjb25maWcvZG9ja2VyCgojIyBNb3ZlIGZpbGVzIGludG8gcGxhY2UKbXYgY2Eu
+cGVtICRET0NLRVJfQ0VSVF9QQVRICm12IHNlcnZlci1jZXJ0LnBlbSAkRE9DS0VSX0NFUlRfUEFU
+SAptdiBzZXJ2ZXIta2V5LnBlbSAkRE9DS0VSX0NFUlRfUEFUSAoKIyBzaW5jZSB0aGUgZGVmYXVs
+dCB1c2VyIGlzIHZhZ3JhbnQgYW5kIGl0IGNhbiBydW4gZG9ja2VyIHdpdGhvdXQgc3VkbwpDTElF
+TlRfU0lERV9DRVJUX1BBVEg9L2hvbWUvdmFncmFudC8uZG9ja2VyCgpta2RpciAtcCAkQ0xJRU5U
+X1NJREVfQ0VSVF9QQVRICmNwICRET0NLRVJfQ0VSVF9QQVRIL2NhLnBlbSAkQ0xJRU5UX1NJREVf
+Q0VSVF9QQVRICm12IGNlcnQucGVtIGtleS5wZW0gJENMSUVOVF9TSURFX0NFUlRfUEFUSAoKY2hv
+d24gdmFncmFudDp2YWdyYW50ICRDTElFTlRfU0lERV9DRVJUX1BBVEgKCmNobW9kIDA0NDQgJENM
+SUVOVF9TSURFX0NFUlRfUEFUSC9jYS5wZW0KY2htb2QgMDQ0NCAkQ0xJRU5UX1NJREVfQ0VSVF9Q
+QVRIL2NlcnQucGVtCmNobW9kIDA0NDQgJENMSUVOVF9TSURFX0NFUlRfUEFUSC9rZXkucGVtCmNo
+b3duIHZhZ3JhbnQ6dmFncmFudCAkQ0xJRU5UX1NJREVfQ0VSVF9QQVRIL2NhLnBlbQpjaG93biB2
+YWdyYW50OnZhZ3JhbnQgJENMSUVOVF9TSURFX0NFUlRfUEFUSC9jZXJ0LnBlbQpjaG93biB2YWdy
+YW50OnZhZ3JhbnQgJENMSUVOVF9TSURFX0NFUlRfUEFUSC9rZXkucGVtCgpjaG1vZCAtdiAwNDAw
+ICRET0NLRVJfQ0VSVF9QQVRIL2NhLnBlbSAkRE9DS0VSX0NFUlRfUEFUSC9zZXJ2ZXItY2VydC5w
+ZW0gJERPQ0tFUl9DRVJUX1BBVEgvc2VydmVyLWtleS5wZW0KCiMjIFJlbW92ZSByZW1haW5pbmcg
+ZmlsZXMKY2QKcm0gLXJmICRkaXIKCiMgRW5kIG9mIGNlcnRzIHBhaXIgZ2VuZXJhdGlvbiBzdGVw
+cyBmb3IgVExTIGVuYWJsZWQgZG9ja2VyIGRhZW1vbgo=
+EOF
 
-. /etc/sysconfig/docker
+mkdir -p /opt/adb
+base64 -d < cert-gen.sh.base64 > cert-gen.sh
+mv cert-gen.sh /opt/adb/
+chmod u+x /opt/adb/cert-gen.sh
 
-function randomString {
-        # if a param was passed, it's the length of the string we want
-        if [[ -n $1 ]] && [[ "$1" -lt 20 ]]; then
-                local myStrLength=$1;
-        else
-                # otherwise set to default
-                local myStrLength=8;
-        fi
-
-        dd if=/dev/urandom bs=1 2>/dev/null | tr -dc '[:alnum:]' | dd bs=1 count=$myStrLength 2>/dev/null
-}
-
-# Get a temporary workspace
-dir=`mktemp -d`
-cd $dir
-
-# Get a random password for the CA and save it
-passfile=tmp.pass
-password=$(randomString 10)
-echo $password > $passfile
-
-# Generate the CA
-openssl genrsa -aes256 -passout file:$passfile -out ca-key.pem 2048
-openssl req -new -x509 -passin file:$passfile -days 365 -key ca-key.pem -sha256 -out ca.pem -subj "/C=/ST=/L=/O=/OU=/CN=example.com"
-
-# Generate Server Key and Sign it
-openssl genrsa -out server-key.pem 2048
-openssl req -subj "/CN=example.com" -new -key server-key.pem -out server.csr
-# Allow from 127.0.0.1
-extipfile=extfile.cnf
-echo subjectAltName = IP:127.0.0.1 > $extipfile
-openssl x509 -req -days 365 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -passin file:$passfile -extfile $extipfile
-
-# Generate the Client Key and Sign it
-openssl genrsa -out key.pem 2048
-openssl req -subj '/CN=client' -new -key key.pem -out client.csr
-extfile=tmp.ext
-echo extendedKeyUsage = clientAuth > $extfile
-openssl x509 -req -days 365 -in client.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem -extfile $extfile -passin file:$passfile
-
-# Clean up
-
-# set the cert path as configured in /etc/sysconfig/docker
-
-## Move files into place
-mv ca.pem $DOCKER_CERT_PATH
-mv server-cert.pem $DOCKER_CERT_PATH
-mv server-key.pem $DOCKER_CERT_PATH
-
-# since the default user is vagrant and it can run docker without sudo
-CLIENT_SIDE_CERT_PATH=/home/vagrant/.docker
-
-mkdir -p $CLIENT_SIDE_CERT_PATH
-cp $DOCKER_CERT_PATH/ca.pem $CLIENT_SIDE_CERT_PATH
-mv cert.pem key.pem $CLIENT_SIDE_CERT_PATH
-
-chown vagrant:vagrant $CLIENT_SIDE_CERT_PATH
-
-chmod 0444 $CLIENT_SIDE_CERT_PATH/ca.pem
-chmod 0444 $CLIENT_SIDE_CERT_PATH/cert.pem
-chmod 0444 $CLIENT_SIDE_CERT_PATH/key.pem
-chown vagrant:vagrant $CLIENT_SIDE_CERT_PATH/ca.pem
-chown vagrant:vagrant $CLIENT_SIDE_CERT_PATH/cert.pem
-chown vagrant:vagrant $CLIENT_SIDE_CERT_PATH/key.pem
-
-chmod -v 0400 $DOCKER_CERT_PATH/ca.pem $DOCKER_CERT_PATH/server-cert.pem $DOCKER_CERT_PATH/server-key.pem
-
-## Remove remaining files
-cd
-echo rm -rf $dir
-
-# End of certs pair generation steps for TLS enabled docker daemon
+# update docker.service file to exec the certificate generation script
+sed -i.back 's/ExecStart=/ExecStartPre=\/opt\/adb\/cert-gen.sh\n&/' /usr/lib/systemd/system/docker.service
 
 # update the docker config to listen on TCP as well as unix socket
 sed -i.back '/OPTIONS=*/c\OPTIONS="--selinux-enabled -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server-cert.pem --tlskey=/etc/docker/server-key.pem --tlsverify"' /etc/sysconfig/docker
