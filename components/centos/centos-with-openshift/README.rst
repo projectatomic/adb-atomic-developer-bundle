@@ -20,3 +20,6 @@ During setup below steps are executed.
 - Get default templates and configure it.
 - Create *test-admin user and test project* for experiment.
 - Provide required configuration details for openshift web console and API
+
+For More info about Openshift, please checkout `offical documents
+<https://docs.openshift.org/latest/welcome/index.html>`_.

@@ -10,7 +10,7 @@ ORIGIN_IMAGE_NAME="openshift/origin"
 # The public IP address the VM created by Vagrant will get.
 # You will use this IP address to connect to OpenShift web console.
 PUBLIC_ADDRESS="10.1.2.2"
-PUBLIC_HOST="cdk.cluster.io"
+PUBLIC_HOST="adb.cluster.io"
 
 # The directory where OpenShift will store the files.
 # This should be "/var/lib/openshift" in case you're not using the :latest tag.
