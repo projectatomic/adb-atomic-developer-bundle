@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile for single node k8s setup
+Vagrant.configure(2) do |config|
+  config.vm.box = "atomicapp/dev"
+
+  config.vm.provider "libvirt" do |libvirt, override|
+    libvirt.driver = "kvm"
+    libvirt.memory = 1024
+    libvirt.cpus = 2
+  end
+
+  config.vm.provider "virtualbox" do |vbox, override|
+    vbox.memory = 1024
+    vbox.cpus = 2
+
+    # Enable use of more than one virtual CPU in a virtual machine.
+    vbox.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo mkdir -p /etc/pki/kube-apiserver/
+     sudo openssl genrsa -out /etc/pki/kube-apiserver/serviceaccount.key 2048
+     sudo sed -i.back '/KUBE_API_ARGS=*/c\KUBE_API_ARGS="--service_account_key_file=/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/apiserver
+     sudo sed -i.back '/KUBE_CONTROLLER_MANAGER_ARGS=*/c\KUBE_CONTROLLER_MANAGER_ARGS="--service_account_private_key_file=/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/controller-manager
+
+     sudo systemctl enable etcd kube-apiserver kube-controller-manager kube-scheduler
+     sudo systemctl start etcd kube-apiserver kube-controller-manager kube-scheduler
+
+     sudo systemctl enable kube-proxy kubelet
+     sudo systemctl start kube-proxy kubelet
+     sudo systemctl restart docker
+  SHELL
+end
