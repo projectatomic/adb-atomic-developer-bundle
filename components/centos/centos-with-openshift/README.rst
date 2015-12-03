@@ -5,7 +5,7 @@ Why Vagrantfile?
 ----------------
 
 We want to provide a seamless experience for Openshift developer/User. This
-vagrant file take care of running and provissing Openshift in a VM with a simple
+vagrant file take care of running and provissing Openshift Origin in a VM with a simple
 execution of *vagrant up*. 
 
 Following steps are executed as part of provisioning:
@@ -13,21 +13,21 @@ Following steps are executed as part of provisioning:
 - Create a private network and set IP *10.1.2.2*, if you want a different one
   then change **PUBLIC_ADDRESS** variable.
 - Pull latest *openshift/origin* container from docker hub and tag it.
-- Create required configuration file directories which openshift use and set
+- Create required configuration file directories which OpenShift use and set
   SELinux flag to make sure it work with *Enforcing* mode.
 - Run docker container using origin image with different run options to make
-  sure required directory is mounted and *host* network is used. Wait for around 15
-  seconds to start it.
-- Check if contanter has started as expected otherwise provide docker logs for origin.
+  sure required directory is mounted and *host* network is used. It takes around
+  15 seconds to start.
+- Check if contanter has started as expected otherwise provide docker logs.
 - Make sure **oc and oadm** binaries are available to host system.
 - Create docker registry to make sure when *oc build* run, it upload local images
   to this registry.
 - Configure router so that new-app will access from web using those routes.
 - Get default templates and configure it.
 - Create *test-admin user and test project* for experiment.
-- Provide required configuration details for openshift web console and API
+- Provide required configuration details for OpenShift web console and API
 
-For More info about Openshift, please checkout `offical documents
+For More info about Openshift, please refer to `offical documents
 <https://docs.openshift.org/latest/welcome/index.html>`_.
 
 Quick Start
@@ -39,7 +39,7 @@ Quick Start
   
     $ vagrant box add adb <path_of_download_box>
 
-- Create a separate Directory for Openshift experiment
+- Create a separate Directory for OpenShift experiment
 
   ::
 
@@ -51,7 +51,7 @@ Quick Start
 
     $ curl https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-with-openshift/Vagrantfile > Vagrantfile
 
-- Create VM using Openshift Vagrantfile
+- Create VM using OpenShift Vagrantfile
 
   ::
     
@@ -63,7 +63,7 @@ Quick Start
 
     $ vagrant ssh
 
-- Check Openshift status using *oc*
+- Check OpenShift status using *oc*
 
   ::
 
