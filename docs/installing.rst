@@ -116,7 +116,11 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
 
   The image is available at `https://atlas.hashicorp.com/atomicapp/boxes/dev <https://atlas.hashicorp.com/atomicapp/boxes/dev>`_. The ``vagrant`` program is capable of downloading the box the first time it is needed.  This happens when you first initialize a new vagrant environment by creating a Vagrantfile with this command:
 
-  ``vagrant init atomicapp/dev``
+  ::
+
+    # Add the image to vagrant
+    $ vagrant init atomicapp/dev
+    $ vagrant up
 
 * Manually Downloading the Vagrant Box Image
 
@@ -136,3 +140,25 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
 
     # Add the image to vagrant
     $ vagrant box add atomicappbox <local path to the downloded image>
+    $ vagrant init atomicappbox
+    $ vagrant up
+
+
+-------------------
+4. Using custom vagrantfiles for specific use cases
+-------------------
+
+There are custom vagrantfiles at `components  <../components>`_ directory which can be used for creating specific environments.
+
+* git clone the adb git repo
+* change in to the directory containing specific vagrantfile
+* do vagrant up
+
+Example:
+
+::
+     
+     $ git clone https://github.com/projectatomic/adb-atomic-developer-bundle.git
+     $ cd adb-atomic-developer-bundle/components/centos/centos-with-kubernetes
+     $ vagrant up
+
