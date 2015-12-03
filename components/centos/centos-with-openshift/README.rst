@@ -5,7 +5,7 @@ Why Vagrantfile?
 ----------------
 
 We want to provide a seamless experience for Openshift developer/User. This
-vagrant file take care of running and provissing Openshift Origin in a VM with a simple
+Vagrantfile takes care of running and provissing Openshift Origin in a VM with a simple
 execution of *vagrant up*. 
 
 Following steps are executed as part of provisioning:
@@ -20,7 +20,7 @@ Following steps are executed as part of provisioning:
   15 seconds to start.
 - Check if contanter has started as expected otherwise provide docker logs.
 - Make sure **oc and oadm** binaries are available to host system.
-- Create docker registry to make sure when *oc build* run, it upload local images
+- Create docker registry to make sure when *oc build* run, it uploads local images
   to this registry.
 - Configure router so that new-app will access from web using those routes.
 - Get default templates and configure it.
@@ -33,13 +33,13 @@ For More info about Openshift, please refer to `offical documents
 Quick Start
 -----------
 
-- Get latest adb box and add it to vagrant
+- Get latest ADB box and add it to vagrant
 
   ::
   
     $ vagrant box add adb <path_of_download_box>
 
-- Create a separate Directory for OpenShift experiment
+- Create a separate directory for OpenShift experiment
 
   ::
 
@@ -75,7 +75,7 @@ Quick Start
 
     $ oc get templates -n openshift
 
-- Deploy a application using available templates
+- Deploy an application using available templates
 
   ::
     
