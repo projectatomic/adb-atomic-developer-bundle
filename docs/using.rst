@@ -55,7 +55,9 @@ Details on these projects can be found at these urls:
 
 The `helloapache <https://registry.hub.docker.com/u/projectatomic/helloapache/>`_ example can be used to test your installation.
 
-*Note:* Many Nulecule examples expect a working kubernetes environment.  You can verify your environment with by executing ``kubectl get nodes``.  The expected output is:
+*Note:* Many Nulecule examples expect a working kubernetes environment.  To setup a single node kubernetes environment use the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_ and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
+
+You can verify your environment with by executing ``kubectl get nodes``.  The expected output is:
 
 ::
 
