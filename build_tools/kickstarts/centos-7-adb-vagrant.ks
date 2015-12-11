@@ -4,7 +4,7 @@ text
 keyboard us
 lang en_US.UTF-8
 skipx
-network --device eth0 --bootproto dhcp
+network --device eth0 --bootproto dhcp --hostname centos7-adb
 rootpw vagrant
 firewall --disabled
 authconfig --enableshadow --enablemd5
