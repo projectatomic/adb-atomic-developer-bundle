@@ -93,6 +93,15 @@ tuned-adm profile virtual-guest
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
+# Fix for #128
+cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
+DEVICE="eth0"
+BOOTPROTO="dhcp"
+ONBOOT="yes"
+TYPE="Ethernet"
+PERSISTENT_DHCLIENT="yes"
+EOF
+
 # Fixes issue #71
 mkdir -p /etc/pki/kube-apiserver/
 openssl genrsa -out /etc/pki/kube-apiserver/serviceaccount.key 2048
