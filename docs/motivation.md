@@ -1,3 +1,9 @@
+==============================================
+This Document Refers to Goals from Version 1.0
+==============================================
+
+While it is useful to see where have come from, these motivations may no longer reflect the overall project.
+
 #Motivation
 Many people are considering using containers as a method of distributing applications. If you search the internet there is a lot of content similar to developing "hello world" but not much with regards to "enterprise container development." How is this different? Well, when developing with containers, many of the rules about application architecture, while not "different," are certainly more strictly enforced. For example, "decomposition of applications in to services." In a traditional application environment, on a virtual machine, for example, nothing really enforces that the services are actually independent until, during scale-out, you find out the hard way (unless you did really good testing). With containers, you find out immediately because the service isolation is enforced at any scale. 
 

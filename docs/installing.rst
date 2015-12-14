@@ -64,7 +64,7 @@ Two virtualization providers have been tested with the ADB.
 
      * `Cygwin <https://cygwin.com/install.html>`_
      * `mingw <http://www.mingw.org/>`_
-     * Putty is not recommended as it doesn't currently interface with vagrant
+     * Putty is not recommended as it doesn't currently interface with Vagrant
 
 * Mac OS X
 
