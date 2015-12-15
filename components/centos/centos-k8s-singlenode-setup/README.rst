@@ -14,7 +14,7 @@ Steps
 ::
      
      git clone https://github.com/projectatomic/adb-atomic-developer-bundle.git
-     cd adb-atomic-developer-bundle/components/centos/centos-with-kubernetes
+     cd adb-atomic-developer-bundle/components/centos/centos-k8s-singlenode-setup
      vagrant up
 
 After the `vagrant up`, you can do a `vagrant ssh` in to the box and run `kubectl get nodes` command to see if the setup is done correctly.
