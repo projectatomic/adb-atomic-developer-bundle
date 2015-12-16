@@ -54,6 +54,9 @@ tuned
 sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 
+#Fixing https://github.com/projectatomic/adb-atomic-developer-bundle/issues/155
+echo "127.0.0.1     centos7-adb" >> /etc/hosts
+
 #Fixing issue #29
 cat << EOF > kube-apiserver.service
 [Unit]
