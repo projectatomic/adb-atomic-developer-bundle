@@ -14,8 +14,8 @@ How to update the Atomic Developer Bundle to the latest version
 
      # vagrant box outdated
 
-     Checking if box 'atomicapp/dev-testing' is up to date...
-     A newer version of the box 'atomicapp/dev-testing' is available! You currently
+     Checking if box 'projectatomic/adb' is up to date...
+     A newer version of the box 'projectatomic/adb-testing' is available! You currently
      have version '1.3.1'. The latest is version '1.3.2'. Run
      `vagrant box update` to update.
 

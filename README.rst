@@ -74,7 +74,7 @@ Below is a quick installation guide using the most common options.  Detailed `in
 
 4. Download the latest ADB from `atlas.hashicorp.com <https://atlas.hashicorp.com/boxes/search>`_.  This can be done automatically by Vagrant:
 
-   ``$ vagrant init atomicapp/dev``
+   ``$ vagrant init projectatomic/adb``
 
 5. Start the ADB
 

@@ -119,28 +119,28 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
   ::
 
     # Add the image to vagrant
-    $ vagrant init atomicapp/dev
+    $ vagrant init projectatomic/adb
     $ vagrant up
 
 * Manually Downloading the Vagrant Box Image
 
-  Alternatively, you can manually download the vagrant box from `cloud.centos.org <http://cloud.centos.org/centos/7/vagrant/x86_64/images/>`_ using your web browser or curl.  For example:
+  Alternatively, you can manually download the vagrant box from `cloud.centos.org <http://cloud.centos.org/centos/7/atomic/images/>`_ using your web browser or curl.  For example:
 
   ::
 
     # To get the libvirt image
-    $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-Atomicapp-Dev-<latest>.box
+    $ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<latest>.box
 
     # To get the virtual box image
-    $ wget http://cloud.centos.org/centos/7/vagrant/x86_64/images/CentOS-7-Atomicapp-Dev-<latest>.box
+    $ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<latest>.box
 
   Once you have downloaded the image, you can add it to ``vagrant`` with this command:
 
   ::
 
     # Add the image to vagrant
-    $ vagrant box add atomicappbox <local path to the downloded image>
-    $ vagrant init atomicappbox
+    $ vagrant box add adb <local path to the downloded image>
+    $ vagrant init adb
     $ vagrant up
 
 
