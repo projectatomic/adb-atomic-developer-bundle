@@ -57,6 +57,11 @@ sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 #Fixing https://github.com/projectatomic/adb-atomic-developer-bundle/issues/155
 echo "127.0.0.1     centos7-adb" >> /etc/hosts
 
+## TODO: Remove this once issue #154 is resolved
+#https://github.com/projectatomic/adb-atomic-developer-bundle/issues/154
+yum remove -y docker-selinux
+yum install -y docker-selinux
+
 #Fixing issue #29
 cat << EOF > kube-apiserver.service
 [Unit]
