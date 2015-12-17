@@ -16,6 +16,21 @@ PUBLIC_HOST="adb.cluster.io"
 # This should be "/var/lib/openshift" in case you're not using the :latest tag.
 ORIGIN_DIR="/var/lib/origin"
 
+# The following steps are executed to provision OpenShift Origin:
+# 1. Create a private network and set the Vagrant Box IP to *10.1.2.2*. If you want a different IP then change the **PUBLIC_ADDRESS** variable.
+# 2. Pull latest the *openshift/origin* container from docker hub and tag it.
+# 3. Create the required configuration file directories which OpenShift Origin uses.  Also set the SELinux flag to make sure they will work with *Enforcing* mode.
+# 4. Run the OpenShift Origin docker container with various run options to make sure the required directory is mounted and the *host* network is used. **Note:** This takes about 15 seconds to start.
+# 5. Check if the OpenShift Origin container has started as expected.  If there is an error, output the docker logs.
+# 6. Make sure the ``oc`` and ``oadm`` binaries are available in the ADB Vagrant box.
+# 7. Create a docker registry for use by the ``oc build`` command.  This command uploads local images to this registry.
+# 8. Configure an OpenShift router so that apps can be accessed from the workstation.
+# 9. Get the default templates and configure them.
+# 10. Create a *test-admin user* and a *test project* for use by the developer.
+# 11. Provide required configuration details for OpenShift web console and API.
+# For More info about Openshift, please refer to `offical documents
+# <https://docs.openshift.org/latest/welcome/index.html>`_.
+
 Vagrant.configure(2) do |config|
   config.vm.box = 'adb'
   config.vm.provider "virtualbox" do |v, override|
