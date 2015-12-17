@@ -20,7 +20,7 @@ Starting the Vagrant Box
 
    ``vagrant init <box name>``
 
-   Box name is typically ``atomicapp/dev`` or whatever you named it when you loaded it manually.
+   Box name is typically ``projectatomic/adb`` or whatever you named it when you loaded it manually.
 
 2. Start the Vagrant image with this command:
     

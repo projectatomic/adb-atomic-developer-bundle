@@ -3,7 +3,7 @@
 
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
-  config.vm.box = "atomicapp/dev"
+  config.vm.box = "projectatomic/adb"
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
