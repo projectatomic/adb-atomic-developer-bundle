@@ -37,7 +37,7 @@ Using Custom Vagrantfiles for Specific Use Cases
 
 Custom Vagrant files are shipped for specific use cases.  The README files contain useful documentation and a quickstart guide.
 
-- Docker for use with host-based tools or via ``vagrant ssh``
+- Docker for use with host-based tools, such as Eclipse and the docker CLI, or via ``vagrant ssh``
   - `Vagrantfile <../components/centos/centos-docker-base-setup/Vagrantfile>`_
   - `README <../components/centos/centos-docker-base-setup/README.rst>`_
 - Docker and Kubernetes for use with host-based tools or via ``vagrant ssh``

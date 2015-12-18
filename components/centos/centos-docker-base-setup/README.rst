@@ -6,7 +6,7 @@ This Vagrantfile is the default suggested configuration for the ADB.  This file 
 QuickStart
 ----------
 
-1. Get latest ADB box and add it to vagrant per `Installing the Atomic Developer Bundle<../../../docs/installing.rst>`_.
+1. Get latest ADB box and add it to vagrant per `Installing the Atomic Developer Bundle <../../../docs/installing.rst>`_.
 
 2. Create a directory for the Vagrant Box
 
