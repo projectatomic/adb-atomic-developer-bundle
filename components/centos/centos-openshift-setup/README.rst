@@ -26,7 +26,7 @@ QuickStart
 
 5. Proceed with using the ADB per `Using the Atomic Developer Bundle <../../../docs/using.rst>`_.
 
-  If you plan to use OpenShift from the host, you may wish to download ``oc`` for your platform from an `OpenShift Origin Release<https://github.com/openshift/origin/releases>`_.
+  If you plan to use OpenShift from the host, you may wish to download ``oc`` for your platform from an `OpenShift Origin Release <https://github.com/openshift/origin/releases>`_.
 
   You may wish to verify that OpenShift is setup using the ``oc`` CLI as follows:
 
