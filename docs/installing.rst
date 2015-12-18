@@ -85,7 +85,7 @@ Two virtualization providers have been tested with the ADB.
     # Start libvirtd
     $ sudo systemctl start libvirtd
 
-    # Permanently enable libvirtd
+    # Set libvirtd to start automatically on system boot
     $ sudo systemctl enable libvirtd
 
 * CentOS
@@ -103,7 +103,7 @@ Two virtualization providers have been tested with the ADB.
     # Start libvirtd
     $ sudo systemctl start libvirtd
 
-    # Permanently enable libvirtd
+    # Set libvirtd to start automatically on system boot
     $ sudo systemctl enable libvirtd
 
 -------------------
