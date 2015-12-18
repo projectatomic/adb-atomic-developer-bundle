@@ -44,7 +44,7 @@ These boxes contains the following components from the latest CentOS Core:
 
     1. The systemd startup for docker inside of the ADB will generate TLS certificates if they don't already exist.
     2. The user of the ADB exposes the docker daemon port in their Vagrantfile
-    3. The certificates are copied out by the `vagrant-adbinfo plugin.<https://github.com/bexelbie/vagrant-adbinfo>`_
+    3. The certificates are copied out by the `vagrant-adbinfo plugin <https://github.com/bexelbie/vagrant-adbinfo>`_.
 
   * kubernetes
   * File Synchronization
