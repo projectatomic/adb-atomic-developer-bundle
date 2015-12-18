@@ -11,8 +11,8 @@ end
 Vagrant.configure(2) do |config|
   config.vm.box = "projectatomic/adb"
 
-  # forward the guest port 2376 of `docker` daemon in guest to host port 2379 for client side tooling to connect
-  config.vm.network "forwarded_port", guest: 2376, host: 2379, auto_correct: true
+  # Setup a DHCP based private network
+  config.vm.network "private_network", type: "dhcp"
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
