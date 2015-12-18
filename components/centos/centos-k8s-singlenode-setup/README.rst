@@ -1,7 +1,11 @@
 Vagrantfile: CentOS Single Node Kubernetes
 ==========================================
 
-This Vagrantfile is the suggested configuration for using the ADB with Kubernetes.  This file sets up private networking that will be used to expose the docker daemon and kubernetes to the host.  This file also sets up a single node Kubernetes instance where the master and node are on the same machine.
+This Vagrantfile is the suggested configuration for using the ADB with
+Kubernetes.  This file sets up private networking that will be used to
+expose the docker daemon and kubernetes to the host.  This file also
+sets up a single node Kubernetes instance where the master and node are
+on the same machine.
 
 This Vagrantfile is useful for anyone using host-based tools, such as the `Eclipse docker tooling <https://wiki.eclipse.org/Linux_Tools_Project/Docker_Tooling>`_ or the kubernetes and docker CLIs, with the ADB.
 
@@ -24,10 +28,13 @@ QuickStart
 
 5. Proceed with using the ADB per `Using the Atomic Developer Bundle <../../../docs/using.rst>`_.
 
-  You may wish to ``vagrant ssh`` into the ADB and verify that Kubernetes is setup using the ``kubectl`` CLI as follows:
+   If you plan to access Kubernetes from the host, you may wish
+   to download ``kubectl`` for your platform from a `Kubernetes Release <https://gith  ub.com/kubernetes/kubernetes/releases>`_.
 
-  ::
+   You may wish to verify that Kubernetes is setup using the ``kubectl`` CLI as follows:
 
-    $ kubectl get nodes                                                                         
-    NAME        LABELS                             STATUS
-    127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
+   ::
+
+     $ kubectl get nodes                                                                         
+     NAME        LABELS                             STATUS
+     127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
