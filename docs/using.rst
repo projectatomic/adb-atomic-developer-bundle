@@ -22,11 +22,30 @@ Starting the Vagrant Box
 
    Box name is typically ``projectatomic/adb`` or whatever you named it when you loaded it manually.
 
-2. Start the Vagrant image with this command:
+2. Edit the ``Vagrantfile`` to setup private networking.  The private network is used to expose ADB-based services, such as the docker daemon, to the host.  This is done by adding the following line in the ``Vagrant.configure`` section.
+
+   ``config.vm.network "private_network", type: "dhcp"``
+
+3. Start the Vagrant image with this command:
     
    ``vagrant up``
 
    **Note:** On Fedora and CentOS you may need to specify which virtualization provider to use.  For example, to use VirtualBox, the command would be ``vagrant up --provider virtualbox``
+
+Using Custom Vagrantfiles for Specific Use Cases
+================================================
+
+Custom Vagrant files are shipped for specific use cases.  The README files contain useful documentation and a quickstart guide.
+
+- Docker for use with host-based tools or via ``vagrant ssh``
+  - `Vagrantfile<../components/centos/centos-docker-base-setup/Vagrantfile>`_
+  - `README<../components/centos/centos-docker-base-setup/README.rst>`_
+- Docker and Kubernetes for use with host-based tools or via ``vagrant ssh``
+  - `Vagrantfile<../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_
+  - `README<../components/centos/centos-k8s-singlenode-setup/README.rst>`_
+- OpenShift Origin for use with host-based tools or via ``vagrant ssh``
+  - `Vagrantfile<../components/centos/centos-openshift-setup/Vagrantfile>`_
+  - `README<../components/centos/centos-openshift-setup/README.rst>`_
 
 Using the box with Host-based Tools (Eclipse and CLIs)
 ======================================================
@@ -61,6 +80,8 @@ Today, the ADB exposures the docker daemon port so that tools like Eclipse and t
    If you are using the docker CLI, you can just run it from the command line and it will work as expected.  If you need to download a copy of the docker CLI, you can find it listed as a "client binary" download in the official `Docker Repositories <https://github.com/docker/docker/releases>`_.
 
    If you are using Eclipse, you should follow these steps:
+
+   **Note:** Testing has been done with Eclipse 4.5.0.
 
    1. Install the `Docker Tooling <http://www.eclipse.org/community/eclipse_newsletter/2015/june/article3.php>`_ plugin.
 

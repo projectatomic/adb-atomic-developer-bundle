@@ -10,13 +10,13 @@ Two virtualization providers have been tested with the ADB.
 
 * Microsoft Windows and Mac OS X
 
-  The suggested virtualization provider is `VirtualBox <https://www.virtualbox.org/>`_.  Installation instructions are available `online <https://www.virtualbox.org/manual/UserManual.html>`_.  While the latest stable shipping release should work, the majority of testing has been done with version 5.0.0 on Mac OS X and **XXX** on Microsoft Windows.
+  The suggested virtualization provider is `VirtualBox <https://www.virtualbox.org/>`_.  Installation instructions are available `online <https://www.virtualbox.org/manual/UserManual.html>`_.  While the latest stable shipping release should work, the majority of testing has been done with version 5.0.0 on Mac OS X and 5.0.8 on Microsoft Windows.
 
 * Fedora
 
   Two different virtualization providers are supported on Linux, `VirtualBox <https://www.virtualbox.org/>`_ and `libvirt <http://libvirt.org/>`_.  The choice as to which to use should be driven by your preferences and environmental concerns and is outside of the scope of this document.  Both will work equally well in their default configuration.  You may wish to read the section on file synchronization when making this decision.
 
-  * VirtualBox installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.
+  * VirtualBox installation instructions are available `online at the VirtualBox website <https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux>`_.  Testing has been done with versions 4.3.34 and 5.0.0.
 
     A summary of the installation is listed below:
 
@@ -30,7 +30,7 @@ Two virtualization providers have been tested with the ADB.
     
     While the latest stable release should work, the majority of testing has been done with version 4.3.30.
 
-  * Installing libvirt dependencies can be skipped as they are automatically installed together with `vagrant-libvirt` package.
+  * Installing libvirt dependencies can be skipped as they are automatically installed together with `vagrant-libvirt` package.  Testing has been done with libvirt version 1.2.18 and vagrant-libvirt versions through to 0.0.32.
 
 * CentOS
 
@@ -59,7 +59,7 @@ Two virtualization providers have been tested with the ADB.
 
 * Microsoft Windows
 
-  1. Follow the directions at `vagrantup.com <https://docs.vagrantup.com/v2/installation/index.html>`_
+  1. Follow the directions at `vagrantup.com <https://docs.vagrantup.com/v2/installation/index.html>`_  Testing has been done with version 1.7.4.
   2. Install an ``ssh`` client.  Two good options are:
 
      * `Cygwin <https://cygwin.com/install.html>`_
@@ -68,9 +68,11 @@ Two virtualization providers have been tested with the ADB.
 
 * Mac OS X
 
-  Follow the directions at `vagrantup.com <https://docs.vagrantup.com/v2/installation/index.html>`_
+  Follow the directions at `vagrantup.com <https://docs.vagrantup.com/v2/installation/index.html>`_  Testing has been done with version 1.7.4.
 
 * Fedora 21/22/23
+
+  Testing has been done with version 1.7.2.
 
   To install Vagrant with VirtualBox in Fedora 21/22/23:
 
@@ -114,13 +116,16 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
 
 * ``vagrant`` Initiated Download
 
-  The image is available at `https://atlas.hashicorp.com/atomicapp/boxes/dev <https://atlas.hashicorp.com/atomicapp/boxes/dev>`_. The ``vagrant`` program is capable of downloading the box the first time it is needed.  This happens when you first initialize a new vagrant environment by creating a Vagrantfile with this command:
+  The image is available at `https://atlas.hashicorp.com/projectatomic/boxes/adb <https://atlas.hashicorp.com/projectatomic/boxes/adb>`_. The ``vagrant`` program is capable of downloading the box the first time it is needed.  This happens when you first initialize a new vagrant environment.
+ 
+  If you wish to use a project provided vagrant file you should first get the Vagrantfile as directed in `Using the Atomic Developer Bundle <using.rst>`_ in the *Using Custom Vagrantfiles for Specific Use Cases* section.
+
+  Otherwise you can issue a ``vagrant init`` command per the below.  You may wish to review the `Using the Atomic Developer Bundle <using.rst>`_ Documentation before starting the ADB, especially if you are using host-based tools.
 
   ::
 
     # Add the image to vagrant
     $ vagrant init projectatomic/adb
-    $ vagrant up
 
 * Manually Downloading the Vagrant Box Image
 
@@ -140,25 +145,6 @@ There are two ways to download the ADB.  You can have ``vagrant`` do it for you 
 
     # Add the image to vagrant
     $ vagrant box add adb <local path to the downloded image>
-    $ vagrant init adb
-    $ vagrant up
 
 
--------------------
-4. Using custom vagrantfiles for specific use cases
--------------------
-
-There are custom vagrantfiles at `components  <../components>`_ directory which can be used for creating specific environments.
-
-* git clone the adb git repo
-* change in to the directory containing specific vagrantfile
-* do vagrant up
-
-Example:
-
-::
-     
-     $ git clone https://github.com/projectatomic/adb-atomic-developer-bundle.git
-     $ cd adb-atomic-developer-bundle/components/centos/centos-with-kubernetes
-     $ vagrant up
-
+At this point your Atomic Developer Bundle installation is complete.  You can find `Usage Information <using.rst>`_ in the documentation directory.
