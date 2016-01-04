@@ -1,0 +1,36 @@
+- hosts: localhost
+  sudo: yes
+  connection: local
+  tasks:
+          - name: Install Mesosphere repository
+            yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
+
+          - name: Installing zookeeper, mesos, marathon, docker, git
+            yum: name={{item}} state=latest
+            with_items:
+                - mesosphere-zookeeper 
+                - mesos 
+                - marathon
+                - docker
+                - git
+            register: result
+
+          - name: Starting zookeeper, mesos, marathon, docker
+            service: name={{item}} state=started enabled=yes
+            with_items:
+                - zookeeper
+                - mesos-master
+                - mesos-slave
+                - marathon
+                - docker
+
+          - name: Add docker containerizer
+            shell: echo 'docker,mesos' > /etc/mesos-slave/containerizers
+            when: result|success
+
+          - name: Increase timeout to account for docker pull delay
+            shell: echo '5mins' > /etc/mesos-slave/executor_registration_timeout
+            when: result|success
+
+          - name: Restart mesos-slave
+            service: name=mesos-slave state=restarted

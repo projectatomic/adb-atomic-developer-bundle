@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+	config.vm.box = "projectatomic/adb"
+
+    config.vm.provider "virtualbox" do |v, override|
+        v.memory = 2048
+        v.cpus = 2
+    end
+
+    config.vm.provider "libvirt" do |v, override|
+        v.driver = "kvm"
+        v.memory = 2048
+        v.cpus = 2
+    end
+    
+    config.vm.provision "shell", inline: <<-SHELL
+        sudo yum -y install epel-release
+        sudo yum -y install ansible
+        sudo ansible-playbook /vagrant/provisioning/playbook.yml
+    SHELL
+
+    config.vm.network "private_network", ip: "10.2.2.2"
+end
