@@ -54,6 +54,10 @@ tuned
 sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 
+# Add adb version info to consumed by adbinfo
+# https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
+echo "ADB_VERSION=\"2.0\"" >> /etc/os-release
+
 #Fixing https://github.com/projectatomic/adb-atomic-developer-bundle/issues/155
 echo "127.0.0.1     centos7-adb" >> /etc/hosts
 
