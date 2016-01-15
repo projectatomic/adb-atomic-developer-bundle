@@ -6,7 +6,7 @@
             yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
 
           - name: Installing zookeeper, mesos, marathon, docker, git
-            yum: name={{item}} state=latest
+            yum: name={{item}} state=present
             with_items:
                 - mesosphere-zookeeper 
                 - mesos 
