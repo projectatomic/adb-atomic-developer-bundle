@@ -32,7 +32,7 @@ ORIGIN_DIR="/var/lib/origin"
 # <https://docs.openshift.org/latest/welcome/index.html>`_.
 
 Vagrant.configure(2) do |config|
-  config.vm.box = 'adb'
+  config.vm.box = 'projectatomic/adb'
   config.vm.provider "virtualbox" do |v, override|
     v.memory = 2048
     v.cpus   = 2
