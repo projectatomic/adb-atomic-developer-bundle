@@ -98,23 +98,37 @@ Two virtualization providers have been tested with the ADB.
 
 .. _vagrantup.com: https://docs.vagrantup.com/v2/installation/index.html
 
-* Fedora 21/22/23
+* Fedora 22/23/Rawhide(24)
 
   Testing has been done with version 1.7.2.
 
-  To install Vagrant with VirtualBox in Fedora 21/22/23::
+  * To install Vagrant with VirtualBox in Fedora 22/23/24::
 
     $ sudo dnf install -y vagrant
 
-  To install Vagrant with libvirt in Fedora 21/22/23::
+  * To install Vagrant with libvirt in Fedora 22/23:
 
-    $ sudo dnf install -y vagrant-libvirt
+    Because of a bug in vagrant-libvirt, you must use the newest version, 0.0.32 or higher.  This version is currently only built in Rawhide (F24).  The command below performs a direct install of this package.[#F1]_
+  
+    ::
 
-    # Start libvirtd
-    $ sudo systemctl start libvirtd
+        $ sudo dnf install https://kojipkgs.fedoraproject.org//packages/vagrant-libvirt/0.0.32/1.fc24/noarch/vagrant-libvirt-0.0.32-1.fc24.noarch.rpm
 
-    # Set libvirtd to start automatically on system boot
-    $ sudo systemctl enable libvirtd
+        # Start libvirtd
+        $ sudo systemctl start libvirtd
+
+        # Set libvirtd to start automatically on system boot
+        $ sudo systemctl enable libvirtd
+
+  * To install Vagrant with libvirt in Fedora Rawhide(24)::
+
+        $ sudo dnf install -y vagrant-libvirt
+
+        # Start libvirtd
+        $ sudo systemctl start libvirtd
+
+        # Set libvirtd to start automatically on system boot
+        $ sudo systemctl enable libvirtd
 
 * CentOS
 
@@ -183,3 +197,6 @@ the first time you install it or you can download it manually.
 At this point your Atomic Developer Bundle installation is complete. You can
 find `Usage Information <using.rst>`_ in the documentation directory.
 
+.. [#F1] If you wish to downgrade back to your distributions included vagrant-libvirt, use `dnf downgrade`.
+
+    $ sudo dnf downgrade vagrant-libvirt
