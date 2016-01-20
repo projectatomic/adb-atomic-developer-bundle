@@ -65,6 +65,11 @@ contain useful documentation and a quickstart guide.
   * `Vagrantfile <../components/centos/centos-openshift-setup/Vagrantfile>`_
   * `README <../components/centos/centos-openshift-setup/README.rst>`_
 
+* Apache Mesos Marathon for use with host-based tools or via ``vagrant ssh``
+
+  * `Vagrantfile <../components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile>`_
+  * `README <../components/centos/centos-mesos-marathon-singlenode-setup/README.rst>`_
+
 Using the box with Host-based Tools (Eclipse and CLIs)
 ======================================================
 
