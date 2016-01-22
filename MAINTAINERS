@@ -1,6 +1,15 @@
-Brian Exelbierd <bexelbie@redhat.com> @bexelbie
-Lalatendu Mohanty <lmohanty@redhat.com> @LalatenduMohanty
-Langdon White <langdon@redhat.com> @whitel
-Navid Shaikh <nshaikh@redhat.com> @navidshaikh
-Josef Strzibny <strzibny@strzibny.name> @strzibny
-Praveen Kumar <prkumar@redhat.com> @praveenkumar
+Project/Code Maintainers
+------------------------
+- Brian Exelbierd <bex@pobox.com> @bexelbie
+- Praveen Kumar <prkumar@redhat.com> @praveenkumar
+- Lalatendu Mohanty <lmohanty@redhat.com> @LalatenduMohanty
+- Navid Shaikh <nshaikh@redhat.com> @navidshaikh
+- Josef Strzibny <strzibny@strzibny.name> @strzibny
+- Langdon White <langdon@redhat.com> @whitel
+
+atlas.hashicorp.com/projectatomic/adb Maintainers
+-------------------------------------------------
+- Brian Exelbierd <bex@pobox.com> @bexelbie
+- Praveen Kumar <prkumar@redhat.com> @praveenkumar
+- Lalatendu Mohanty <lmohanty@redhat.com> @LalatenduMohanty
+- Joe Brockmeier <jzb@redhat.com> @jzb - Project Level Backup
