@@ -4,7 +4,7 @@ Documentation=https://docs.openshift.org/
 After=docker.service
 Requires=docker.service
 Conflicts=etcd kube-apiserver kube-controller-manager kube-scheduler kube-proxy kubelet
- 
+
 [Service]
 TimeoutStartSec=0
 Restart=always
@@ -13,10 +13,11 @@ ExecStartPre=-/usr/bin/docker stop openshift
 ExecStartPre=-/usr/bin/docker rm openshift
 ExecStartPre=-/usr/bin/docker tag ${DOCKER_REGISTRY}/${IMAGE} openshift
 ExecStart=/usr/bin/sh -x /opt/adb/openshift $OPTIONS
+ExecStartPost=/bin/sleep 20
 ExecStartPost=/usr/bin/sh -x /opt/adb/openshift_provision
 KillMode=process
 Restart=on-failure
-RestartSec=50s
-   
+RestartSec=30s
+
 [Install]
 WantedBy=multi-user.target

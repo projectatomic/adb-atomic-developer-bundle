@@ -9,6 +9,33 @@ export ORIGIN_DIR="/var/lib/origin"
 export OPENSHIFT_DIR=${ORIGIN_DIR}/openshift.local.config/master
 export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig
 
+# The Docker registry from where we pull the OpenShift Enterprise Docker image
+echo "export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig" > /etc/profile.d/kubeconf.sh
+
+function usage
+{
+    echo "usage: openshift_provision [[[-r route ] [-host hostname]] | [-h]]"
+}
+
+# Command line options
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -r | --route )          shift
+                                route=$1
+                                ;;
+        -host | --hostname )    shift
+                                host=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
 # Give OpenShift time to start
 echo "[INFO] Waiting for OpenShift sever to come up ..."
 for i in {1..6}
@@ -110,7 +137,7 @@ fi
 if [ ! -f ${ORIGIN_DIR}/configured.user ]; then
   echo "[INFO] Creating 'test-admin' user and 'test' project ..."
   oadm policy add-role-to-user view test-admin --config=${OPENSHIFT_DIR}/admin.kubeconfig
-  oc login https://#{PUBLIC_ADDRESS}:8443 -u test-admin -p test \
+  oc login https://$host:8443 -u test-admin -p test \
         --certificate-authority=${OPENSHIFT_DIR}/ca.crt &>/dev/null
   oc new-project test --display-name="OpenShift 3 Sample" \
         --description="This is an example project to demonstrate OpenShift v3" &>/dev/null
