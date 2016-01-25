@@ -5,7 +5,7 @@
 DOCKER_REGISTRY="docker.io"
 
 # The name of the OpenShift image.
-ORIGIN_IMAGE_NAME="openshift/origin"
+ORIGIN_IMAGE_NAME="openshift/origin:v1.1.1"
 
 # The public IP address the VM created by Vagrant will get.
 # You will use this IP address to connect to OpenShift web console.
@@ -59,6 +59,11 @@ Vagrant.configure(2) do |config|
   # config.landrush.host_ip_address = "#{PUBLIC_ADDRESS}"
   # config.landrush.tld = "#{PUBLIC_HOST}"
   # config.landrush.guest_redirect_dns = false
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sed -i.back '/# INSECURE_REGISTRY=*/c\INSECURE_REGISTRY="--insecure-registry 172.30.0.0/16"' /etc/sysconfig/docker
+    systemctl restart docker.service
+  SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
     docker inspect openshift/origin &>/dev/null && exit 0
@@ -118,7 +123,8 @@ Vagrant.configure(2) do |config|
     # Create Docker Registry
     if [ ! -f #{ORIGIN_DIR}/configured.registry ]; then
       echo "[INFO] Configure Docker Registry ..."
-      oadm registry --create --credentials=${OPENSHIFT_DIR}/openshift-registry.kubeconfig
+      oadm registry --create --credentials=${OPENSHIFT_DIR}/openshift-registry.kubeconfig || exit 1
+      oadm policy add-scc-to-group anyuid system:authenticated || exit 1
       touch #{ORIGIN_DIR}/configured.registry
     fi
     # For router, we have to create service account first and then use it for
@@ -138,16 +144,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig
-    chmod go+r ${KUBECONFIG}
-    if [ ! -f ${ORIGIN_DIR}/configured.templates ]; then
-      echo "[INFO] Installing OpenShift templates"
-
-      # TODO - These list must be verified and completed for a official release
-      # Currently templates are sources from three main repositories
-      # - openshift/origin
-      # - openshift/nodejs-ex
-      # - jboss-openshift/application-templates
-      ose_tag=ose-v1.1.0
+    if [ ! -f #{ORIGIN_DIR}/configured.templates ]; then
+      echo "[INFO] Installing OpenShift templates ..."
+      ose_tag=ose-v1.2.0-1
       template_list=(
         # Image streams
         https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
@@ -177,12 +176,22 @@ Vagrant.configure(2) do |config|
         https://raw.githubusercontent.com/jboss-openshift/application-templates/${ose_tag}/eap/eap64-postgresql-persistent-s2i.json
         https://raw.githubusercontent.com/jboss-openshift/application-templates/${ose_tag}/eap/eap64-postgresql-s2i.json
       )
-
       for template in ${template_list[@]}; do
         echo "[INFO] Importing template ${template}"
         oc create -f $template -n openshift >/dev/null
       done
-      touch ${ORIGIN_DIR}/configured.templates
+      touch #{ORIGIN_DIR}/configured.templates
+    fi
+  SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig
+    if [ ! -f #{ORIGIN_DIR}/configured.templates ]; then
+      echo "[INFO] Installing OpenShift templates ..."
+      for name in $(find /opt/openshift/templates -name '*.json'); do
+        oc create -f $name -n openshift >/dev/null
+      done
+      touch #{ORIGIN_DIR}/configured.templates
     fi
   SHELL
 
