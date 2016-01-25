@@ -9,8 +9,6 @@ export ORIGIN_DIR="/var/lib/origin"
 export OPENSHIFT_DIR=${ORIGIN_DIR}/openshift.local.config/master
 export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig
 
-# The Docker registry from where we pull the OpenShift Enterprise Docker image
-echo "export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig" > /etc/profile.d/kubeconf.sh
 
 function usage
 {
@@ -40,7 +38,7 @@ done
 echo "[INFO] Waiting for OpenShift sever to come up ..."
 for i in {1..6}
 do
-  curl -ksSf https://10.0.2.15:8443/api > /dev/null 2>&1
+  curl -ksSf https://127.0.0.1:8443/api > /dev/null 2>&1
   if [ $? -ne 0 ]; then
     echo "[INFO] ..."
     sleep 5
@@ -50,7 +48,7 @@ do
 done
 
 # Final check whether OpenShift is running
-curl -ksSf https://10.0.2.15:8443/api > /dev/null 2>&1
+curl -ksSf https://127.0.0.1:8443/api > /dev/null 2>&1
 if [ $? -ne 0 ]; then
   >&2 echo "[ERROR] OpenShift failed to start:"
   docker logs openshift

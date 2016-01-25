@@ -95,7 +95,7 @@ for n in ${binaries[@]}; do
         docker run --rm --entrypoint=/bin/cat openshift /usr/bin/${n} > /usr/bin/${n}
         chmod +x /usr/bin/${n}
 done
-echo "export OPENSHIFT_DIR=#{ORIGIN_DIR}/openshift.local.config/master" > /etc/profile.d/openshift.sh
+echo "export OPENSHIFT_DIR=${ORIGIN_DIR}/openshift.local.config/master" > /etc/profile.d/openshift.sh
 
 # In a re-provision scenario we want to make sure the old container is removed
 rm_openshift_container
