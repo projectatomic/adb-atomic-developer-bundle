@@ -6,7 +6,7 @@ How to update the Atomic Developer Bundle to the latest version
 
   1. Check if a newer version of the box is available use this command::
 
-     vagrant box outdated
+      # vagrant box outdated
 
   2. If a newer version is available, the output should look like this::
 
@@ -20,12 +20,12 @@ How to update the Atomic Developer Bundle to the latest version
   3. If you see the above output, update the ADB Vagrant image with this
      command::
 
-     vagrant box update
+      # vagrant box update
 
   4. Once the image is updated, you can restart the ADB with the new version
      with this command::
 
-     vagrant up
+      # vagrant up
 
 * If you are using image from cloud.centos.org
 
