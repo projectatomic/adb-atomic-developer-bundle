@@ -41,7 +41,7 @@ In order to support this endeavor, the OS communities have started to make
 official "Vagrant boxes" available for both the main-line OS and the Atomic
 variants that are pre-configured to support container development.
 
- - Fedora: http://fedoraproject.org/wiki/Changes/Vagrant\_Box\_Atomic
+ - Fedora: http://fedoraproject.org/wiki/Changes/Vagrant_Box_Atomic
  - CentOS: TBD
  - RHEL: TBD
 
