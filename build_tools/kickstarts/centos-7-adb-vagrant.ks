@@ -45,6 +45,7 @@ nfs-utils
 PyYAML
 libyaml-devel
 tuned
+httpd-tools
 
 %end
 
