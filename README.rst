@@ -128,9 +128,9 @@ Detailed `installation instructions`_ are available.
 
    ``sudo dnf install vagrantup``
 
-3. Install the `vagrant-adbinfo`_ Vagrant plugin:
+3. Install the `vagrant-service-manager`_ Vagrant plugin:
 
-   ``vagrant plugin install vagrant-adbinfo``
+   ``vagrant plugin install vagrant-service-manager``
 
 4. Download the latest ADB from `atlas.hashicorp.com`_.  This can be
    done automatically by Vagrant:
@@ -141,14 +141,14 @@ Detailed `installation instructions`_ are available.
 
    ``$ sudo vagrant up``
 
-6. If you will be using host based tools, setup your environment with `vagrant-adbinfo`
+6. If you will be using host based tools, setup your environment with `vagrant-service-manager`
 
    ``$sudo vagrant adbinfo``
 
 .. _installation instructions: docs/installing.rst
 .. _Install VirtualBox: https://www.virtualbox.org/wiki/Downloads
 .. _Install Vagrant: https://docs.vagrantup.com/v2/installation/index.html
-.. _vagrant-adbinfo: https://github.com/projectatomic/vagrant-adbinfo
+.. _vagrant-service-manager: https://github.com/projectatomic/vagrant-service-manager
 .. _atlas.hashicorp.com: https://atlas.hashicorp.com/boxes/search
 
 What is full feature set?
