@@ -55,7 +55,7 @@ httpd-tools
 sed -i "/HWADDR/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 
-# Add adb version info to consumed by adbinfo
+# Add adb version info to consumed by vagrant-service-manager plugin
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Atomic Developer Bundle (ADB)\"" >> /etc/os-release
 echo "VARIANT_ID=\"adb\"" >> /etc/os-release

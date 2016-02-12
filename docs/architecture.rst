@@ -67,7 +67,7 @@ These boxes contains the following components from the latest CentOS Core:
 
     2. The user of the ADB exposes the docker daemon port in their Vagrantfile
 
-    3. The certificates are copied out by the `vagrant-adbinfo plugin`_
+    3. The certificates are copied out by the `vagrant-service-manager plugin`_
 
   * kubernetes
   * File Synchronization
@@ -78,7 +78,7 @@ These boxes contains the following components from the latest CentOS Core:
       easily
 
 .. _Atomic CLI: https://github.com/projectatomic/atomic
-.. _vagrant-adbinfo plugin: https://github.com/bexelbie/vagrant-adbinfo
+.. _vagrant-service-manager plugin: https://github.com/projectatomic/vagrant-service-manager
 
 Containers providing the following functionality:
 

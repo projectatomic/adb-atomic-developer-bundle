@@ -4,8 +4,8 @@
 #Vagrant file for libvirt/kvm and virtualbox provider
 
 # check if plugin is installed on system
-unless Vagrant.has_plugin?("vagrant-adbinfo")
-  raise "vagrant-adbinfo plugin is not installed, run `vagrant plugin install vagrant-adbinfo` to install the plugin."
+unless Vagrant.has_plugin?("vagrant-service-manager")
+  raise "vagrant-service-manager plugin is not installed, run `vagrant plugin install vagrant-service-manager` to install the plugin."
 end
 
 Vagrant.configure(2) do |config|
