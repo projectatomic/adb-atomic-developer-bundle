@@ -80,30 +80,30 @@ Today, the ADB exposures the docker daemon port so that tools like Eclipse and
 the docker CLI can interact with it. For security reasons, the docker daemon is
 TLS protected, so in addition to exposing the port you must configure the docker
 command on the host to use TLS and the right port. This can be done easily with
-the ``vagrant-adbinfo`` Vagrant plugin. The plugin will provide you with the TLS
+the ``vagrant-service-manager`` Vagrant plugin. The plugin will provide you with the TLS
 certificate and the proper environment variables.
 
-1. Install the ``vagrant-adbinfo`` plugin in order to get easy access to the
+1. Install the ``vagrant-service-manager`` plugin in order to get easy access to the
    correct environment variables and the TLS certificates.
 
    ::
 
-       vagrant plugin install vagrant-adbinfo
+       vagrant plugin install vagrant-service-manager
 
-   More information about the vagrant-adbinfo plugin is `available in the source
+   More information about the vagrant-service-manager plugin is `available in the source
    repository`_.
 
-.. _available in the source repository: https://github.com/projectatomic/vagrant-adbinfo
+.. _available in the source repository: https://github.com/projectatomic/vagrant-service-manager
 
-2. Get the correct environment variables and TLS certificates from the plugin.
+2. Get the correct environment variables and TLS certificates for `docker` using the plugin.
    The example below shows the command and the output for Linux::
 
-    $ vagrant adbinfo
+    $ vagrant service-manager env docker
     Set the following environment variables to enable access to the
     docker daemon running inside of the vagrant virtual machine:
 
     export DOCKER_HOST=tcp://172.13.14.1:5555
-    export DOCKER_CERT_PATH=/home/bexelbie/Repositories/vagrant-adbinfo/.vagrant/machines/default/virtualbox/.docker
+    export DOCKER_CERT_PATH=/home/foo/bar/adb/.vagrant/machines/default/virtualbox/.docker
     export DOCKER_TLS_VERIFY=1
     export DOCKER_MACHINE_NAME="90d3e96"
 
@@ -134,9 +134,9 @@ certificate and the proper environment variables.
    4. In the ``Docker Explorer`` view, click to add a connection. You should
       provide a "connection name." If your Environment Variables are set
       correctly, the remaining fields will autopopulate. If not, using the
-      output from ``vagrant adbinfo``, put the DOCKER_HOST variable in the "TCP
-      Connection" field and the DOCKER_CERT_PATH in the Authentication Section
-      Path.
+      output from ``vagrant service-manager env docker``, put the DOCKER_HOST
+      variable in the "TCP Connection" field and the DOCKER_CERT_PATH in the
+      "Authentication Section" Path.
 
    5. You can test the connection and then accept the results. At this point,
       you are ready to use the ADB with Eclipse.

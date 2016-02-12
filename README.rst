@@ -126,7 +126,7 @@ Detailed `installation instructions`_ are available.
 2. `Install Vagrant`_ for your operating system.  Linux users may wish
    to use their distribution provided package.
 
-   ``sudo dnf install vagrantup``
+   ``sudo dnf install vagrant``
 
 3. Install the `vagrant-service-manager`_ Vagrant plugin:
 
@@ -143,7 +143,7 @@ Detailed `installation instructions`_ are available.
 
 6. If you will be using host based tools, setup your environment with `vagrant-service-manager`
 
-   ``$sudo vagrant adbinfo``
+   ``$sudo vagrant service-manager --help``
 
 .. _installation instructions: docs/installing.rst
 .. _Install VirtualBox: https://www.virtualbox.org/wiki/Downloads
