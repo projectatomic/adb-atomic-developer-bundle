@@ -69,7 +69,7 @@ Vagrant.configure(2) do |config|
     docker inspect openshift/origin &>/dev/null && exit 0
     echo "[INFO] Pull the #{ORIGIN_IMAGE_NAME} Docker image ..."
     docker pull #{ORIGIN_IMAGE_NAME}
-    docker tag #{DOCKER_REGISTRY}/#{ORIGIN_IMAGE_NAME} #{ORIGIN_IMAGE_NAME}
+    docker tag -f #{DOCKER_REGISTRY}/#{ORIGIN_IMAGE_NAME} #{ORIGIN_IMAGE_NAME}
   SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
