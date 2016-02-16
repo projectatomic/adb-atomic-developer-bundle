@@ -19,4 +19,3 @@ koji -p cbs image-build \
   --scratch \
   --nowait \
   --disk-size=40
-
