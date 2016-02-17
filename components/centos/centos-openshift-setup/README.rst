@@ -1,9 +1,11 @@
-Vagrantfile: CentOS Docker Base
-===============================
+Vagrantfile: OpenShift setup in ADB Vagrant box
+===============================================
 
 This Vagrantfile sets up the ADB for development with OpenShift.  This file also sets up private networking that will be used to expose various services to the host.  This Vagrantfile also provisions an instance of `OpenShift Origin <http://www.openshift.org//>`_.
 
 If you are interested in the process used in the Vagranfile to setup OpenShift, please read the comments at the top of the file.
+
+The Vagrantfile changes after ADB 1.6.0 are not backward compatible.  So if you are using ADB prior to 1.7.0, you can find the old `Vagrantfile here <https://github.com/projectatomic/adb-atomic-developer-bundle/blob/v1.6.0/components/centos/centos-openshift-setup/Vagrantfile>`_
 
 QuickStart
 ----------
