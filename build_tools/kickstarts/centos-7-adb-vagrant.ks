@@ -46,6 +46,8 @@ PyYAML
 libyaml-devel
 tuned
 httpd-tools
+adb-utils
+centos-release-adb
 
 %end
 
