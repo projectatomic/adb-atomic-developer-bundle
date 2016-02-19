@@ -1,6 +1,25 @@
 # Changelog
 
-## v1.6.0 Jan 21, 2015
+## v1.7.0 Feb 17, 2016
+
+- Adding link to older OpenShift Vagrantfile   @LalatenduMohanty
+- Adding adb-utils, centos-release-adb    @LalatenduMohanty
+- Updates usage docs with renamed plugin vagrant-service-manager   @navidshaikh
+- Renames adbinfo with service-manager plugin in README    @navidshaikh
+- Bumping the os-release version to 1.7.0  @LalatenduMohanty
+- Fix #224 (Provision fails after rebooting the machine)  @praveenkumar
+- Fix #226 (cert-gen script should be part of adb-utils package)  @praveenkumar
+- Fix #222 httpd-tools package should be present in kickstart file  @praveenkumar
+- Added IP Address info to conf files of mesos-slave and Marathon @dharmit
+- Fixed a broken link   @containscafeine
+- Provide more debug output  @voxik
+- Fix #207 and #208    @praveenkumar
+- Updates the quotes for box update documentation  @navidshaikh
+- Updating MAINTAINERS for atlas.hashicorp.com info   @bexelbie
+- Add a Changelog   @bexelbie
+- Cleanup old ADB v1 files   @bexelbie
+
+## v1.6.0 Jan 21, 2016
 
 
 - Adds Praveen Kumar as maintainer for ADB @navidshaikh
