@@ -2,6 +2,26 @@
   sudo: yes
   connection: local
   tasks:
+
+          # Packages start services, this is why we need to configure it before install
+          - name: Create dir for Mesos Slave config
+            file: path=/etc/{{ item }} state=directory
+            with_items:
+                - marathon/conf
+                - mesos-slave
+
+          - name: Configure IP address for mesos-slave
+            shell: echo '{{ ip_address }}' > /etc/mesos-slave/ip
+
+          - name: Increase timeout to account for docker pull delay
+            shell: echo '5mins' > /etc/mesos-slave/executor_registration_timeout
+
+          - name: Add docker containerizer
+            shell: echo 'docker,mesos' > /etc/mesos-slave/containerizers
+
+          - name: Configure IP address for Marathon
+            shell: echo '{{ ip_address }}' > /etc/marathon/conf/hostname
+
           - name: Install Mesosphere repository
             yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
 
@@ -13,7 +33,6 @@
                 - marathon
                 - docker
                 - git
-            register: result
 
           - name: Starting zookeeper, mesos, marathon, docker
             service: name={{item}} state=started enabled=yes
@@ -24,13 +43,4 @@
                 - marathon
                 - docker
 
-          - name: Add docker containerizer
-            shell: echo 'docker,mesos' > /etc/mesos-slave/containerizers
-            when: result|success
 
-          - name: Increase timeout to account for docker pull delay
-            shell: echo '5mins' > /etc/mesos-slave/executor_registration_timeout
-            when: result|success
-
-          - name: Restart mesos-slave
-            service: name=mesos-slave state=restarted
