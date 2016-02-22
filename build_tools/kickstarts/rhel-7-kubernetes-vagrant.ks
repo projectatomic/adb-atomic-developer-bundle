@@ -82,6 +82,10 @@ WantedBy=multi-user.target
 EOF
 
 mv kube-apiserver.service /etc/systemd/system/
+
+# Fix for issue #250
+sed -i.back '/KUBE_API_ADDRESS=*/c\KUBE_API_ADDRESS="--address=0.0.0.0"' /etc/kubernetes/apiserver
+
 systemctl daemon-reload
 
 # set tuned profile to force virtual-guest

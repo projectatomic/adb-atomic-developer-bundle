@@ -100,6 +100,9 @@ LimitNOFILE=65536
 WantedBy=multi-user.target
 EOF
 
+# Fix for issue #250
+sed -i.back '/KUBE_API_ADDRESS=*/c\KUBE_API_ADDRESS="--address=0.0.0.0"' /etc/kubernetes/apiserver
+
 mv kube-apiserver.service /etc/systemd/system/
 systemctl daemon-reload
 
