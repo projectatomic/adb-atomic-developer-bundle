@@ -56,18 +56,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
 
-
-  # On OS X you can enable Landrush to expose OpenShift routes to the host
-  # Install the Landrush plugin 'vagrant plugin install landrush'
-  # and comment in the lines below
-  # This won't work on Windows and on Linux the TLD ending on .local might cause
-  # problems
-  # config.vm.hostname = "#{PUBLIC_HOST}"
-  # config.landrush.enabled = true
-  # config.landrush.host_ip_address = "#{PUBLIC_ADDRESS}"
-  # config.landrush.tld = "#{PUBLIC_HOST}"
-  # config.landrush.guest_redirect_dns = false
-
  config.vm.provision "shell", inline: <<-SHELL
     docker inspect openshift/origin &>/dev/null && exit 0
     echo "[INFO] Pull the #{ORIGIN_IMAGE_NAME} Docker image ..."
