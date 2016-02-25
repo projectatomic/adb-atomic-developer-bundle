@@ -5,8 +5,8 @@
 DOCKER_REGISTRY="docker.io"
 
 # The name of the OpenShift image.
-ORIGIN_IMAGE_NAME="openshift/origin"
-ORIGIN_TAG="v1.1.1"
+IMAGE_NAME="openshift/origin"
+IMAGE_TAG="v1.1.1"
 
 # The public IP address the VM created by Vagrant will get.
 # You will use this IP address to connect to OpenShift web console.
@@ -61,18 +61,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
 
- config.vm.provision "shell", inline: <<-SHELL
-    docker inspect openshift/origin &>/dev/null && exit 0
-    echo "[INFO] Pull the #{ORIGIN_IMAGE_NAME} Docker image ..."
-    docker pull #{ORIGIN_IMAGE_NAME}:#{ORIGIN_TAG}
-    docker pull openshift/origin-haproxy-router:#{ORIGIN_TAG}
-    docker pull openshift/origin-deployer:#{ORIGIN_TAG}
-    docker pull openshift/origin-docker-registry:#{ORIGIN_TAG}
-    docker pull openshift/origin-sti-builder:#{ORIGIN_TAG}
-  SHELL
-
   config.vm.provision "shell", inline: <<-SHELL
-    sudo systemctl start openshift
+    sudo DOCKER_REGISTRY=#{DOCKER_REGISTRY} IMAGE_TAG=#{IMAGE_TAG} IMAGE_NAME=#{IMAGE_NAME} /usr/bin/sccli openshift
   SHELL
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
