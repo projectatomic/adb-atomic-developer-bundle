@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Usage:
+#
+# To use this Vagrantfile, you(optional):
+# * Connected to internal Red Hat network if you need to any package update
+# * Have 'vagrant-registration' plugin installed
+# * Have valid RH employee subscription account
+#
+# The public IP address the VM created by Vagrant will get.
+# You will use this IP address to connect to OpenShift web console.
+PUBLIC_ADDRESS="10.1.2.2"
+
+#check if vagrant-service-manager is installed on system
+unless Vagrant.has_plugin?("vagrant-service-manager")
+  raise "vagrant-service-manager plugin is not installed, run `vagrant plugin install vagrant-service-manager` to install the plugin."
+end
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "cdkv2"
+
+  config.registration.username = ENV['SUB_USERNAME']
+  config.registration.password = ENV['SUB_PASSWORD']
+
+  config.vm.provider "virtualbox" do |v, override|
+    v.memory = 1024
+    v.cpus   = 2
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+
+  config.vm.provider "libvirt" do |v, override|
+    v.driver = "kvm"
+    v.memory = 1024
+    v.cpus   = 2
+  end
+
+  config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo systemctl start openshift
+    sudo systemctl enable openshift
+  SHELL
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    echo "You can now access OpenShift console on: https://#{PUBLIC_ADDRESS}:8443/console"
+    echo
+    echo "Configured basic user: openshift-dev, Password: devel"
+    echo
+    echo "Configured cluster admin user: admin, Password: admin"
+    echo
+    echo "To use OpenShift CLI, run:"
+    echo "$ vagrant ssh"
+    echo "$ oc login"
+    echo
+    echo "To browse the OpenShift API documentation, follow this link:"
+    echo "http://openshift3swagger-claytondev.rhcloud.com"
+    echo
+    echo "Then enter this URL:"
+    echo https://#{PUBLIC_ADDRESS}:8443/swaggerapi/oapi/v1
+    echo "."
+  SHELL
+
+end
