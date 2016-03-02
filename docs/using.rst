@@ -107,7 +107,7 @@ certificate and the proper environment variables.
     export DOCKER_TLS_VERIFY=1
     export DOCKER_MACHINE_NAME="90d3e96"
 
-   *Note:* The output is similar for Mac OS X. On Microsoft Windows the
+   **Note:** The output is similar for Mac OS X. On Microsoft Windows the
    environment is setup using the `setx` command.
 
    Setting these environment variables allows program, such as Eclipse and the
@@ -173,7 +173,7 @@ Details on these projects can be found at these urls:
 
 The `helloapache`_ example can be used to test your installation.
 
-*Note:* Many Nulecule examples expect a working kubernetes environment. To setup
+**Note:** Many Nulecule examples expect a working kubernetes environment. To setup
 a single node kubernetes environment use the `Vagrantfile`_ and refer the
 corresponding `README`_.
 
