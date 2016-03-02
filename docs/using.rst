@@ -76,7 +76,7 @@ Using the box with Host-based Tools (Eclipse and CLIs)
 Many users may wish to use the ADB from their Host so it can seamlessly interact
 with their files, preferred development tools, etc.
 
-Today, the ADB exposures the docker daemon port so that tools like Eclipse and
+Today, the ADB exposes the docker daemon port so that tools like Eclipse and
 the docker CLI can interact with it. For security reasons, the docker daemon is
 TLS protected, so in addition to exposing the port you must configure the docker
 command on the host to use TLS and the right port. This can be done easily with
