@@ -41,9 +41,15 @@ Two virtualization providers have been tested with the ADB.
     While the latest stable release should work, the majority of testing has
     been done with version 4.3.30.
 
-  * Installing libvirt dependencies can be skipped as they are automatically
-    installed together with ``vagrant-libvirt`` package. Testing has been done
-    with libvirt version 1.2.18 and vagrant-libvirt versions through to 0.0.32.
+  * Normally installing libvirt dependencies could be skipped as they are automatically
+    installed together with ``vagrant-libvirt`` package. However, in
+    Fedora 23 this is not currently the case.  The following dependencies
+    must be installed manually::
+
+      $ sudo dnf -y install libvirt-devel ruby-devel
+
+    Testing has been done with libvirt version 1.2.18 and vagrant-libvirt
+    versions through to 0.0.32.
 
 * CentOS
 
@@ -102,33 +108,19 @@ Two virtualization providers have been tested with the ADB.
 
   Testing has been done with version 1.7.2.
 
-  * To install Vagrant with VirtualBox in Fedora 22/23/24::
+  * To install Vagrant with VirtualBox in Fedora 22/23/24 (Rawhide)::
 
     $ sudo dnf install -y vagrant
 
-  * To install Vagrant with libvirt in Fedora 22/23:
+  * To install Vagrant with libvirt in Fedora 22/23/24 (Rawhide)::
 
-    Because of a bug in vagrant-libvirt, you must use the newest version, 0.0.32 or higher.  This version is currently only built in Rawhide (F24).  The command below performs a direct install of this package.[#F1]_
-  
-    ::
+      $ sudo dnf -y install vagrant-libvirt
 
-        $ sudo dnf install https://kojipkgs.fedoraproject.org//packages/vagrant-libvirt/0.0.32/1.fc24/noarch/vagrant-libvirt-0.0.32-1.fc24.noarch.rpm
+      # Start libvirtd
+      $ sudo systemctl start libvirtd
 
-        # Start libvirtd
-        $ sudo systemctl start libvirtd
-
-        # Set libvirtd to start automatically on system boot
-        $ sudo systemctl enable libvirtd
-
-  * To install Vagrant with libvirt in Fedora Rawhide(24)::
-
-        $ sudo dnf install -y vagrant-libvirt
-
-        # Start libvirtd
-        $ sudo systemctl start libvirtd
-
-        # Set libvirtd to start automatically on system boot
-        $ sudo systemctl enable libvirtd
+      # Set libvirtd to start automatically on system boot
+      $ sudo systemctl enable libvirtd
 
 * CentOS
 
