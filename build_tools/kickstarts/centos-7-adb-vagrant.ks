@@ -48,6 +48,7 @@ tuned
 httpd-tools
 adb-utils
 centos-release-adb
+openshift2nulecule
 
 %end
 
