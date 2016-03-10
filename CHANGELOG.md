@@ -1,5 +1,20 @@
 # Changelog
 
+
+## v1.7.1 Mar 9, 2016
+- Revert "Adding openshift2nulecule to ADB" @LalatenduMohanty
+- Adding openshift2nulecule to ADB @LalatenduMohanty
+- Update docs for Fedora libvirt @bexelbie
+- Fixing minor typos @Preeticp
+- Fixing a typo @Preeticp
+- Adding vagrant-service-manager to the Vagrantfiles @LalatenduMohanty
+- Removing the sed commands beacsue these are not required anymore @LalatenduMohanty
+- Deleting unneeded landrush information @bexelbie
+- Adding changelog for ADB 1.7.0 @LalatenduMohanty
+- Bumping the Vagrant box version in the build script to 1.7 @LalatenduMohanty
+- Support openstack provider in vagrantfiles @vrutkovs
+- Set ip address for marathon and mesos-slave before installing packages. @kadel
+
 ## v1.7.0 Feb 17, 2016
 
 - Adding link to older OpenShift Vagrantfile   @LalatenduMohanty
