@@ -12,11 +12,17 @@ VM_MEMORY = ENV['VM_MEMORY'] || 3072
 
 # Validate required plugins
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration)
-message = ->(name) { "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it." }
 errors = []
-REQUIRED_PLUGINS.each {|plugin| errors << message.call(plugin) unless Vagrant.has_plugin?(plugin) }
-msg = errors.size > 1 ? "Errors: \n* #{errors.join("\n* ")}" : "Error: #{errors.first}"
-raise Vagrant::Errors::VagrantError.new, msg unless errors.size == 0
+
+def message(name)
+  "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it."
+end
+# Validate and collect error message if plugin is not installed
+REQUIRED_PLUGINS.each { |plugin| errors << message(plugin) unless Vagrant.has_plugin?(plugin) }
+unless errors.empty?
+  msg = errors.size > 1 ? "Errors: \n* #{errors.join("\n* ")}" : "Error: #{errors.first}"
+  fail Vagrant::Errors::VagrantError.new, msg
+end
 
 Vagrant.configure(2) do |config|
   config.vm.box = "cdkv2"

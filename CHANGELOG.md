@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Fix-256: Add check for vagrant-registration plugin @budhrg
+- Refactored code for checking required plugins for CentOS files @budhrg
 - Update README for RHEL component @praveenkumar
 
 ## v1.8.0 Apr 5, 2016
