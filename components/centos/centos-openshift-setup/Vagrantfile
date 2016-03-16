@@ -10,7 +10,7 @@ IMAGE_TAG="v1.1.1"
 
 # The public IP address the VM created by Vagrant will get.
 # You will use this IP address to connect to OpenShift web console.
-PUBLIC_ADDRESS="10.1.2.2"
+PUBLIC_ADDRESS="10.1.2.5"
 PUBLIC_HOST="adb.cluster.io"
 
 #check if vagrant-service-manager is installed on system
