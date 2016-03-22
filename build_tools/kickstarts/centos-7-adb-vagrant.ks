@@ -47,7 +47,7 @@ tuned
 httpd-tools
 adb-utils
 centos-release-adb
-
+fuse-sshfs
 %end
 
 %post

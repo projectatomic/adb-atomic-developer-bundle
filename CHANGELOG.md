@@ -5,6 +5,7 @@
 - Update os-release to 1.8.0 @LalatenduMohanty
 - Remove docker-registry from installed packages @praveenkumar
 - Use copy rather than shell in ansible playbook for Mesos Vagrantfile @mscherer
+- Adding fuse-sshfs to the ADB box @LalatenduMohanty
 
 ## v1.7.2 Mar 24, 2016
 - Changes for release 1.7.2 @LalatenduMohanty
