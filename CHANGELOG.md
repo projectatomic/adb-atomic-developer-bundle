@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v1.8.0 Mar 23, 2016
+- Changes for release 1.8.0 @LalatenduMohanty
+- OpenShift Vagrantfile mod to reflect new command @bexelbie
+
 ## v1.7.1 Mar 9, 2016
 - Revert "Adding openshift2nulecule to ADB" @LalatenduMohanty
 - Adding openshift2nulecule to ADB @LalatenduMohanty
