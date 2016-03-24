@@ -1,8 +1,8 @@
 # Changelog
 
 
-## v1.8.0 Mar 23, 2016
-- Changes for release 1.8.0 @LalatenduMohanty
+## v1.7.2 Mar 24, 2016
+- Changes for release 1.7.2 @LalatenduMohanty
 - OpenShift Vagrantfile mod to reflect new command @bexelbie
 
 ## v1.7.1 Mar 9, 2016
