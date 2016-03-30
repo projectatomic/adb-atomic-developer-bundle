@@ -11,16 +11,24 @@
                 - mesos-slave
 
           - name: Configure IP address for mesos-slave
-            shell: echo '{{ ip_address }}' > /etc/mesos-slave/ip
+            copy: 
+                content: '{{ ip_address }}'
+                dest: /etc/mesos-slave/ip
 
           - name: Increase timeout to account for docker pull delay
-            shell: echo '5mins' > /etc/mesos-slave/executor_registration_timeout
+            copy: 
+                content: '5mins'
+                dest: /etc/mesos-slave/executor_registration_timeout
 
           - name: Add docker containerizer
-            shell: echo 'docker,mesos' > /etc/mesos-slave/containerizers
+            copy:
+                content: 'docker,mesos' 
+                dest: /etc/mesos-slave/containerizers
 
           - name: Configure IP address for Marathon
-            shell: echo '{{ ip_address }}' > /etc/marathon/conf/hostname
+            copy: 
+                content: '{{ ip_address }}'
+                dest: /etc/marathon/conf/hostname
 
           - name: Install Mesosphere repository
             yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
