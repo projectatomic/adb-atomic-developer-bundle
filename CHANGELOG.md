@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+- Update Vagrantfiles with RHEL files @LalatenduMohanty
 
 ## v1.7.2 Mar 24, 2016
 - Changes for release 1.7.2 @LalatenduMohanty
