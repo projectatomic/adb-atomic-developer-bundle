@@ -41,13 +41,6 @@ Two virtualization providers have been tested with the ADB.
     While the latest stable release should work, the majority of testing has
     been done with version 4.3.30.
 
-  * Normally installing libvirt dependencies could be skipped as they are automatically
-    installed together with ``vagrant-libvirt`` package. However, in
-    Fedora 23 this is not currently the case.  The following dependencies
-    must be installed manually::
-
-      $ sudo dnf -y install libvirt-devel ruby-devel
-
     Testing has been done with libvirt version 1.2.18 and vagrant-libvirt
     versions through to 0.0.32.
 
