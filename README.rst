@@ -212,7 +212,7 @@ We welcome issues and pull requests.  Want to be more involved, join us:
 
    *  Team Standup/Review
 
-      every Monday at 1000 UTC in IRC `freenode`_ #nulecule (.5 hour)
+      every Monday at 1300 UTC in IRC `freenode`_ #nulecule (.5 hour)
 
 **Note:** These meetings, mailing lists, and irc channels may include
 discussion of other Project Atomic components.
