@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
+- Removing the rhel-7-kubernetes-vagrant.ks file @LalatenduMohanty
 
 ## v1.7.2 Mar 24, 2016
 - Changes for release 1.7.2 @LalatenduMohanty
