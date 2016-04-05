@@ -9,6 +9,7 @@
 - Update README for RHEL component @praveenkumar
 - Fix #326 (dev part) disk partition fix @praveenkumar
 - Fix #332 Vagrantfile var name fix @optak
+- Removed kube-apiserver service file duplication @praveenkumar
 
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
