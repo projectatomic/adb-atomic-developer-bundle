@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
+- Update os-release to 1.8.0 @LalatenduMohanty
 
 ## v1.7.2 Mar 24, 2016
 - Changes for release 1.7.2 @LalatenduMohanty

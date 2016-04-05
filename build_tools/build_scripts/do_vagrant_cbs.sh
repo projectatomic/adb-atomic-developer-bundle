@@ -2,9 +2,9 @@
 #To see all options in koji -p command check "koji -p cbs image-build --help"
 
 koji -p cbs image-build \
-  centos-7-adb 1.7 atomic7-adb-common-el7 \
+  centos-7-adb 1.8 atomic7-adb-common-el7 \
   http://mirror.centos.org/centos/7/os/x86_64/ x86_64 \
-  --release=2 \
+  --release=0 \
   --distro RHEL-7.0 \
   --ksver RHEL7 \
   --kickstart=./build_tools/kickstarts/centos-7-adb-vagrant.ks \
