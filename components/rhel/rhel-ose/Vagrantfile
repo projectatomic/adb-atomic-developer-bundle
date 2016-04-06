@@ -1,65 +1,68 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Usage:
-#
-# To use this Vagrantfile, you(optional):
-# * Connected to internal Red Hat network if you need to any package update
-# * Have 'vagrant-registration' plugin installed
-# * Have valid RH employee subscription account
-#
-# The public IP address the VM created by Vagrant will get.
-# You will use this IP address to connect to OpenShift web console.
+# The private network IP of the VM. You will use this IP to connect to OpenShift.
 PUBLIC_ADDRESS="10.1.2.2"
 
-#check if vagrant-service-manager is installed on system
-unless Vagrant.has_plugin?("vagrant-service-manager")
-  raise "vagrant-service-manager plugin is not installed, run `vagrant plugin install vagrant-service-manager` to install the plugin."
-end
+# Number of virtualized CPUs
+VM_CPU = ENV['VM_CPU'] || 2
+
+# Amount of available RAM
+VM_MEMORY = ENV['VM_MEMORY'] || 3072
+
+# Validate required plugins
+REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration)
+message = ->(name) { "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it." }
+errors = []
+REQUIRED_PLUGINS.each {|plugin| errors << message.call(plugin) unless Vagrant.has_plugin?(plugin) }
+msg = errors.size > 1 ? "Errors: \n* #{errors.join("\n* ")}" : "Error: #{errors.first}"
+raise Vagrant::Errors::VagrantError.new, msg unless errors.size == 0
 
 Vagrant.configure(2) do |config|
   config.vm.box = "cdkv2"
 
-  config.registration.username = ENV['SUB_USERNAME']
-  config.registration.password = ENV['SUB_PASSWORD']
-
   config.vm.provider "virtualbox" do |v, override|
-    v.memory = 1024
-    v.cpus   = 2
+    v.memory = VM_MEMORY
+    v.cpus   = VM_CPU
     v.customize ["modifyvm", :id, "--ioapic", "on"]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
   config.vm.provider "libvirt" do |v, override|
+    v.memory = VM_MEMORY
+    v.cpus   = VM_CPU
     v.driver = "kvm"
-    v.memory = 1024
-    v.cpus   = 2
   end
 
   config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
 
+  if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
+    cdk.registration.username = ENV['SUB_USERNAME']
+    cdk.registration.password = ENV['SUB_PASSWORD']
+  end
+
   config.vm.provision "shell", inline: <<-SHELL
-    sudo systemctl start openshift
-    sudo systemctl enable openshift
+    systemctl enable openshift
+    systemctl start openshift
   SHELL
 
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    echo "You can now access OpenShift console on: https://#{PUBLIC_ADDRESS}:8443/console"
+  config.vm.provision "shell", inline: <<-SHELL
     echo
-    echo "Configured basic user: openshift-dev, Password: devel"
+    echo "Successfully started and provisioned VM with #{VM_CPU} cores and #{VM_MEMORY} MB of memory."
+    echo "To modify the number of cores and/or available memory set the environment variables"
+    echo "VM_CPU respectively VM_MEMORY."
     echo
-    echo "Configured cluster admin user: admin, Password: admin"
+    echo "You can now access the OpenShift console on: https://#{PUBLIC_ADDRESS}:8443/console"
     echo
     echo "To use OpenShift CLI, run:"
     echo "$ vagrant ssh"
-    echo "$ oc login"
+    echo "$ oc login #{PUBLIC_ADDRESS}:8443"
     echo
-    echo "To browse the OpenShift API documentation, follow this link:"
-    echo "http://openshift3swagger-claytondev.rhcloud.com"
+    echo "Configured users are (<username>/<password>):"
+    echo "openshift-dev/devel"
+    echo "admin/admin"
     echo
-    echo "Then enter this URL:"
-    echo https://#{PUBLIC_ADDRESS}:8443/swaggerapi/oapi/v1
-    echo "."
+    echo "If you have the oc client library on your host, you can also login from your host."
+    echo
   SHELL
-
 end
