@@ -130,6 +130,8 @@ Detailed `installation instructions`_ are available.
 
 3. Install the `vagrant-service-manager`_ Vagrant plugin:
 
+   ``sudo dnf install libvirt-devel``
+   
    ``vagrant plugin install vagrant-service-manager``
 
 4. Download the latest ADB from `atlas.hashicorp.com`_.  This can be
