@@ -8,9 +8,11 @@ Principles
 * Consider the ADB to be ephemeral and do not store data in it long term. It is
   recommended that you do the following:
 
-  * back up your code
-  * use a source control system
-  * mount your code into the box from your host system
+  * Back up your code.
+  * Use a source control system.
+  * Mount your code into the box from your host system.
+
+    * In case you are looking for bi-directional folder sync please refer to the `relevant section for bi-directional folder sync <#vagrant-bi-directional-folder-sync>`_.
 
   Doing these things is beyond the scope of this document. Consult your
   Operating System manuals and the `Vagrant <http://vagrantup.com/>`_ website
@@ -187,6 +189,31 @@ expected output is::
 .. _helloapache: https://registry.hub.docker.com/u/projectatomic/helloapache/
 .. _README: ../components/centos/centos-k8s-singlenode-setup/README.rst
 .. _Vagrantfile: ../components/centos/centos-k8s-singlenode-setup/Vagrantfile
+
+Vagrant bi-directional folder sync
+==================================
+
+For basic usage please refer to the `Vagrant documentation. <https://www.vagrantup.com/docs/synced-folders/basic_usage.html>`_
+
+Vagrant's synced folders is a very powerful feature providing a simple way to move files (e.g code) between host and Vagrant guest.
+
+The following synced folder types work out of the box with the ADB Vagrant box, both for Virtualbox as well as Libvirt/KVM :
+
+* `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs>`_ : works with Linux/GNU, OS X and Microsoft Windows.
+* `NFS <https://www.vagrantup.com/docs/synced-folders/nfs.html>`_ : works with Linux/GNU and OS X.
+
+There are however, some other alternatives too, which are not yet properly tested with ADB.
+
+* `SMB <https://www.vagrantup.com/docs/synced-folders/smb.html>`_ : For Microsoft Windows.
+
+  * You need to install cifs-utils RPM i.e. ``sudo yum install cifs-utils`` inside ADB for this to work.
+
+* `Virtualbox shared folder  <https://www.virtualbox.org/manual/ch04.html#sharedfolders>`_ : For Virtualbox users with Virtualbox guest additions.
+
+  * At this point of time Virtualbox guest additions do not come pre-installed in the ADB Vagrant box.
+  * For installation details please refer to `Virtualbox documentation <https://www.virtualbox.org/manual/ch04.html>`_.
+  * You can also use `vagrant-vbguest <https://github.com/dotless-de/vagrant-vbguest>`_ plugin to install Virtualbox guest additions in ADB Vagrant box.
+
 
 Destroying the Vagrant Box
 ==========================
