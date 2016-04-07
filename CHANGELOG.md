@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Update README for RHEL component @praveenkumar
+
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
 - Update os-release to 1.8.0 @LalatenduMohanty
