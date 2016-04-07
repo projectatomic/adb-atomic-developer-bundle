@@ -4,6 +4,7 @@
 - Fix-256: Add check for vagrant-registration plugin @budhrg
 - Refactored code for checking required plugins for CentOS files @budhrg
 - Update README for RHEL component @praveenkumar
+- Fix #326 (dev part) disk partition fix @praveenkumar
 
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
