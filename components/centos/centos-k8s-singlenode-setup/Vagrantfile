@@ -1,11 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-#check if vagrant-service-manager is installed on system
-unless Vagrant.has_plugin?("vagrant-service-manager")
-  raise "vagrant-service-manager plugin is not installed, run `vagrant plugin install vagrant-service-manager` to install the plugin."
-end
+REQUIRED_PLUGINS = %w(vagrant-service-manager)
+errors = []
 
+def message(name)
+  "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it."
+end
+# Validate and collect error message if plugin is not installed
+REQUIRED_PLUGINS.each { |plugin| errors << message(plugin) unless Vagrant.has_plugin?(plugin) }
+unless errors.empty?
+  msg = errors.size > 1 ? "Errors: \n* #{errors.join("\n* ")}" : "Error: #{errors.first}"
+  fail Vagrant::Errors::VagrantError.new, msg
+end
 
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
