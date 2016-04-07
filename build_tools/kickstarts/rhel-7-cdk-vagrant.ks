@@ -19,12 +19,11 @@ clearpart --all --drives=vda
 user --name=vagrant --password=vagrant
 
 part biosboot --fstype=biosboot --size=1
-part /boot --fstype ext4 --size=200 --ondisk=vda
-part pv.2 --size=1 --grow --ondisk=vda
-volgroup VolGroup00 --pesize=32768 pv.2
-logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=768 --grow --maxsize=1536
-# This should be paired with a build virtual disk size of ~40G, leaving space for docker volumes
-logvol / --fstype ext4 --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow --maxsize 20480
+part /boot --size=300 --fstype="xfs"
+part pv.01 --grow
+volgroup VolGroup00 pv.01
+logvol / --size=8192 --fstype="xfs" --name=root --vgname=VolGroup00
+
 reboot
 
 %packages
@@ -50,21 +49,24 @@ tuned
 httpd-tools
 cdk-entitlements
 cdk-utils
+fuse-sshfs
+openshift2nulecule
 %end
 
 %post
 # Originally taken entirely from original upstream Atomic project kickstart
 
 # TODO: Remove this as soon as BZ1281805 is resolved in the official 7.2 package set
+# It is still not resolved
 rpm -e docker-selinux
-rpm -Uvh http://download.devel.redhat.com/brewroot/packages/docker/1.8.2/8.el7/x86_64/docker-selinux-1.8.2-8.el7.x86_64.rpm
+rpm -Uvh http://download.eng.pnq.redhat.com/brewroot/packages/docker/1.9.1/25.el7/x86_64/docker-selinux-1.9.1-25.el7.x86_64.rpm
 
 
 # Add cdk version info to consumed by adbinfo
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Container Development Kit (CDK)\"" >> /etc/os-release
 echo "VARIANT_ID=\"cdk\"" >> /etc/os-release
-echo "VARIANT_VERSION=\"2.0.beta5\"" >> /etc/os-release
+echo "VARIANT_VERSION=\"2.0\"" >> /etc/os-release
 
 echo "127.0.0.1     rhel-cdk" >> /etc/hosts
 
@@ -188,18 +190,18 @@ done
 # execution environment
 /usr/bin/docker daemon --selinux-enabled --storage-driver devicemapper --storage-opt dm.fs=xfs --storage-opt dm.thinpooldev=/dev/mapper/VolGroup00-docker--pool --add-registry registry.access.redhat.com --ip-forward=false --iptables=false &
 DOCKER_PID=$!
-echo  "Waiting 10 seconds for it to settle"
-sleep 10
+echo  "Waiting 120 seconds for it to settle"
+sleep 120
 
 # Modify this as needed based on what you want to pre-pull
 # The tag renaming may not be strictly needed but having an image name
 # that points to an internal hostname will likely confuse people
 
-docker pull openshift3/ose:v3.1.0.4
-docker pull openshift3/ose-haproxy-router:v3.1.0.4
-docker pull openshift3/ose-deployer:v3.1.0.4
-docker pull openshift3/ose-docker-registry:v3.1.0.4
-docker pull openshift3/ose-sti-builder:v3.1.0.4
+docker pull openshift3/ose:v3.1.1.6
+docker pull openshift3/ose-haproxy-router:v3.1.1.6
+docker pull openshift3/ose-deployer:v3.1.1.6
+docker pull openshift3/ose-docker-registry:v3.1.1.6
+docker pull openshift3/ose-sti-builder:v3.1.1.6
 
 echo "Finished pull, running docker images for log debugging"
 docker images
