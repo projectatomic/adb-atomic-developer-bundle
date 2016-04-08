@@ -43,8 +43,8 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
 
   if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
-    cdk.registration.username = ENV['SUB_USERNAME']
-    cdk.registration.password = ENV['SUB_PASSWORD']
+    config.registration.username = ENV['SUB_USERNAME']
+    config.registration.password = ENV['SUB_PASSWORD']
   end
 
   config.vm.provision "shell", inline: <<-SHELL
