@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Replace RPM commands with YUM in CDK Kickstart file @LalatenduMohanty
 - Fix-256: Add check for vagrant-registration plugin @budhrg
 - Refactored code for checking required plugins for CentOS files @budhrg
 - Update README for RHEL component @praveenkumar
