@@ -47,10 +47,8 @@ Vagrant.configure(2) do |config|
     config.registration.password = ENV['SUB_PASSWORD']
   end
 
-  config.vm.provision "shell", inline: <<-SHELL
-    systemctl enable openshift
-    systemctl start openshift
-  SHELL
+  # vagrant-service-manager plugin will configure openshift service by default for CDK
+  # config.servicemanager.services = "docker, openshift"
 
   config.vm.provision "shell", inline: <<-SHELL
     echo
