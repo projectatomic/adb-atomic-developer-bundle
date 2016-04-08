@@ -5,6 +5,7 @@
 - Refactored code for checking required plugins for CentOS files @budhrg
 - Update README for RHEL component @praveenkumar
 - Fix #326 (dev part) disk partition fix @praveenkumar
+- Fix #332 Vagrantfile var name fix @optak
 
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
