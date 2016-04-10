@@ -185,8 +185,6 @@ expected output is::
 
 .. _helloapache: https://registry.hub.docker.com/u/projectatomic/helloapache/
 
-.. _Vagrantfile: ../components/centos/centos-k8s-singlenode-setup/Vagrantfile
-
 Destroying the Vagrant Box
 ==========================
 
