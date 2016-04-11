@@ -3,7 +3,6 @@
    :depth: 2
    :backlinks: none
 
-
 What is the Atomic Developer Bundle (ADB)?
 ==========================================
 

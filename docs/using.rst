@@ -1,3 +1,8 @@
+.. contents::
+   :local:
+   :depth: 2
+   :backlinks: none
+
 =================================
 Using the Atomic Developer Bundle
 =================================

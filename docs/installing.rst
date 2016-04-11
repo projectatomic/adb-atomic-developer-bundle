@@ -1,3 +1,8 @@
+.. contents::
+   :local:
+   :depth: 2
+   :backlinks: none
+
 ======================================
 Installing the Atomic Developer Bundle
 ======================================
