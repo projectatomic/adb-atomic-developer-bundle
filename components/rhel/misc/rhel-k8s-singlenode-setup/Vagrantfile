@@ -35,6 +35,9 @@ Vagrant.configure(2) do |config|
   end
   config.vm.network "private_network", type: "dhcp"
 
+  # Fix for ADB #334
+  config.servicemanager.services = 'docker'
+
   config.vm.provision "shell", inline: <<-SHELL
      sudo mkdir -p /etc/pki/kube-apiserver/
      sudo openssl genrsa -out /etc/pki/kube-apiserver/serviceaccount.key 2048

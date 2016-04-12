@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix #334: Disables openshift service for CDK k8s Vagrantfile @navidshaikh
 - Fix-256: Add check for vagrant-registration plugin @budhrg
 - Refactored code for checking required plugins for CentOS files @budhrg
 - Update README for RHEL component @praveenkumar
