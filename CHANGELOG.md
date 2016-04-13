@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix #342: Use systemctl to start openshift service in CDK OSE Vagrantfile @LalatenduMohanty
 - Fix #334: Disables openshift service for CDK k8s Vagrantfile @navidshaikh
 - Fix-256: Add check for vagrant-registration plugin @budhrg
 - Refactored code for checking required plugins for CentOS files @budhrg
