@@ -17,8 +17,10 @@ end
 Vagrant.configure(2) do |config|
   config.vm.box = "cdkv2"
 
-  config.registration.username = ENV['SUB_USERNAME']
-  config.registration.password = ENV['SUB_PASSWORD']
+  if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
+    config.registration.username = ENV['SUB_USERNAME']
+    config.registration.password = ENV['SUB_PASSWORD']
+  end
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
