@@ -63,7 +63,7 @@ Vagrant.configure(2) do |config|
     echo "setup master"
     for service in etcd kube-apiserver kube-controller-manager kube-scheduler; do
       echo "  enable $service"
-      sudo systemctl enable $service
+      sudo systemctl enable $service > /dev/null 2>&1
 
       echo "  start $service"
       sudo systemctl start $service
@@ -72,7 +72,7 @@ Vagrant.configure(2) do |config|
     echo "setup nodes"
     for service in kube-proxy kubelet; do
       echo "  enable $service"
-      sudo systemctl enable $service
+      sudo systemctl enable $service > /dev/null 2>&1
 
       echo "  start $service"
       sudo systemctl start $service
