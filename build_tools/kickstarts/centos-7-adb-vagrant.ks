@@ -70,38 +70,6 @@ echo "127.0.0.1     centos7-adb" >> /etc/hosts
 yum remove -y docker-selinux
 yum install -y docker-selinux
 
-#Fixing issue #29
-cat << EOF > kube-apiserver.service
-[Unit]
-Description=Kubernetes API Server
-Documentation=https://github.com/GoogleCloudPlatform/kubernetes
-After=network.target
-
-[Service]
-EnvironmentFile=-/etc/kubernetes/config
-EnvironmentFile=-/etc/kubernetes/apiserver
-User=kube
-ExecStart=/usr/bin/kube-apiserver \\
-            \$KUBE_LOGTOSTDERR \\
-            \$KUBE_LOG_LEVEL \\
-            \$KUBE_ETCD_SERVERS \\
-            \$KUBE_API_ADDRESS \\
-            \$KUBE_API_PORT \\
-            \$KUBELET_PORT \\
-            \$KUBE_ALLOW_PRIV \\
-            \$KUBE_SERVICE_ADDRESSES \\
-            \$KUBE_ADMISSION_CONTROL \\
-            \$KUBE_API_ARGS
-Restart=on-failure
-LimitNOFILE=65536
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-mv kube-apiserver.service /etc/systemd/system/
-systemctl daemon-reload
-
 # set tuned profile to force virtual-guest
 tuned-adm profile virtual-guest
 
