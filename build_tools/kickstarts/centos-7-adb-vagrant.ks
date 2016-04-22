@@ -77,6 +77,9 @@ tuned-adm profile virtual-guest
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
+# Fix #103 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
+echo "LC_ALL=en_US.utf-8" >> /etc/locale.conf
+
 # Fix for #128 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/128)
 cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
 DEVICE="eth0"

@@ -109,6 +109,9 @@ tuned-adm profile virtual-guest
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
+# Fix #103 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
+echo "LC_ALL=en_US.utf-8" >> /etc/locale.conf
+
 #Fix for issue #128 upstrem ADB
 # VM won't start consistenly and abort startup with a timeout #128
 cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
