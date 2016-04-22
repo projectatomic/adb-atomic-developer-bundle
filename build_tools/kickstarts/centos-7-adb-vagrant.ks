@@ -48,6 +48,7 @@ httpd-tools
 adb-utils
 centos-release-adb
 fuse-sshfs
+openshift2nulecule
 %end
 
 %post
