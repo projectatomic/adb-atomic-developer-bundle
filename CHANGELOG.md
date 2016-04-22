@@ -10,6 +10,7 @@
 - Fix #326 (dev part) disk partition fix @praveenkumar
 - Fix #332 Vagrantfile var name fix @optak
 - Removed kube-apiserver service file duplication @praveenkumar
+- Added Notes on Default for ADB/CDK; Docker version mismatch; and moved relevant VSM steps.@preeticp
 
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty

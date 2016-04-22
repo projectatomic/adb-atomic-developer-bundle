@@ -10,18 +10,17 @@ Using the Atomic Developer Bundle
 Principles
 ==========
 
-* Consider the ADB to be ephemeral and do not store data in it long term. It is
-  recommended that you do the following:
+Consider the ADB to be ephemeral and do not store data in it long term. It is 
+recommended that you do the following:
 
-  * Back up your code.
-  * Use a source control system.
-  * Mount your code into the box from your host system.
+* Back up your code.
+* Use a source control system.
+* Mount your code into the box from your host system.
+  * In case you are looking for bi-directional folder sync please refer to the `relevant section for bi-directional folder sync <#vagrant-bi-directional-folder-sync>`_.
 
-    * In case you are looking for bi-directional folder sync please refer to the `relevant section for bi-directional folder sync <#vagrant-bi-directional-folder-sync>`_.
-
-  Doing these things is beyond the scope of this document. Consult your
-  Operating System manuals and the `Vagrant <http://vagrantup.com/>`_ website
-  for more details.
+Doing these things is beyond the scope of this document. Consult your Operating
+System manuals and the `Vagrant <http://vagrantup.com/>`_ website for more 
+details.
 
 Starting the Vagrant Box
 ========================
@@ -77,59 +76,76 @@ contain useful documentation and a quickstart guide.
   * `Vagrantfile <../components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile>`_
   * `README <../components/centos/centos-mesos-marathon-singlenode-setup/README.rst>`_
 
-Using the box with Host-based Tools (Eclipse and CLIs)
+Using the ADB with Host-based Tools (Eclipse and CLIs)
 ======================================================
 
-Many users may wish to use the ADB from their Host so it can seamlessly interact
-with their files, preferred development tools, etc.
+Many users have preferred development environments built from tools running on their development workstation. Those workstations may not be able to run containers or container-components natively, however the user may still want to use their preferred tools, editors, etc. The ADB can be used with these tools in a way that makes it seamless to interact with files, preferred development tools, etc.
 
-Today, the ADB exposes the docker daemon port so that tools like Eclipse and
-the docker CLI can interact with it. For security reasons, the docker daemon is
-TLS protected, so in addition to exposing the port you must configure the docker
-command on the host to use TLS and the right port. This can be done easily with
-the ``vagrant-service-manager`` Vagrant plugin. The plugin will provide you with the TLS
-certificate and the proper environment variables.
+The ADB exposes the docker daemon port and orchestrator access points so that tools like Eclipse and various CLIs can interact with them. For security reasons, some ports, such as the docker daemon port, are TLS protected.  Therefore some configuration is required before the service can be accessed. 
+Vagrant-service-manager makes this configuration much simpler for you by providing easy access to the TLS certificates and the other environment variables or configuration information.
 
-1. Install the ``vagrant-service-manager`` plugin in order to get easy access to the
-   correct environment variables and the TLS certificates.
+To use ADB with Host-Based tools:
+
+1. Install the vagrant-service-manager plugin. 
 
    ::
 
        vagrant plugin install vagrant-service-manager
 
-   More information about the vagrant-service-manager plugin is `available in the source
-   repository`_.
+   More information about the vagrant-service-manager plugin is available in the `source repository`_.
+.. _source repository: https://github.com/projectatomic/vagrant-service-manager
 
-.. _available in the source repository: https://github.com/projectatomic/vagrant-service-manager
+2. Enable the desired service(s) in the ADB Vagrantfile as:
+`config.servicemanager.services = 'openshift'`
+	
+   **Note:**
+   * Docker is a default service for ADB boxes and does not require any configuration to ensure it is started. Additionally, Red Hat Enterprise Linux Container Development Kit boxes, which are based on the Atomic Developer Bundle, also, automatically start OpenShift.
+   * You can enable multiple services as a comma separated list. Eg: `docker, openshift`.
 
-2. Get the correct environment variables and TLS certificates for `docker` using the plugin.
-   The example below shows the command and the output for Linux::
+3. Enable any specific options for the services you have selected as:
+   
+   * OpenShift: Specific versions can be specified using the following variables: 
+     1. `config.servicemanager.openshift_docker_registry = "docker.io"` - Specifies the registry from where the service should be pulled.
+     2. `config.servicemanager.openshift_image_name = "openshift/origin"` - Specifies the image to be used.
+     3. `config.servicemanager.openshift_image_tag = "v1.1.1"` - Specifies the version of the image to be used.
 
-    $ vagrant service-manager env docker
-    Set the following environment variables to enable access to the
-    docker daemon running inside of the vagrant virtual machine:
+4. Start the ADB using `vagrant up`. For details consult the [Installation documentation](https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst).
 
-    export DOCKER_HOST=tcp://172.13.14.1:5555
-    export DOCKER_CERT_PATH=/home/foo/bar/adb/.vagrant/machines/default/virtualbox/.docker
-    export DOCKER_TLS_VERIFY=1
-    export DOCKER_MACHINE_NAME="90d3e96"
+5. Configure the environment and download the required TLS certificates using the plugin.
+   The example below shows the command and the output for Linux and Mac OS X. On Microsoft Windows the output may vary depending on the execution environment.::
 
-   **Note:** The output is similar for Mac OS X. On Microsoft Windows the
-   environment is setup using the `setx` command.
+    	$ vagrant service-manager env 
+    	Configured services:
+    	docker - running
+        openshift - stopped
+    	kubernetes - stopped
+	docker env:
+    	# Set the following environment variables to enable access to the
+    	# docker daemon running inside of the vagrant virtual machine:
+    	export DOCKER_HOST=tcp://172.28.128.182:2376
+    	export DOCKER_CERT_PATH=/home/pchandra/test_adb/.vagrant/machines/default/libvirt/docker
+    	export DOCKER_TLS_VERIFY=1
+    	export DOCKER_API_VERSION=1.20
+    	# run following command to configure your shell:
+    	# eval "$(vagrant service-manager env docker)"
 
-   Setting these environment variables allows program, such as Eclipse and the
+   Setting these environment variables allows programs, such as Eclipse and the
    docker CLI to access the docker daemon.
 
-3. Begin developing.
+6. Begin developing.
 
    If you are using the docker CLI, you can just run it from the command line
    and it will work as expected.  If you need to download a copy of the docker
    CLI, you can find it listed as a "client binary" download in the official
    `Docker Repositories <https://github.com/docker/docker/releases>`_.
 
-   If you are using Eclipse, you should follow these steps:
+   **Note:** If you encounter a Docker client and server version mismatch such as :
+   `$ docker ps`
+   `Error response from daemon: client is newer than server (client API version: 1.21, server API version: 1.20)`
+   You will need to download an earlier compatible version of Docker for your host machine.  Docker release versions and docker API versions are not the same. Typically, you will need to try the previous release (i.e. if you get this error message using a docker 1.9 CLI, try a docker 1.8 CLI).
 
-   **Note:** Testing has been done with Eclipse 4.5.0.
+
+   If you are using Eclipse, you should follow these steps:
 
    1. Install the `Docker Tooling`_ plugin.
 
@@ -138,17 +154,16 @@ certificate and the proper environment variables.
 
    3. Enable the Console by choosing Windows->Show Views->Console.
 
-   4. In the ``Docker Explorer`` view, click to add a connection. You should
-      provide a "connection name." If your Environment Variables are set
-      correctly, the remaining fields will autopopulate. If not, using the
+   4. In the ``Docker Explorer`` view, click to add a connection. You should provide a "connection name." 
+      If your Environment Variables are set correctly, the remaining fields will auto-populate. If not, using the
       output from ``vagrant service-manager env docker``, put the DOCKER_HOST
       variable in the "TCP Connection" field and the DOCKER_CERT_PATH in the
       "Authentication Section" Path.
 
-   5. You can test the connection and then accept the results. At this point,
-      you are ready to use the ADB with Eclipse.
+   5. You can test the connection and then accept the results. At this point, you are ready to use the ADB with Eclipse.
 
 .. _Docker Tooling: http://www.eclipse.org/community/eclipse_newsletter/2015/june/article3.php
+      **Note:** Testing has been done with Eclipse 4.5.0.
 
 Using the box via SSH
 =====================
@@ -164,8 +179,8 @@ commands and use the tools provided.
 Using ``docker``
 ################
 
-The ADB provides a full container environment and is running both ``docker`` and
-``kubernetes``. All standard commands will work, for example::
+The ADB provides a full container environment and runs both ``docker`` and
+``kubernetes``. All standard commands work, for example::
 
    docker pull centos
    docker run -t -i centos /bin/bash
@@ -180,10 +195,9 @@ Details on these projects can be found at these urls:
 
 The `helloapache`_ example can be used to test your installation.
 
-**Note:** Many Nulecule examples expect a working kubernetes environment. To setup
-a single node kubernetes environment use the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_ and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
+**Note:** Many Nulecule examples expect a working kubernetes environment. To setup a single node kubernetes environment use the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_ and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
 
-You can verify your environment with by executing ``kubectl get nodes``. The
+You can verify your environment by executing ``kubectl get nodes``. The
 expected output is::
 
     $ kubectl get nodes
