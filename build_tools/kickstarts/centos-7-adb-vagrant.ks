@@ -52,10 +52,6 @@ fuse-sshfs
 
 %post
 
-#downgrade python-docker-py
-#Workaround for https://github.com/projectatomic/adb-atomic-developer-bundle/issues/279#issuecomment-194110557
-yum downgrade python-docker-py -y
-
 # Add adb version info to consumed by vagrant-service-manager plugin
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Atomic Developer Bundle (ADB)\"" >> /etc/os-release
