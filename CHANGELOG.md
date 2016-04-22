@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Update os-release to 2.0.0 @LalatenduMohanty
 - Fix #103: build_tools/kickstarts/rhel-7-cdk-vagrant.ks @praveenkumar
 - Fix #345: Suppress logs of openssl genrsa on Vagrant up for Kubernetes @budhrg
 - Fix #342: Use systemctl to start openshift service in CDK OSE Vagrantfile @LalatenduMohanty
