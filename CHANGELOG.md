@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Remove the workaround for downgrading python-docker-py @LalatenduMohanty
 - Update os-release to 2.0.0 @LalatenduMohanty
 - Fix #103: build_tools/kickstarts/rhel-7-cdk-vagrant.ks @praveenkumar
 - Fix #345: Suppress logs of openssl genrsa on Vagrant up for Kubernetes @budhrg
