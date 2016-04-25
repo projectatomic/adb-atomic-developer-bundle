@@ -99,6 +99,7 @@ The ADB is built on top of `CentOS 7`_ and contains the following:
 * `Atomic CLI`_: container usage assistance
 * `Kubernetes`_: container orchestration
 * `OpenShift Origin`_: a next generation PaaS for docker containers.
+* `openshift2nulecule`_: a tool that creates a Nulecule application from an existing OpenShift project
 
 The ADB supports `Atomic App`_, an implementation of the multi-container
 application specification, `nulecule`_ for multi-container applications.
@@ -110,6 +111,7 @@ application specification, `nulecule`_ for multi-container applications.
 .. _OpenShift Origin: http://www.openshift.org/
 .. _Atomic App: https://github.com/projectatomic/atomicapp/
 .. _nulecule: https://github.com/projectatomic/nulecule/
+.. _openshift2nulecule: https://github.com/projectatomic/openshift2nulecule/
 
 How do I Install and Run the Atomic Developer Bundle (ADB)?
 ===========================================================
