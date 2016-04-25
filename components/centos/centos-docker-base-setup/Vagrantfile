@@ -53,4 +53,5 @@ Vagrant.configure(2) do |config|
     config.ssh.private_key_path = ENV['OS_PRIVATE_KEYPATH']
     config.ssh.username = 'vagrant'
   end
+  # config.servicemanager.services = 'docker'
 end
