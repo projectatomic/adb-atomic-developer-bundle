@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+
+## v2.0.0 Apr 28, 2016
 - Fix #351 Suppress logs from systemctl enable for kubernetes @praveenkumar
 - Remove the workaround for downgrading python-docker-py @LalatenduMohanty
 - Adding openshift2nulecule to ADB @LalatenduMohanty
