@@ -200,23 +200,11 @@ Documentation
 Interested in Contributing to this project?
 ===========================================
 
-We welcome issues and pull requests.  Want to be more involved, join us:
+We welcome new ideas, suggestions, issues and pull requests.  Want to be more involved, join us:
 
 * Mailing List: `container-tools@redhat.com`_
 * IRC: #atomic and #nulecule on `freenode`_
-* Meetings:
-   *  Planning and Integration Meeting:
-
-      every Wednesday at 1230 UTC in a Bluejean `Video Conference`_.
-      Alternately, a local `phone access number`_ may be available.
-      (1 hour)
-
-   *  Team Standup/Review
-
-      every Monday at 1300 UTC in IRC `freenode`_ #nulecule (.5 hour)
-
-**Note:** These meetings, mailing lists, and irc channels may include
-discussion of other Project Atomic components.
+* Weekly Standup/Review/Plannng Meeting: Every Monday at 1300 UTC in #nulecule (`freenode`_) for 0.5 hour.
 
 Documentation is written using `reStructuredText`_. An `online
 reStructuredText editor`_ is available.
