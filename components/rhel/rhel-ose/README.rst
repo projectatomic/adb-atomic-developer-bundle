@@ -28,9 +28,16 @@ QuickStart
 
   You may wish to verify that OpenShift is setup using the ``oc`` CLI as follows:
 
-  1. Login to OpenShift using *oc* (username: openshift-dev, password: devel)
+  1. Login to OpenShift using *oc*
 
-    ``$ oc login``
+    ``$ oc login <ip>:<port>``
+
+    Defaults:
+      * The default configured users are (username/password):
+          * openshift-dev/devel
+          * admin/admin
+      * The default IP is 10.1.2.2
+      * The default port is 8443.
 
   2. Create a `test` project to OpenShift using *oc* 
 
