@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Fix #353: Add VSM config to docker setup and removed Vagrantbox Readme @praveenkumar
 
 ## v2.0.0 Apr 28, 2016
 - Fix #351 Suppress logs from systemctl enable for kubernetes @praveenkumar
