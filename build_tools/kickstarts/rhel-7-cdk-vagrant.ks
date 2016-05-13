@@ -198,12 +198,13 @@ sleep 120
 # Modify this as needed based on what you want to pre-pull
 # The tag renaming may not be strictly needed but having an image name
 # that points to an internal hostname will likely confuse people
+OPENSHIFT_VERSION="v3.2.0.20"
 
-docker pull openshift3/ose:v3.1.1.6
-docker pull openshift3/ose-haproxy-router:v3.1.1.6
-docker pull openshift3/ose-deployer:v3.1.1.6
-docker pull openshift3/ose-docker-registry:v3.1.1.6
-docker pull openshift3/ose-sti-builder:v3.1.1.6
+docker pull openshift3/ose:$OPENSHIFT_VERSION
+docker pull openshift3/ose-haproxy-router:$OPENSHIFT_VERSION
+docker pull openshift3/ose-deployer:$OPENSHIFT_VERSION
+docker pull openshift3/ose-docker-registry:$OPENSHIFT_VERSION
+docker pull openshift3/ose-sti-builder:$OPENSHIFT_VERSION
 
 echo "Finished pull, running docker images for log debugging"
 docker images
