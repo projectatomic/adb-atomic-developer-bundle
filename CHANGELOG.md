@@ -19,6 +19,7 @@
 - Fix #332 Vagrantfile var name fix @optak
 - Removed kube-apiserver service file duplication @praveenkumar
 - Added Notes on Default for ADB/CDK; Docker version mismatch; and moved relevant VSM steps.@preeticp
+- Fix #228 Add Cockpit @bexelbie
 
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
