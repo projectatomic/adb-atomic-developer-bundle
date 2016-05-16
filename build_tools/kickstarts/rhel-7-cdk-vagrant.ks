@@ -28,7 +28,6 @@ reboot
 
 %packages
 docker
-@development
 deltarpm
 rsync
 nfs-utils

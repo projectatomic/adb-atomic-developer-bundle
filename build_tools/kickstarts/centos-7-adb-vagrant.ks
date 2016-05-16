@@ -28,7 +28,6 @@ reboot
 
 %packages
 @core
-@development
 docker
 deltarpm
 rsync
