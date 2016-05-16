@@ -185,17 +185,19 @@ requirements that are not enabled in those boxes.
 Documentation
 =============
 
-* `Architecture and Roadmap`_
-* `Building the Vagrant box`_ for Developers
 * `Installing the ADB`_
 * `How to use the ADB`_
+** `Using Cockpit with the ADB`_
 * `Updating the ADB`_
+* `Architecture and Roadmap`_
+* `Building the Vagrant box`_ for Developers
 
-.. _Architecture and Roadmap: docs/architecture.rst
-.. _Building the Vagrant box: docs/building.rst
 .. _Installing the ADB: docs/installing.rst
 .. _How to use the ADB: docs/using.rst
+.. _Using Cockpit with the ADB: docs/cockpit.rst
 .. _Updating the ADB: docs/updating.rst
+.. _Architecture and Roadmap: docs/architecture.rst
+.. _Building the Vagrant box: docs/building.rst
 
 Interested in Contributing to this project?
 ===========================================
