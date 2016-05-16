@@ -204,7 +204,7 @@ We welcome new ideas, suggestions, issues and pull requests.  Want to be more in
 
 * Mailing List: `container-tools@redhat.com`_
 * IRC: #atomic and #nulecule on `freenode`_
-* Weekly Standup/Review/Plannng Meeting: Every Monday at 1300 UTC in #nulecule (`freenode`_) for 0.5 hour.
+* Weekly Standup/Review/Plannng Meeting: Every Monday at 1300 UTC in #nulecule (`freenode`_) for 0.5 hour.  An agenda for this meeting is maintained at https://titanpad.com/adbmeeting
 
 Documentation is written using `reStructuredText`_. An `online
 reStructuredText editor`_ is available.
