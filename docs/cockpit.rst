@@ -12,7 +12,7 @@ it can:
 * Start and stop containers
 * Pull and delete images
 
-.._Cockpit: http://cockpit-project.org/
+.. _Cockpit: http://cockpit-project.org/
 
 ----------------------------
 Accessing Cockpit in the ADB
@@ -23,29 +23,21 @@ the host you are running the ADB on.
 
 1. Start the ADB
 
-2. Log into the ADB
+2. Start cockpit
 
-   ``$ vagrant ssh``
+   ``$ vagrant service-manager restart cockpit``
 
-3. Start cockpit
-
-   ``$ sudo systemctl start cockpit``
-
-4. Log out of the ADB
-
-   ``$ exit``
-
-5. Determine the IP Address of the ADB
+3. Determine the IP Address of the ADB
 
    ``$ vagrant service-manager box ip``
 
-6. Open cockpit in your web browser using the IP address above:
+4. Open cockpit in your web browser using the IP address above:
   
    ``http://<IP Address>:9090/``
    
    You may need to accept a TLS certificate as cockpit generates a 
    self-signed SSL certificate.
 
-7. You may now use cockpit on the ADB.  Two users are available by
+5. You may now use cockpit on the ADB.  Two users are available by
    default. The username for a standard user is ``vagrant`` the password
    is ``vagrant``.  The root user has a password of ``vagrant``.
