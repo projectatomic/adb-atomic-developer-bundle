@@ -23,19 +23,19 @@ the host you are running the ADB on.
 
 1. Start the ADB
 
-2. Start cockpit
+2. Start Cockpit
 
-   ``$ vagrant service-manager restart cockpit``
+   ``$ vagrant ssh -c "sudo systemctl start cockpit"``
 
 3. Determine the IP Address of the ADB
 
    ``$ vagrant service-manager box ip``
 
 4. Open cockpit in your web browser using the IP address above:
-  
+
    ``http://<IP Address>:9090/``
-   
-   You may need to accept a TLS certificate as cockpit generates a 
+
+   You may need to accept a TLS certificate as cockpit generates a
    self-signed SSL certificate.
 
 5. You may now use cockpit on the ADB.  Two users are available by
