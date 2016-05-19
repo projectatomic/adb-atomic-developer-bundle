@@ -15,8 +15,8 @@ recommended that you do the following:
 
 * Back up your code.
 * Use a source control system.
-* Mount your code into the box from your host system.
-  * In case you are looking for bi-directional folder sync please refer to the `relevant section for bi-directional folder sync <#vagrant-bi-directional-folder-sync>`_.
+* Mount your code into the box from your host system.  
+    * In case you are looking for bi-directional folder sync please refer to the `relevant section for bi-directional folder sync <#vagrant-bi-directional-folder-sync>`_.
 
 Doing these things is beyond the scope of this document. Consult your Operating
 System manuals and the `Vagrant <http://vagrantup.com/>`_ website for more 
@@ -86,9 +86,7 @@ Vagrant-service-manager makes this configuration much simpler for you by providi
 
 To use ADB with Host-Based tools:
 
-1. Install the vagrant-service-manager plugin. 
-
-   ::
+1. Install the vagrant-service-manager plugin. ::
 
        vagrant plugin install vagrant-service-manager
 
@@ -99,17 +97,19 @@ To use ADB with Host-Based tools:
 `config.servicemanager.services = 'openshift'`
 	
    **Note:**
-   * Docker is a default service for ADB boxes and does not require any configuration to ensure it is started. Additionally, Red Hat Enterprise Linux Container Development Kit boxes, which are based on the Atomic Developer Bundle, also, automatically start OpenShift.
-   * You can enable multiple services as a comma separated list. Eg: `docker, openshift`.
+    * Docker is a default service for ADB boxes and does not require any configuration to ensure it is started. Additionally, Red Hat Enterprise Linux Container Development Kit boxes, which are based on the Atomic Developer Bundle, also, automatically start OpenShift.
+    * You can enable multiple services as a comma separated list. Eg: `docker, openshift`.
 
 3. Enable any specific options for the services you have selected as:
-   
-   * OpenShift: Specific versions can be specified using the following variables: 
+
+  * OpenShift: Specific versions can be specified using the following variables: 
      1. `config.servicemanager.openshift_docker_registry = "docker.io"` - Specifies the registry from where the service should be pulled.
      2. `config.servicemanager.openshift_image_name = "openshift/origin"` - Specifies the image to be used.
      3. `config.servicemanager.openshift_image_tag = "v1.1.1"` - Specifies the version of the image to be used.
 
-4. Start the ADB using `vagrant up`. For details consult the [Installation documentation](https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst).
+4. Start the ADB using `vagrant up`. For details consult the `Installation documentation`_.
+
+.. _Installation documentation: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
 
 5. Configure the environment and download the required TLS certificates using the plugin.
    The example below shows the command and the output for Linux and Mac OS X. On Microsoft Windows the output may vary depending on the execution environment.::
@@ -119,7 +119,7 @@ To use ADB with Host-Based tools:
     	docker - running
         openshift - stopped
     	kubernetes - stopped
-	docker env:
+        docker env:
     	# Set the following environment variables to enable access to the
     	# docker daemon running inside of the vagrant virtual machine:
     	export DOCKER_HOST=tcp://172.28.128.182:2376
@@ -139,10 +139,12 @@ To use ADB with Host-Based tools:
    CLI, you can find it listed as a "client binary" download in the official
    `Docker Repositories <https://github.com/docker/docker/releases>`_.
 
-   **Note:** If you encounter a Docker client and server version mismatch such as :
-   `$ docker ps`
-   `Error response from daemon: client is newer than server (client API version: 1.21, server API version: 1.20)`
-   You will need to download an earlier compatible version of Docker for your host machine.  Docker release versions and docker API versions are not the same. Typically, you will need to try the previous release (i.e. if you get this error message using a docker 1.9 CLI, try a docker 1.8 CLI).
+   **Note:** If you encounter a Docker client and server version mismatch such as:: 
+
+    $ docker ps 
+    Error response from daemon: client is newer than server (client API version: 1.21, server API version: 1.20)
+
+   You will need to download an earlier compatible version of Docker for your host machine. Docker release versions and docker API versions are not the same. Typically, you will need to try the previous release (i.e. if you get this error message using a docker 1.9 CLI, try a docker 1.8 CLI).
 
 
    If you are using Eclipse, you should follow these steps:
@@ -168,13 +170,18 @@ To use ADB with Host-Based tools:
 Using the box via SSH
 =====================
 
-Today most users will do their work inside the Vagrant box.  Access the box by
-using ``ssh`` to login to it with the following command::
+Today, most users will work inside the Vagrant box.  
+Access the box by using ``ssh`` to login to it with the following command::
 
     vagrant ssh
 
 You are now at a shell prompt inside the Vagrant box. You can now execute
 commands and use the tools provided.
+
+You can use the `sccli <https://github.com/projectatomic/adb-utils/blob/master/README.rst>`_
+to manage the orchestration services inside of the ADB.
+``sccli`` makes it easy to start and stop orchestration providers like Kubernetes
+or OpenShift.
 
 Using ``docker``
 ################
