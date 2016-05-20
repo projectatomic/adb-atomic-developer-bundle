@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+-Fix #396 - modify Cockpit to have Kubernetes bridge and not drag in unecessary packages @bexelbie
 
 ## v2.1.0 May 19, 2016
 - Fix #353: Add VSM config to docker setup and removed Vagrantbox Readme @praveenkumar
