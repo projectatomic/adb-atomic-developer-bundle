@@ -48,7 +48,11 @@ adb-utils
 centos-release-adb
 fuse-sshfs
 openshift2nulecule
-cockpit
+# Cockpit interface - adds basic functionality followed by docker, kube, and network components
+cockpit-ws
+cockpit-docker
+cockpit-kubernetes
+cockpit-networkmanager
 %end
 
 %post
