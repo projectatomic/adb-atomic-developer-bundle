@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Add support for OSE-3.2 @praveenkumar
 
 ## v2.1.0 May 19, 2016
 - Fix #353: Add VSM config to docker setup and removed Vagrantbox Readme @praveenkumar
