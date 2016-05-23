@@ -53,6 +53,9 @@ cockpit
 
 %post
 
+# Workaround for BZ1336857
+restorecon -v /usr/bin/docker*
+
 # Add adb version info to consumed by vagrant-service-manager plugin
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Atomic Developer Bundle (ADB)\"" >> /etc/os-release
@@ -61,11 +64,6 @@ echo "VARIANT_VERSION=\"2.1.0\"" >> /etc/os-release
 
 #Fixing https://github.com/projectatomic/adb-atomic-developer-bundle/issues/155
 echo "127.0.0.1     centos7-adb" >> /etc/hosts
-
-## TODO: Remove this once issue #154 is resolved
-#https://github.com/projectatomic/adb-atomic-developer-bundle/issues/154
-yum remove -y docker-selinux
-yum install -y docker-selinux
 
 # set tuned profile to force virtual-guest
 tuned-adm profile virtual-guest

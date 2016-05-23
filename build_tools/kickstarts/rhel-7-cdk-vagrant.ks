@@ -55,11 +55,8 @@ openshift2nulecule
 %post
 # Originally taken entirely from original upstream Atomic project kickstart
 
-# TODO: Remove this as soon as BZ1281805 is resolved in the official 7.2 package set
-# It is still not resolved
-rpm -e docker-selinux
-rpm -Uvh http://download.eng.pnq.redhat.com/brewroot/packages/docker/1.9.1/25.el7/x86_64/docker-selinux-1.9.1-25.el7.x86_64.rpm
-
+# Workaround for BZ1336857
+restorecon -v /usr/bin/docker*
 
 # Add cdk version info to consumed by adbinfo
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
