@@ -25,7 +25,7 @@
 - Removed kube-apiserver service file duplication @praveenkumar
 - Added Notes on Default for ADB/CDK; Docker version mismatch; and moved relevant VSM steps.@preeticp
 - Fix #228 Add Cockpit @bexelbie
-- Fix #251; Adding sccli/ADB Utils repo link in the ADB Usage doc.@preeticp
+- Fix #251; Adding sccli/ADB Utils repo link in the ADB Usage doc @preeticp
 
 ## v1.8.0 Apr 5, 2016
 - Update Vagrantfiles with RHEL files @LalatenduMohanty
