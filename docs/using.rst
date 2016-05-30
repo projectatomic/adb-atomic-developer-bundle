@@ -13,17 +13,19 @@ Using the Atomic Developer Bundle
 Principles
 ==========
 
-Consider the ADB to be ephemeral and do not store data in it long term. It is 
+Consider the ADB to be ephemeral and do not store data in it long term. It is
 recommended that you do the following:
 
 * Back up your code.
 * Use a source control system.
-* Mount your code into the box from your host system.  
-   
-  * In case you are looking for bi-directional folder sync please refer to the `relevant section for bi-directional folder sync <#vagrant-bi-directional-folder-sync>`_.
+* Mount your code into the box from your host system. The provided `custom Vagrantfile examples
+  <#using-custom-vagrantfiles-for-specific-use-cases>`_ already mount your home directory on the host
+  into the guest using `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs/>`_.
+  Additional shares can also be defined. Refer to the `bi-directional folder sync
+  section <#vagrant-bi-directional-folder-sync>`_ for more information.
 
 Doing these things is beyond the scope of this document. Consult your Operating
-System manuals and the `Vagrant <http://vagrantup.com/>`_ website for more 
+System manuals and the `Vagrant <http://vagrantup.com/>`_ website for more
 details.
 
 Starting the Vagrant Box
@@ -85,7 +87,7 @@ Using the ADB with Host-based Tools (Eclipse and CLIs)
 
 Many users have preferred development environments built from tools running on their development workstation. Those workstations may not be able to run containers or container-components natively, however the user may still want to use their preferred tools, editors, etc. The ADB can be used with these tools in a way that makes it seamless to interact with files, preferred development tools, etc.
 
-The ADB exposes the docker daemon port and orchestrator access points so that tools like Eclipse and various CLIs can interact with them. For security reasons, some ports, such as the docker daemon port, are TLS protected.  Therefore some configuration is required before the service can be accessed. 
+The ADB exposes the docker daemon port and orchestrator access points so that tools like Eclipse and various CLIs can interact with them. For security reasons, some ports, such as the docker daemon port, are TLS protected.  Therefore some configuration is required before the service can be accessed.
 Vagrant-service-manager makes this configuration much simpler for you by providing easy access to the TLS certificates and the other environment variables or configuration information.
 
 To use ADB with Host-Based tools
@@ -103,7 +105,7 @@ To use ADB with Host-Based tools
 
     config.servicemanager.services = 'openshift'
 
-	
+
    **Note:**
 
   * Docker is a default service for ADB boxes and does not require any configuration to ensure it is started. Additionally, Red Hat Enterprise Linux Container Development Kit boxes, which are based on the Atomic Developer Bundle, also, automatically start OpenShift.
@@ -112,7 +114,7 @@ To use ADB with Host-Based tools
 
 3. Enable any specific options for the services you have selected as:
 
- * OpenShift: Specific versions can be specified using the following variables: 
+ * OpenShift: Specific versions can be specified using the following variables:
 
    1. `config.servicemanager.openshift_docker_registry = "docker.io"` - Specifies the registry from where the service should be pulled.
    2. `config.servicemanager.openshift_image_name = "openshift/origin"` - Specifies the image to be used.
@@ -126,7 +128,7 @@ To use ADB with Host-Based tools
 5. Configure the environment and download the required TLS certificates using the plugin.
    The example below shows the command and the output for Linux and Mac OS X. On Microsoft Windows the output may vary depending on the execution environment.::
 
-    	$ vagrant service-manager env 
+    	$ vagrant service-manager env
     	Configured services:
     	docker - running
         openshift - stopped
@@ -151,9 +153,9 @@ To use ADB with Host-Based tools
    CLI, you can find it listed as a "client binary" download in the official
    `Docker Repositories <https://github.com/docker/docker/releases>`_.
 
-   **Note:** If you encounter a Docker client and server version mismatch such as:: 
+   **Note:** If you encounter a Docker client and server version mismatch such as::
 
-    $ docker ps 
+    $ docker ps
     Error response from daemon: client is newer than server (client API version: 1.21, server API version: 1.20)
 
    You will need to download an earlier compatible version of Docker for your host machine. Docker release versions and docker API versions are not the same. Typically, you will need to try the previous release (i.e. if you get this error message using a docker 1.9 CLI, try a docker 1.8 CLI).
@@ -168,7 +170,7 @@ To use ADB with Host-Based tools
 
    3. Enable the Console by choosing **Windows->Show Views->Console**.
 
-   4. In the ``Docker Explorer`` view, click to add a connection. You should provide a "connection name." 
+   4. In the ``Docker Explorer`` view, click to add a connection. You should provide a "connection name."
       If your Environment Variables are set correctly, the remaining fields will auto-populate. If not, using the
       output from ``vagrant service-manager env docker``, put the DOCKER_HOST
       variable in the "TCP Connection" field and the DOCKER_CERT_PATH in the
@@ -182,7 +184,7 @@ To use ADB with Host-Based tools
 Using the box via SSH
 =====================
 
-Today, most users will work inside the Vagrant box.  
+Today, most users will work inside the Vagrant box.
 Access the box by using ``ssh`` to login to it with the following command::
 
     vagrant ssh
@@ -214,7 +216,7 @@ Details on these projects can be found at these urls:
 
 The `helloapache`_ example can be used to test your installation.
 
-**Note:** Many Nulecule examples expect a working kubernetes environment. Use the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_ and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_ to set up a single node kubernetes environment. 
+**Note:** Many Nulecule examples expect a working kubernetes environment. Use the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_ and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_ to set up a single node kubernetes environment.
 
 You can verify your environment by executing ``kubectl get nodes``. The
 expected output is::
@@ -228,16 +230,26 @@ expected output is::
 Vagrant bi-directional folder sync
 ==================================
 
-For basic usage please refer to the `Vagrant documentation. <https://www.vagrantup.com/docs/synced-folders/basic_usage.html>`_
+For an introduction into Vagrant's synced folders feature we recommened to start with the
+corresponding `Vagrant documentation <https://www.vagrantup.com/docs/synced-folders/basic_usage.html>`_.
 
-Vagrant's synced folders is a very powerful feature providing a simple way to move files (e.g. code) between host and Vagrant guest.
+Synced folders allows to move files (e.g. code) simply between host and Vagrant guest. Apart from the
+`rsync synced folder type <https://www.vagrantup.com/docs/synced-folders/rsync.html>`_, synced folder
+types are usually bi-directional and continue syncing the folder ongoingly while the guest is running.
 
 The following synced folder types work out of the box with the ADB Vagrant box, both for Virtualbox as well as Libvirt/KVM :
 
-* `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs>`_: works with Linux/GNU, OS X and Microsoft Windows.
+* `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs>`_: works with Linux/GNU, OS X
+  and Microsoft Windows. It is the recommended choice for enabling synced folders and the
+  `custom Vagrantfile examples <#using-custom-vagrantfiles-for-specific-use-cases>`_ use it per default.
+  In the suggested default configuration your home directory on the host (for example ``/home/john``)
+  is synced to the equivalent path on the guest VM (``/home/john``). For Windows users there is
+  a little caveat since their home directory (for example `C:\Users\john`) must be mapped to a Unix style
+  path (``/c/users/john``).
+
 * `NFS <https://www.vagrantup.com/docs/synced-folders/nfs.html>`_: works with Linux/GNU and OS X.
 
-There are however, some other alternatives too, which are not yet properly tested with ADB.
+There are also some other alternatives, which are, however, not yet properly tested with ADB.
 
 * `SMB <https://www.vagrantup.com/docs/synced-folders/smb.html>`_: For Microsoft Windows.
 
@@ -253,7 +265,7 @@ There are however, some other alternatives too, which are not yet properly teste
 Destroying the Vagrant Box
 ==========================
 
-**Warning:** 
+**Warning:**
 Doing this will destroy any data you have stored in the Vagrant box. You will
 not be able to restart this instance and will have to create a new one using
 ``vagrant up``.
