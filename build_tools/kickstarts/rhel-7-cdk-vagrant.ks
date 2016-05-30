@@ -206,6 +206,9 @@ echo "Finished pull, running docker images for log debugging"
 docker images
 kill -9 $DOCKER_PID
 
+# Clear yum package and metadata cache
+yum clean all
+
 # Something in what we do above seems to generate an inappropriately labeled resolv.conf
 # This breaks DNS setup when the box actually starts - fix here
 rm -f /etc/resolv.conf
