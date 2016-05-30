@@ -70,11 +70,11 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
 
-  config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
     sudo DOCKER_REGISTRY=#{DOCKER_REGISTRY} IMAGE_TAG=#{IMAGE_TAG} IMAGE_NAME=#{IMAGE_NAME} /usr/bin/sccli openshift
   SHELL
 
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+  config.vm.provision "shell", run: "always", privileged: false, inline: <<-SHELL
     echo "You can now access OpenShift console on: https://#{PUBLIC_ADDRESS}:8443/console"
     echo
     echo "Configured basic user: openshift-dev, Password: devel"

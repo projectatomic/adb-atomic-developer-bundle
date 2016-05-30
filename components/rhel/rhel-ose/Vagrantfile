@@ -49,12 +49,12 @@ Vagrant.configure(2) do |config|
 
   config.servicemanager.services = "docker"
 
-  config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
     systemctl enable openshift 2>&1
     systemctl start openshift
   SHELL
 
-  config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
     echo
     echo "Successfully started and provisioned VM with #{VM_CPU} cores and #{VM_MEMORY} MB of memory."
     echo "To modify the number of cores and/or available memory set the environment variables"
