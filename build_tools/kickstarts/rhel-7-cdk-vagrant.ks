@@ -26,7 +26,7 @@ logvol / --size=8192 --fstype="xfs" --name=root --vgname=VolGroup00
 
 reboot
 
-%packages
+%packages  --excludedocs --instLangs=en --nocore
 docker
 deltarpm
 rsync
@@ -37,11 +37,9 @@ screen
 git
 kubernetes
 etcd
-flannel
 bash-completion
 man-pages
 atomic
-docker-registry
 PyYAML
 #libyaml-devel
 tuned
@@ -50,6 +48,34 @@ cdk-entitlements
 cdk-utils
 fuse-sshfs
 openshift2nulecule
+
+#Packages to be removed
+-btrfs-progs
+-parted
+-rsyslog
+-iprutils
+-e2fsprogs
+-aic94xx-firmware
+-alsa-firmware
+-ivtv-firmware
+-iwl100-firmware
+-iwl1000-firmware
+-iwl105-firmware
+-iwl135-firmware
+-iwl2000-firmware
+-iwl2030-firmware
+-iwl3160-firmware
+-iwl3945-firmware
+-iwl4965-firmware
+-iwl5000-firmware
+-iwl5150-firmware
+-iwl6000-firmware
+-iwl6000g2a-firmware
+-iwl6000g2b-firmware
+-iwl6050-firmware
+-iwl7260-firmware
+-iwl7265-firmware
+-postfix
 %end
 
 %post
@@ -57,6 +83,9 @@ openshift2nulecule
 
 # Workaround for BZ1336857
 restorecon -v /usr/bin/docker*
+
+LANG="en_US"
+echo "%_install_lang $LANG" > /etc/rpm/macros.image-language-conf
 
 # Add cdk version info to consumed by adbinfo
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
@@ -72,9 +101,6 @@ tuned-adm profile virtual-guest
 # sudo
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-
-# Fix #103 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
-echo "LC_ALL=en_US.utf-8" >> /etc/locale.conf
 
 #Fix for issue #128 upstrem ADB
 # VM won't start consistenly and abort startup with a timeout #128
@@ -179,8 +205,17 @@ kill -9 $DOCKER_PID
 sed -i "/IMAGE=.*/d" /etc/sysconfig/openshift_option
 echo "IMAGE=\"registry.access.redhat.com/openshift3/ose:${OPENSHIFT_TAG}\"" >> /etc/sysconfig/openshift_option
 
+# Remove redhat-logo and firmware package to help with reduce box size
+yum remove -y redhat-logos linux-firmware
+# Remove doc except copyright
+find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true
 # Clear yum package and metadata cache
 yum clean all
+rm -f /usr/lib/locale/locale-archive
+rm -rf /var/cache/yum/*
+
+# Fix #104 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
+localedef -v -c -i en_US -f UTF-8 en_US.UTF-8
 
 # Something in what we do above seems to generate an inappropriately labeled resolv.conf
 # This breaks DNS setup when the box actually starts - fix here
