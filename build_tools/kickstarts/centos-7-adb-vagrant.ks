@@ -26,7 +26,7 @@ logvol / --size=8192 --fstype="xfs" --name=root --vgname=vg001
 
 reboot
 
-%packages
+%packages  --excludedocs --instLangs=en --nocore
 @core
 docker
 deltarpm
@@ -35,7 +35,6 @@ screen
 git
 kubernetes
 etcd
-flannel
 bash-completion
 man-pages
 atomic
@@ -49,12 +48,43 @@ centos-release-adb
 fuse-sshfs
 openshift2nulecule
 cockpit
+
+#Packages to be removed
+-btrfs-progs
+-parted
+-rsyslog
+-iprutils
+-e2fsprogs
+-aic94xx-firmware
+-alsa-firmware
+-ivtv-firmware
+-iwl100-firmware
+-iwl1000-firmware
+-iwl105-firmware
+-iwl135-firmware
+-iwl2000-firmware
+-iwl2030-firmware
+-iwl3160-firmware
+-iwl3945-firmware
+-iwl4965-firmware
+-iwl5000-firmware
+-iwl5150-firmware
+-iwl6000-firmware
+-iwl6000g2a-firmware
+-iwl6000g2b-firmware
+-iwl6050-firmware
+-iwl7260-firmware
+-iwl7265-firmware
+-postfix
 %end
 
 %post
 
 # Workaround for BZ1336857
 restorecon -v /usr/bin/docker*
+
+LANG="en_US"
+echo "%_install_lang $LANG" > /etc/rpm/macros.image-language-conf
 
 # Add adb version info to consumed by vagrant-service-manager plugin
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
@@ -71,9 +101,6 @@ tuned-adm profile virtual-guest
 # sudo
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-
-# Fix #103 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
-echo "LC_ALL=en_US.utf-8" >> /etc/locale.conf
 
 # Fix for #128 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/128)
 cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
@@ -101,7 +128,16 @@ sed -i.back 's/ExecStart=/ExecStartPre=\/opt\/adb\/cert-gen.sh\n&/' /usr/lib/sys
 # update the docker config to listen on TCP as well as unix socket
 sed -i.back '/OPTIONS=*/c\OPTIONS="--selinux-enabled -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --tlscacert=/etc/docker/ca.pem --tlscert=/etc/docker/server-cert.pem --tlskey=/etc/docker/server-key.pem --tlsverify"' /etc/sysconfig/docker
 
+# Remove redhat-logo and firmware package to help with reduce box size
+yum remove -y redhat-logos linux-firmware
+# Remove doc except copyright
+find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true
 # Clear yum package and metadata cache
 yum clean all
 
+rm -f /usr/lib/locale/locale-archive
+rm -rf /var/cache/yum/*
+
+# Fix #104 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
+localedef -v -c -i en_US -f UTF-8 en_US.UTF-8
 %end
