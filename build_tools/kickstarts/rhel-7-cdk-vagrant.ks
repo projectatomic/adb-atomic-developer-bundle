@@ -84,6 +84,10 @@ openshift2nulecule
 # Workaround for BZ1336857
 restorecon -v /usr/bin/docker*
 
+# Workaround for BZ1335635#c12
+echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/passwd
+echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/group
+
 LANG="en_US"
 echo "%_install_lang $LANG" > /etc/rpm/macros.image-language-conf
 
