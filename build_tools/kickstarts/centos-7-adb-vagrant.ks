@@ -87,6 +87,10 @@ restorecon -v /usr/bin/docker*
 echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/passwd
 echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/group
 
+# Fix for #117 and #289
+chcon -Rt svirt_sandbox_file_t /var/lib/kubelet
+sed -i -e 's/SecurityContextDeny,//' /etc/kubernetes/apiserver
+
 LANG="en_US"
 echo "%_install_lang $LANG" > /etc/rpm/macros.image-language-conf
 
