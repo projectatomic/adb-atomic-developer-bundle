@@ -91,6 +91,10 @@ echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/g
 LANG="en_US"
 echo "%_install_lang $LANG" > /etc/rpm/macros.image-language-conf
 
+# Fix for #117 and #289
+chcon -Rt svirt_sandbox_file_t /var/lib/kubelet
+sed -i -e 's/SecurityContextDeny,//' /etc/kubernetes/apiserver
+
 # Add cdk version info to consumed by adbinfo
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Container Development Kit (CDK)\"" >> /etc/os-release
