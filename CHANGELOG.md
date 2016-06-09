@@ -1,7 +1,22 @@
 # Changelog
 
-## Unreleased
-- Fix #400 Docker SELinux context not set properly when building vagrant box @praveenkumar
+## v2.2.0 June 9, 2016
+- Update variant information @praveenkumar
+- Can not change securityContext in k8s @praveenkumar
+- Fix #422 Failed to get pwuid struct: user: unknown userid @praveenkumar
+- Reduce vagrant box size #176 @praveenkumar
+- rhel-k8s Vagrantfile: fix in getting credentials @optak
+- Changes for Release 2.2.0 @LalatenduMohanty
+- Add openshift tag information to kickstart instead in sccli/openshift_options @praveenkumar
+- Fix #415 add yum clean all step to kickstart file to remove yum local cache @praveenkumar
+- Fix #414 kube-apiservice shouldn't be part of kickstart file @praveenkumar
+- Remove Public_Host variable from OpenShift Vagrantfile @praveenkumar
+- Fix #407 for "Error: dev/null: No such file or directory" @praveenkumar
+- Fixes #347 Run provisioners for every vagrant up. @LalatenduMohanty
+- Updated cockpit guide to start cockpit @budhrg
+- Fixes #251: Adding sccli/ADB Utils repo link in the ADB Usage doc. @preeticp
+- Docker SELinux context not set properly when building vagrant box.  @praveenkumar
+- Add https://titanpad.com/adbmeeting to README @bexelbie
 
 ## v2.1.0 May 19, 2016
 - Fix #353: Add VSM config to docker setup and removed Vagrantbox Readme @praveenkumar
