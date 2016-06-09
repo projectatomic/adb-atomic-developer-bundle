@@ -26,7 +26,7 @@ logvol / --size=8192 --fstype="xfs" --name=root --vgname=VolGroup00
 
 reboot
 
-%packages
+%packages  --excludedocs --instLangs=en --nocore
 docker
 deltarpm
 rsync
@@ -37,11 +37,9 @@ screen
 git
 kubernetes
 etcd
-flannel
 bash-completion
 man-pages
 atomic
-docker-registry
 PyYAML
 #libyaml-devel
 tuned
@@ -50,6 +48,34 @@ cdk-entitlements
 cdk-utils
 fuse-sshfs
 openshift2nulecule
+
+#Packages to be removed
+-btrfs-progs
+-parted
+-rsyslog
+-iprutils
+-e2fsprogs
+-aic94xx-firmware
+-alsa-firmware
+-ivtv-firmware
+-iwl100-firmware
+-iwl1000-firmware
+-iwl105-firmware
+-iwl135-firmware
+-iwl2000-firmware
+-iwl2030-firmware
+-iwl3160-firmware
+-iwl3945-firmware
+-iwl4965-firmware
+-iwl5000-firmware
+-iwl5150-firmware
+-iwl6000-firmware
+-iwl6000g2a-firmware
+-iwl6000g2b-firmware
+-iwl6050-firmware
+-iwl7260-firmware
+-iwl7265-firmware
+-postfix
 %end
 
 %post
@@ -58,45 +84,24 @@ openshift2nulecule
 # Workaround for BZ1336857
 restorecon -v /usr/bin/docker*
 
+# Workaround for BZ1335635#c12
+echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/passwd
+echo "dockerlog:x:4294967295:4294967295::/var/lib/docker:/bin/nologin" >> /etc/group
+
+LANG="en_US"
+echo "%_install_lang $LANG" > /etc/rpm/macros.image-language-conf
+
+# Fix for #117 and #289
+chcon -Rt svirt_sandbox_file_t /var/lib/kubelet
+sed -i -e 's/SecurityContextDeny,//' /etc/kubernetes/apiserver
+
 # Add cdk version info to consumed by adbinfo
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Container Development Kit (CDK)\"" >> /etc/os-release
 echo "VARIANT_ID=\"cdk\"" >> /etc/os-release
-echo "VARIANT_VERSION=\"2.0\"" >> /etc/os-release
+echo "VARIANT_VERSION=\"2.1\"" >> /etc/os-release
 
 echo "127.0.0.1     rhel-cdk" >> /etc/hosts
-
-#Fixing issue #29
-cat << EOF > kube-apiserver.service
-[Unit]
-Description=Kubernetes API Server
-Documentation=https://github.com/GoogleCloudPlatform/kubernetes
-After=network.target
-
-[Service]
-EnvironmentFile=-/etc/kubernetes/config
-EnvironmentFile=-/etc/kubernetes/apiserver
-User=kube
-ExecStart=/usr/bin/kube-apiserver \\
-            \$KUBE_LOGTOSTDERR \\
-            \$KUBE_LOG_LEVEL \\
-            \$KUBE_ETCD_SERVERS \\
-            \$KUBE_API_ADDRESS \\
-            \$KUBE_API_PORT \\
-            \$KUBELET_PORT \\
-            \$KUBE_ALLOW_PRIV \\
-            \$KUBE_SERVICE_ADDRESSES \\
-            \$KUBE_ADMISSION_CONTROL \\
-            \$KUBE_API_ARGS
-Restart=on-failure
-LimitNOFILE=65536
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-mv kube-apiserver.service /etc/systemd/system/
-systemctl daemon-reload
 
 # set tuned profile to force virtual-guest
 tuned-adm profile virtual-guest
@@ -104,9 +109,6 @@ tuned-adm profile virtual-guest
 # sudo
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/vagrant
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-
-# Fix #103 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
-echo "LC_ALL=en_US.utf-8" >> /etc/locale.conf
 
 #Fix for issue #128 upstrem ADB
 # VM won't start consistenly and abort startup with a timeout #128
@@ -195,16 +197,33 @@ sleep 120
 # Modify this as needed based on what you want to pre-pull
 # The tag renaming may not be strictly needed but having an image name
 # that points to an internal hostname will likely confuse people
+OPENSHIFT_TAG="v3.2.0.44"
 
-docker pull openshift3/ose:v3.1.1.6
-docker pull openshift3/ose-haproxy-router:v3.1.1.6
-docker pull openshift3/ose-deployer:v3.1.1.6
-docker pull openshift3/ose-docker-registry:v3.1.1.6
-docker pull openshift3/ose-sti-builder:v3.1.1.6
+docker pull openshift3/ose:$OPENSHIFT_TAG
+docker pull openshift3/ose-haproxy-router:$OPENSHIFT_TAG
+docker pull openshift3/ose-deployer:$OPENSHIFT_TAG
+docker pull openshift3/ose-docker-registry:$OPENSHIFT_TAG
+docker pull openshift3/ose-sti-builder:$OPENSHIFT_TAG
 
 echo "Finished pull, running docker images for log debugging"
 docker images
 kill -9 $DOCKER_PID
+
+# Edit openshift_options to reflect the desired default version of OpenShift
+sed -i "/IMAGE=.*/d" /etc/sysconfig/openshift_option
+echo "IMAGE=\"registry.access.redhat.com/openshift3/ose:${OPENSHIFT_TAG}\"" >> /etc/sysconfig/openshift_option
+
+# Remove redhat-logo and firmware package to help with reduce box size
+yum remove -y redhat-logos linux-firmware
+# Remove doc except copyright
+find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true
+# Clear yum package and metadata cache
+yum clean all
+rm -f /usr/lib/locale/locale-archive
+rm -rf /var/cache/yum/*
+
+# Fix #104 (https://github.com/projectatomic/adb-atomic-developer-bundle/issues/103)
+localedef -v -c -i en_US -f UTF-8 en_US.UTF-8
 
 # Something in what we do above seems to generate an inappropriately labeled resolv.conf
 # This breaks DNS setup when the box actually starts - fix here

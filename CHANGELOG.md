@@ -7,6 +7,7 @@
 - Fix #353: Add VSM config to docker setup and removed Vagrantbox Readme @praveenkumar
 - Bumping /etc/os-release to 2.1.0 @LalatenduMohanty
 - Remove development group from kickstart @praveenkumar
+- Updated cockpit guide to start cockpit @budhrg
 
 ## v2.0.0 Apr 28, 2016
 - Fix #351 Suppress logs from systemctl enable for kubernetes @praveenkumar
