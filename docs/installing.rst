@@ -11,25 +11,27 @@ Installing the Atomic Developer Bundle
 1. Install a Virtualization Provider
 ------------------------------------
 
-Two virtualization providers have been tested with the ADB.
+Two virtualization providers have been tested with the ADB; VirtualBox and Libvirt.
+
+The following virtualization providers are suggested for the respective operating systems:
 
 * Microsoft Windows and Mac OS X
 
-  The suggested virtualization provider is `VirtualBox`_. Installation
+  The suggested virtualization provider for Microsoft Windows and Mac OS X is `VirtualBox`_. Installation
   instructions are available `online`_. While the latest stable shipping release
   should work, the majority of testing has been done with version 5.0.0 on Mac
   OS X and 5.0.8 on Microsoft Windows.
 
 .. _VirtualBox: https://www.virtualbox.org
-.. _oneline: https://www.virtualbox.org/manual/UserManual.html
+.. _online: https://www.virtualbox.org/manual/UserManual.html
 
 * Fedora
 
-  Two different virtualization providers are supported on Linux, `VirtualBox`_
+  Two different virtualization providers are supported on Linux; `VirtualBox`_
   and `libvirt <http://libvirt.org/>`_. The choice as to which to use should be
   driven by your preferences and environmental concerns and is outside of the
   scope of this document. Both will work equally well in their default
-  configuration. You may wish to read the section on file synchronization when
+  configuration. You may wish to read the section on `file synchronization`_ when
   making this decision.
 
   * VirtualBox installation instructions are available `online at the VirtualBox
@@ -46,16 +48,19 @@ Two virtualization providers have been tested with the ADB.
     While the latest stable release should work, the majority of testing has
     been done with version 4.3.30.
 
+  * Installing libvirt dependencies can be skipped as they are automatically installed together with the ``vagrant-libvirt`` package. 
     Testing has been done with libvirt version 1.2.18 and vagrant-libvirt
-    versions through to 0.0.32.
+    version 0.0.32.
+
+.. _file synchronization: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.rst#vagrant-bi-directional-folder-sync
 
 * CentOS
 
-  Two different virtualization providers are supported on Linux, `VirtualBox`_
+  Two different virtualization providers are supported on Linux; `VirtualBox`_
   and `libvirt <http://libvirt.org/>`_. The choice as to which to use should be
   driven by your preferences and environmental concerns and is outside of the
   scope of this document. Both will work equally well in their default
-  configuration. You may wish to read the section on file synchronization when
+  configuration. You may wish to read the section on `file synchronization`_ when
   making this decision.
 
   * VirtualBox installation instructions are available `online at the VirtualBox
@@ -74,11 +79,12 @@ Two virtualization providers have been tested with the ADB.
       $ sudo /etc/init.d/vboxdrv setup
 
   * Installing libvirt dependencies can be skipped as they are automatically
-    installed together with ``vagrant-libvirt`` package.
+    installed together with the CentOS software collections build.
 
 .. _CentOS specific instructions: https://wiki.centos.org/HowTos/Virtualization/VirtualBox
 .. _online at the VirtualBox website: https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux
 .. _VirtualBox: https://www.virtualbox.org
+.. _file synchronization: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.rst#vagrant-bi-directional-folder-sync
 
 ------------------
 2. Install Vagrant
@@ -86,18 +92,18 @@ Two virtualization providers have been tested with the ADB.
 
 * Microsoft Windows
 
-  1. Follow the directions at `vagrantup.com`_  Testing has been done with
+  1. Follow the directions at `vagrantup.com`_. Testing has been done with
      version 1.7.4.
 
   2. Install an ``ssh`` client. Two good options are:
 
      * `Cygwin <https://cygwin.com/install.html>`_
      * `mingw <http://www.mingw.org/>`_
-     * Putty is not recommended as it doesn't currently interface with Vagrant
+     Please note, Putty is not recommended as it doesn't currently interface with Vagrant.
 
 * Mac OS X
 
-  Follow the directions at `vagrantup.com`_ Testing has been done with version
+  Follow the directions at `vagrantup.com`_. Testing has been done with version
   1.7.4.
 
 .. _vagrantup.com: https://docs.vagrantup.com/v2/installation/index.html
@@ -120,17 +126,21 @@ Two virtualization providers have been tested with the ADB.
       # Set libvirtd to start automatically on system boot
       $ sudo systemctl enable libvirtd
 
+    This would install both Vagrant and Libvirt. 
+
 * CentOS
 
-  Vagrant packages are not available directly in CentOS core. However they are
+  Vagrant packages are not available directly in CentOS core. However, they are
   available through official CentOS `Software Collections
   <http://softwarecollections.org>`_ builds.
 
-  Here are the commands to get Vagrant in CentOS with `libvirt` support::
+  Here are the commands to get Vagrant in CentOS::
 
     $ sudo yum -y install centos-release-scl
     $ sudo yum -y install sclo-vagrant1
     $ sudo scl enable sclo-vagrant1 bash
+  
+  To add `libvirt` support use this::
 
     # Start libvirtd
     $ sudo systemctl start libvirtd
@@ -138,33 +148,69 @@ Two virtualization providers have been tested with the ADB.
     # Set libvirtd to start automatically on system boot
     $ sudo systemctl enable libvirtd
 
+-----------------------------------------------------
+3. Install the vagrant-service-manager Vagrant plugin
+-----------------------------------------------------
+
+The `vagrant-service-manager`_ plugin can be installed using::
+
+    vagrant plugin install vagrant-service-manager
+
+.. _vagrant-service-manager: https://github.com/projectatomic/vagrant-service-manager
+
 -------------------
-3. Download the ADB
+4. Download the ADB
 -------------------
 
-There are two ways to download the ADB.  You can have ``vagrant`` do it for you
-the first time you install it or you can download it manually.
+There are two ways to download the ADB.
 
-* ``vagrant`` Initiated Download
+* Vagrantfiles Initiated Download
 
-  The image is available at https://atlas.hashicorp.com/projectatomic/boxes/adb.
-  The ``vagrant`` program is capable of downloading the box the first time it is
-  needed. This happens when you first initialize a new vagrant environment.
+  The ADB project provides customized Vagrantfiles, which will download the ADB and automatically set up provider specific container development environments. They are listed below and more details are available, in the `Using Custom Vagrantfiles for Specific Use Cases`_ section of the `Using the Atomic Developer Bundle`_ document and the `Installation document`_. 
 
-  If you wish to use a project provided vagrant file you should first get the
-  Vagrantfile as directed in `Using the Atomic Developer Bundle`_ in
-  the *Using Custom Vagrantfiles for Specific Use Cases* section.
+  To download ADB and set up a provider specific container development environment: 
 
-  Otherwise you can issue a ``vagrant init`` command per the below. You may wish
-  to review the `Using the Atomic Developer Bundle`_ documentation before
+
+  1. Create a directory for the Vagrant box
+
+     ``$ mkdir directory && cd directory``
+   
+  2. Download any of the following vagrantfiles, based on your requirements, to download the ADB and use it with host-based tools or via ``vagrant ssh``.
+ 
+     * For `Docker Vagrantfile`_ use::
+
+        $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
+        
+
+     * For `Kubernetes Vagrantfile`_ use::
+
+        $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile > Vagrantfile
+
+     * For `OpenShift Origin Vagrantfile`_ use::
+
+        $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-openshift-setup/Vagrantfile > Vagrantfile
+
+
+     * For `Apache Mesos Marathon Vagrantfile`_ use::
+
+        $curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
+
+  3. Start the ADB
+
+     ``vagrant up``
+
+  This will download the ADB and set it up to work with Docker, for use with host-based tools or via ``vagrant ssh``.
+
+  You may wish to review the `Using the Atomic Developer Bundle`_ documentation before
   starting the ADB, especially if you are using host-based tools.
-
-  ::
-
-    # Add the image to vagrant
-    $ vagrant init projectatomic/adb
-
+  
+.. _Using Custom Vagrantfiles for Specific Use Cases: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.rst#using-custom-vagrantfiles-for-specific-use-cases
 .. _Using the Atomic Developer Bundle: using.rst
+.. _Installation document: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
+.. _Docker Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile
+.. _Kubernetes Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile
+.. _OpenShift Origin Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-openshift-setup/Vagrantfile
+.. _Apache Mesos Marathon Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile
 
 * Manually Downloading the Vagrant Box Image
 
@@ -185,8 +231,5 @@ the first time you install it or you can download it manually.
     $ vagrant box add adb <local path to the downloded image>
 
 At this point your Atomic Developer Bundle installation is complete. You can
-find `Usage Information <using.rst>`_ in the documentation directory.
+find `ADB Usage Information <using.rst>`_ in the documentation directory.
 
-.. [#F1] If you wish to downgrade back to your distributions included vagrant-libvirt, use `dnf downgrade`.
-
-    $ sudo dnf downgrade vagrant-libvirt
