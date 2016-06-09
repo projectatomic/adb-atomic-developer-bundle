@@ -1,7 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
-REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-sshfs)
+REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
 errors = []
 
 def message(name)
@@ -16,7 +15,12 @@ end
 
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
-  config.vm.box = "projectatomic/adb"
+  config.vm.box = "cdkv2"
+
+  if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
+    config.registration.username = ENV['SUB_USERNAME']
+    config.registration.password = ENV['SUB_PASSWORD']
+  end
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
@@ -32,27 +36,8 @@ Vagrant.configure(2) do |config|
     vbox.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  # Setup a DHCP based private network
-  config.vm.network "private_network", type: "dhcp"
-
-  config.vm.provider "openstack" do |os|
-    # Specify OpenStack authentication information
-    os.openstack_auth_url = ENV['OS_AUTH_URL']
-    os.tenant_name = ENV['OS_TENANT_NAME']
-    os.username = ENV['OS_USERNAME']
-    os.password = ENV['OS_PASSWORD']
-
-    # Specify instance information
-    os.server_name = ENV['OS_INSTANCE']
-    os.flavor = ENV['OS_FLAVOR']
-    os.image = ENV['OS_IMAGE']
-    os.floating_ip_pool = ENV['OS_FLOATING_IP_POOL']
-
-    os.security_groups = ['default', ENV['OS_SECURITY_GROUP']]
-    os.keypair_name = ENV['OS_KEYPAIR_NAME']
-    config.ssh.private_key_path = ENV['OS_PRIVATE_KEYPATH']
-    config.ssh.username = 'vagrant'
-  end
+  # Issue #334: Explicit configuration to setup deocker
+  config.servicemanager.services = 'docker'
 
   if Vagrant::Util::Platform.windows?
     target_path = ENV['USERPROFILE'].gsub(/\\/,'/').gsub(/[[:alpha:]]{1}:/){|s|'/' + s.downcase.sub(':', '')}
