@@ -15,6 +15,8 @@ Here is the mapping of upstream projects and READMEs for CDK.zip file shipped wi
  ├── plugins
  │   ├── vagrant-registration.gem
  │   ├── vagrant-registration-README.md
+ │   ├── vagrant-sshfs.gem
+ │   ├── vagrant-sshfs-README.md
  │   ├── vagrant-service-manager.gem
  │   └── vagrant-service-manager-README.md
  └── README.md
@@ -28,3 +30,6 @@ Here is the mapping of upstream projects and READMEs for CDK.zip file shipped wi
    * vagrant-registration
        * Github: https://github.com/projectatomic/adb-vagrant-registration
        * README : https://github.com/projectatomic/adb-vagrant-registration/blob/master/README.md   
+   * vagrant-sshfs
+       * Github: https://github.com/dustymabe/vagrant-sshfs
+       * README : https://github.com/dustymabe/vagrant-sshfs/blob/master/README.md
