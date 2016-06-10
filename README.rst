@@ -87,13 +87,14 @@ More information about `using the ADB`_ is available.
 What does it Utilize?
 =====================
 
-The ADB is built on top of `CentOS 7`_ and contains the following:
+The ADB is built on top of `CentOS 7`_ and the following projects:
 
 * `Docker`_: container runtime and packaging
 * `Atomic CLI`_: container usage assistance
 * `Kubernetes`_: container orchestration
 * `OpenShift Origin`_: a next generation PaaS for docker containers.
-* `openshift2nulecule`_: a tool that creates a Nulecule application from an existing OpenShift project.
+* `openshift2nulecule`_: a tool that creates a Nulecule application from an existing OpenShift project
+* `Mesos Marathon`_: a production-grade container orchestration platform for Mesosphere's Datacenter Operating System (DCOS) and Apache Mesos
 
 The ADB supports `Atomic App`_, an implementation of the multi-container
 application specification `nulecule`_, for multi-container applications.
@@ -108,6 +109,7 @@ You need to use the customized Vagrantfiles provided in the ADB project to set u
 .. _Atomic App: https://github.com/projectatomic/atomicapp/
 .. _nulecule: https://github.com/projectatomic/nulecule/
 .. _openshift2nulecule: https://github.com/projectatomic/openshift2nulecule/
+.. _Mesos Marathon: https://mesosphere.github.io/marathon/
 
 How do I Install and Run the ADB?
 ===========================================================
