@@ -23,7 +23,7 @@ QuickStart
 
 4. Start the Vagrant box.
 
-  ``$ vagrant up``
+  ``$ vagrant up --provider hyperv``
 
 5. Proceed with using the CDK box.
 
