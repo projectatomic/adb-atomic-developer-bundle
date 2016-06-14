@@ -1,0 +1,84 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Number of virtualized CPUs
+VM_CPU = ENV['VM_CPU'] || 2
+
+# Amount of available RAM
+VM_MEMORY = ENV['VM_MEMORY'] || 3072
+
+# Validate required plugins
+REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
+errors = []
+
+def message(name)
+  "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it."
+end
+# Validate and collect error message if plugin is not installed
+REQUIRED_PLUGINS.each { |plugin| errors << message(plugin) unless Vagrant.has_plugin?(plugin) }
+unless errors.empty?
+  msg = errors.size > 1 ? "Errors: \n* #{errors.join("\n* ")}" : "Error: #{errors.first}"
+  fail Vagrant::Errors::VagrantError.new, msg
+end
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "cdkv2"
+
+  config.vm.provider "virtualbox" do |v, override|
+    v.memory = VM_MEMORY
+    v.cpus   = VM_CPU
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+
+  config.vm.provider "libvirt" do |v, override|
+    v.memory = VM_MEMORY
+    v.cpus   = VM_CPU
+    v.driver = "kvm"
+  end
+
+  if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
+    config.registration.username = ENV['SUB_USERNAME']
+    config.registration.password = ENV['SUB_PASSWORD']
+  end
+
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+  if Vagrant::Util::Platform.windows?
+    target_path = ENV['USERPROFILE'].gsub(/\\/,'/').gsub(/[[:alpha:]]{1}:/){|s|'/' + s.downcase.sub(':', '')}
+    config.vm.synced_folder ENV['USERPROFILE'], target_path, type: 'sshfs', sshfs_opts_append: '-o umask=000 -o uid=1000 -o gid=1000'
+  else
+    config.vm.synced_folder ENV['HOME'], ENV['HOME'], type: 'sshfs', sshfs_opts_append: '-o umask=000 -o uid=1000 -o gid=1000'
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo setsebool -P virt_sandbox_use_fusefs 1
+  SHELL
+
+  config.servicemanager.services = "docker"
+
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    systemctl enable openshift 2>&1
+    systemctl start openshift
+  SHELL
+
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    #Get the routable IP address of OpenShift
+    OSIP=`/opt/adb/openshift/get_ip_address`
+    echo
+    echo "Successfully started and provisioned VM with #{VM_CPU} cores and #{VM_MEMORY} MB of memory."
+    echo "To modify the number of cores and/or available memory set the environment variables"
+    echo "VM_CPU respectively VM_MEMORY."
+    echo
+    echo "You can now access the OpenShift console on: https://${OSIP}:8443/console"
+    echo
+    echo "To use OpenShift CLI, run:"
+    echo "$ vagrant ssh"
+    echo "$ oc login ${OSIP}:8443"
+    echo
+    echo "Configured users are (<username>/<password>):"
+    echo "openshift-dev/devel"
+    echo "admin/admin"
+    echo
+    echo "If you have the oc client library on your host, you can also login from your host."
+    echo
+  SHELL
+end
