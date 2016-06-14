@@ -48,6 +48,7 @@ cdk-entitlements
 cdk-utils
 fuse-sshfs
 openshift2nulecule
+hyperv-daemons
 
 #Packages to be removed
 -btrfs-progs
@@ -141,6 +142,7 @@ sed -i.back '/OPTIONS=*/c\OPTIONS="--selinux-enabled -H tcp://0.0.0.0:2376 -H un
 # This produces a tiny increase in image size and is benign for the other Vagrant environments
 pushd /etc/dracut.conf.d
 echo 'add_drivers+="mptspi"' > vmware-fusion-drivers.conf
+echo 'add_drivers+="hv_storvsc hv_netvsc "' > hyperv-drivers.conf
 popd
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%{version}-%{release}.%{arch}\n')
