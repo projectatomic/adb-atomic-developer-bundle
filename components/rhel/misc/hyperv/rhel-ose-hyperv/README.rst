@@ -19,7 +19,7 @@ QuickStart
 
 4. Start the Vagrant box
 
-  ``$ vagrant up``
+  ``$ vagrant up --provider hyperv``
   
   **Note:** HyperV assigns a DHCP IP address to the CDK Vagrant box. The required IP and login information will be displayed at the end of the `vagrant up` process.
 
