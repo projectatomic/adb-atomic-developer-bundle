@@ -187,7 +187,8 @@ Documentation
 
 * `Installing the ADB`_
 * `How to use the ADB`_
-** `Using Cockpit with the ADB`_
+
+  * `Using Cockpit with the ADB`_
 * `Updating the ADB`_
 * `Architecture and Roadmap`_
 * `Building the Vagrant box`_ for Developers
@@ -210,6 +211,14 @@ We welcome new ideas, suggestions, issues and pull requests.  Want to be more in
 
 Documentation is written using `reStructuredText`_. An `online
 reStructuredText editor`_ is available.
+
+On the web:
+==========
+
+* Using OpenShift in the ADB : http://www.projectatomic.io/blog/2016/05/App-Development-on-OpenShift-using-ADB
+* Using Kubernetes in the ADB: http://www.projectatomic.io/blog/2016/04/k8s-adb-usage/
+* Introduction to the ADB from DevConf.cz 2016: https://www.youtube.com/watch?v=jxFw6qnGaRk
+* OpenShift in the ADB Quickstart (video): https://www.youtube.com/watch?v=H58prwM3IbE
 
 .. _container-tools@redhat.com: https://www.redhat.com/mailman/listinfo/container-tools
 .. _freenode: https://freenode.net/
