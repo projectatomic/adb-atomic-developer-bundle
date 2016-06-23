@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.2.1 June 23, 2016
+- Fixes Issue #325; Improved Readme installation instructions and general clean up @preeticp
+- Bumping up os-release file for ADB 2.2.1 release @LalatenduMohanty
+- Improved Installation workflow and general clean up. @preeticp
+- Adding "-provider hyperv" to "vagrant up" in README files for Hyper-V @LalatenduMohanty
+- Adding Vagrantfiles for HyperV. @LalatenduMohanty
+- Adding HyperV support to the CDK kickstart file. @LalatenduMohanty
+- Updating README_CDK_ZIP with vagrant-sshfs information @LalatenduMohanty
+- Adding some blogs and youtube videos from web to readme @LalatenduMohanty
+- Fix #428 Success message after vagrant up for k8s-singlenode-setup  @praveenkumar
+- Issue #272 Disabling /vagrant folder sync via rsync @hferentschik
+- Issue #336 Mounting users home directory into VM using vagrant-sshfs @hferentschik
+- Update OpenShift Origin default version to 1.2.0  @praveenkumar
+
 ## v2.2.0 June 9, 2016
 - Update variant information @praveenkumar
 - Can not change securityContext in k8s @praveenkumar
