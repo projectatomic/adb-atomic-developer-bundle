@@ -33,7 +33,7 @@
           - name: Install Mesosphere repository
             yum: name=http://repos.mesosphere.com/el/7/noarch/RPMS/mesosphere-el-repo-7-3.noarch.rpm state=present
 
-          - name: Installing zookeeper, mesos, marathon, docker, git
+          - name: Installing zookeeper, mesos, marathon, docker, git, atomicapp
             yum: name={{item}} state=present
             with_items:
                 - mesosphere-zookeeper 
@@ -41,6 +41,7 @@
                 - marathon
                 - docker
                 - git
+                - atomicapp
 
           - name: Starting zookeeper, mesos, marathon, docker
             service: name={{item}} state=started enabled=yes
