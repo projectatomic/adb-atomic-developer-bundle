@@ -1,8 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# The private network IP of the VM. You will use this IP to connect to OpenShift.
-PUBLIC_ADDRESS="10.1.2.2"
+# The top level domain for your VM and the created application routes
+TLD = 'cdk'
+
+# The host name of the VM. Needs to have a different TLD due to Kubernetes issue
+HOSTNAME = 'cdk.vm'
+
+# Host name for accessing OpenShift
+OPENSHIFT_HOSTNAME = "openshift.#{TLD}"
 
 # Number of virtualized CPUs
 VM_CPU = ENV['VM_CPU'] || 2
@@ -17,7 +23,7 @@ VM_MEMORY = ENV['VM_MEMORY'] || 3072
 #PROXY_PASSWORD = "mysecretpass"
 
 # Validate required plugins
-REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
+REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs landrush)
 errors = []
 
 def message(name)
@@ -36,7 +42,8 @@ PROXY_USER ||= ''
 PROXY_PASSWORD ||= ''
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "cdkv2"
+  config.vm.box = 'cdkv2'
+  config.vm.hostname = HOSTNAME
 
   config.vm.provider "virtualbox" do |v, override|
     v.memory = VM_MEMORY
@@ -51,13 +58,13 @@ Vagrant.configure(2) do |config|
     v.driver = "kvm"
   end
 
-  config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
-
+  # vagrant-registration
   if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
     config.registration.username = ENV['SUB_USERNAME']
     config.registration.password = ENV['SUB_PASSWORD']
   end
 
+  # vagrant-sshfs
   config.vm.synced_folder '.', '/vagrant', disabled: true
   if Vagrant::Util::Platform.windows?
     target_path = ENV['USERPROFILE'].gsub(/\\/,'/').gsub(/[[:alpha:]]{1}:/){|s|'/' + s.downcase.sub(':', '')}
@@ -69,8 +76,19 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
+  # landrush
+  config.landrush.enabled = true
+  config.landrush.tld = TLD
+  config.landrush.host TLD, HOSTNAME
+  config.landrush.guest_redirect_dns = false
+  config.vm.provision :shell, inline: <<-SHELL
+    sed -i.orig -e "s/OPENSHIFT_SUBDOMAIN=.*/OPENSHIFT_SUBDOMAIN='#{TLD}'/g" /etc/sysconfig/openshift_option
+  SHELL
+
+  # prevent the automatic start of openshift via service-manager by just enabling Docker
   config.servicemanager.services = "docker"
 
+  # explicitly enable and start OpenShift
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} /usr/bin/sccli openshift
   SHELL
@@ -81,11 +99,11 @@ Vagrant.configure(2) do |config|
     echo "To modify the number of cores and/or available memory set the environment variables"
     echo "VM_CPU respectively VM_MEMORY."
     echo
-    echo "You can now access the OpenShift console on: https://#{PUBLIC_ADDRESS}:8443/console"
+    echo "You can now access the OpenShift console on: https://#{OPENSHIFT_HOSTNAME}:8443/console"
     echo
     echo "To use OpenShift CLI, run:"
     echo "$ vagrant ssh"
-    echo "$ oc login #{PUBLIC_ADDRESS}:8443"
+    echo "$ oc login #{OPENSHIFT_HOSTNAME }:8443"
     echo
     echo "Configured users are (<username>/<password>):"
     echo "openshift-dev/devel"
