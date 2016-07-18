@@ -1,6 +1,12 @@
 # Changelog
 
-## v2.2.1 June 23, 2016
+## v2.2.2 Jul 18, 2016
+- Update README to add Mesos-Marathon and cache notes @bexelbie
+- Bumping /etc/os-release for ADB release 2.2.2 @@LalatenduMohanty
+- Fix #463 Update ose tag to 3.2.1.4 in CDK @praveenkumar
+- Install atomicapp as a part of provisioning in Mesos Marathon Vagrantfile @dharmit
+
+## v2.2.1 Jun 23, 2016
 - Fixes Issue #325; Improved Readme installation instructions and general clean up @preeticp
 - Bumping up os-release file for ADB 2.2.1 release @LalatenduMohanty
 - Improved Installation workflow and general clean up. @preeticp
