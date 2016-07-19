@@ -15,6 +15,11 @@
                 content: '{{ ip_address }}'
                 dest: /etc/mesos-slave/ip
 
+          - name: Configure Port Ranges for mesos-slave
+            copy: 
+                content: 'ports:[1024-32000]'
+                dest: /etc/mesos-slave/resources
+
           - name: Increase timeout to account for docker pull delay
             copy: 
                 content: '5mins'
