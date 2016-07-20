@@ -18,6 +18,6 @@ $ sudo vagrant up --provider=libvirt
 Note
 ----
 
-Vagrantfile for this setup is pretty small. That is because `Ansible <http://www.ansible.com/>`_ is used for most of the provisioning. Depending on your Internet connection, box should be up and running with all the necessary packages installed within a few minutes to about an hour.
+The Vagrantfile for this setup has an embedded `Ansible <http://www.ansible.com/>`_  playbook that will take care of most of the provisioning. Depending on your Internet connection, the box should be up and running with all the necessary packages installed within a few minutes to about an hour.
 
 Once the box is up, you can access Mesos master UI on `10.2.2.2:5050 <http://10.2.2.2:5050>`_ and Marathon UI on `10.2.2.2:8080 <http://10.2.2.2:8080>`_ if you've not changed the value of the parameter **ip** in Vagrantfile.
