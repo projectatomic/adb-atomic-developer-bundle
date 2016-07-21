@@ -181,6 +181,19 @@ To use ADB with Host-Based tools
 .. _Docker Tooling: http://www.eclipse.org/community/eclipse_newsletter/2015/june/article3.php
       **Note:** Testing has been done with Eclipse 4.5.0.
 
+Using the ADB behind http proxy
+===============================
+
+ADB can be setup behind a proxy server. All you need to do is, un-comment the proxy variable in the Vagrantfile and assign the required value. 
+
+**Note:** Currently, only HTTP and HTTPS proxy servers are supported.
+
+Variable available for proxy setup::
+    
+    PROXY="<proxy_server>:<port>"
+    PROXY_USER="foo"
+    PROXY_PASSWORD="mysecretpass"
+
 Using the box via SSH
 =====================
 
