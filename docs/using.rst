@@ -67,7 +67,7 @@ contain useful documentation and a quickstart guide.
   * `Vagrantfile <../components/centos/centos-docker-base-setup/Vagrantfile>`_
   * `README <../components/centos/centos-docker-base-setup/README.rst>`_
 
-* Docker and Kubernetes for use with host-based tools or via ``vagrant ssh``
+* Kubernetes for use with host-based tools or via ``vagrant ssh``
 
   * `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_
   * `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
@@ -85,13 +85,21 @@ contain useful documentation and a quickstart guide.
 Using the ADB with Host-based Tools (Eclipse and CLIs)
 ======================================================
 
-Many users have preferred development environments built from tools running on their development workstation. Those workstations may not be able to run containers or container-components natively, however the user may still want to use their preferred tools, editors, etc. The ADB can be used with these tools in a way that makes it seamless to interact with files, preferred development tools, etc.
+Many users have preferred development environments built from tools running on
+their development workstation. Even if these workstations are unable to run
+containers or container-components natively, the user may still want to use their
+preferred tools, editors, etc.
+The ADB can be used with these tools in a way that makes it seamless to interact
+with files, preferred development tools, etc.
 
-The ADB exposes the docker daemon port and orchestrator access points so that tools like Eclipse and various CLIs can interact with them. For security reasons, some ports, such as the docker daemon port, are TLS protected.  Therefore some configuration is required before the service can be accessed.
-Vagrant-service-manager makes this configuration much simpler for you by providing easy access to the TLS certificates and the other environment variables or configuration information.
+The ADB exposes the docker daemon port and orchestrator access points so that tools
+like Eclipse and various CLIs can interact with them. For security reasons,
+some ports, such as the docker daemon port, are TLS protected. Therefore some
+configuration is required before the service can be accessed.
+Vagrant-service-manager makes this configuration simple by providing easy access
+to the TLS certificates and the other environment variables or configuration information.
 
-To use ADB with Host-Based tools
-
+To use ADB with Host-Based tools:
 
 1. Install the vagrant-service-manager plugin. ::
 
@@ -105,60 +113,76 @@ To use ADB with Host-Based tools
 
     config.servicemanager.services = 'openshift'
 
-
    **Note:**
-
-  * Docker is a default service for ADB boxes and does not require any configuration to ensure it is started. Additionally, Red Hat Enterprise Linux Container Development Kit boxes, which are based on the Atomic Developer Bundle, also, automatically start OpenShift.
-  * You can enable multiple services as a comma separated list. Eg: `docker, openshift`.
-
+* Docker is a default service for the ADB and does not require any configuration to ensure it is started.
+  Additionally, the Red Hat Enterprise Linux Container Development Kit, which is
+  based on the Atomic Developer Bundle, automatically starts OpenShift as well.
+* You can enable multiple services as a comma separated list. For instance: `docker, openshift`.
 
 3. Enable any specific options for the services you have selected as:
 
- * OpenShift: Specific versions can be specified using the following variables:
+   For instance, in OpenShift, specific versions can be specified using the following variables:
 
-   1. `config.servicemanager.openshift_docker_registry = "docker.io"` - Specifies the registry from where the service should be pulled.
-   2. `config.servicemanager.openshift_image_name = "openshift/origin"` - Specifies the image to be used.
-   3. `config.servicemanager.openshift_image_tag = "v1.1.1"` - Specifies the version of the image to be used.
-
+   1. ``config.servicemanager.openshift_docker_registry = "docker.io"`` - Specifies the registry from where the service should be pulled.
+   2. ``config.servicemanager.openshift_image_name = "openshift/origin"`` - Specifies the image to be used.
+   3. ``config.servicemanager.openshift_image_tag = "v1.2.0"`` - Specifies the version of the image to be used.
 
 4. Start the ADB using ``vagrant up``. For details consult the `Installation documentation`_.
 
 .. _Installation documentation: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
 
-5. Configure the environment and download the required TLS certificates using the plugin.
-   The example below shows the command and the output for Linux and Mac OS X. On Microsoft Windows the output may vary depending on the execution environment.::
 
-    	$ vagrant service-manager env
-    	Configured services:
-    	docker - running
-        openshift - stopped
-    	kubernetes - stopped
-        docker env:
-    	# Set the following environment variables to enable access to the
-    	# docker daemon running inside of the vagrant virtual machine:
-    	export DOCKER_HOST=tcp://172.28.128.182:2376
-    	export DOCKER_CERT_PATH=/home/pchandra/test_adb/.vagrant/machines/default/libvirt/docker
-    	export DOCKER_TLS_VERIFY=1
-    	export DOCKER_API_VERSION=1.20
-    	# run following command to configure your shell:
-    	# eval "$(vagrant service-manager env docker)"
+5. Configure the environment and download the required TLS certificates using
+   the plugin. The example below shows the command and the output for Linux and Mac OS X.
+   On Microsoft Windows the output may vary depending on the execution environment::
+
+     $ vagrant service-manager env
+     # docker env:
+     # Set the following environment variables to enable access to the
+     # docker daemon running inside of the vagrant virtual machine:
+     export DOCKER_HOST=tcp://10.1.2.2:2376
+     export DOCKER_CERT_PATH=/foo/bar/.vagrant/machines/default/virtualbox/docker
+     export DOCKER_TLS_VERIFY=1
+     export DOCKER_API_VERSION=1.21
+
+     # run following command to configure your shell:
+     # eval "$(vagrant service-manager env)"
 
    Setting these environment variables allows programs, such as Eclipse and the
    docker CLI to access the docker daemon.
 
+   **Note:** When the OpenShift service is running in the VM, a docker registry
+   is also started. This Docker registry can be consumed by external
+   tools such as Eclipse to push or pull images. The Docker registry url is exported
+   as a variable, and can be accessed as shown below::
+
+     $ vagrant service-manager env openshift
+     # openshift env:
+     # You can access the OpenShift console on: https://10.1.2.2:8443/console
+     # To use OpenShift CLI, run: oc login https://10.1.2.2:8443
+     export OPENSHIFT_URL=https://10.1.2.2:8443
+     export OPENSHIFT_WEB_CONSOLE=https://10.1.2.2:8443/console
+     export DOCKER_REGISTRY=hub.openshift.centos7-adb.10.1.2.2.xip.io
+
 6. Begin developing.
 
-   If you are using the docker CLI, you can just run it from the command line
-   and it will work as expected.  If you need to download a copy of the docker
-   CLI, you can find it listed as a "client binary" download in the official
-   `Docker Repositories <https://github.com/docker/docker/releases>`_.
+   If you do not have the docker CLI, you can use the ``install-cli`` command as
+   shown below::
+
+     $ vagrant service-manager install-cli docker
+
+   However, if you are using the docker CLI, you can just run it from the command
+   line and it will work as expected.
 
    **Note:** If you encounter a Docker client and server version mismatch such as::
 
     $ docker ps
     Error response from daemon: client is newer than server (client API version: 1.21, server API version: 1.20)
 
-   You will need to download an earlier compatible version of Docker for your host machine. Docker release versions and docker API versions are not the same. Typically, you will need to try the previous release (i.e. if you get this error message using a docker 1.9 CLI, try a docker 1.8 CLI).
+   You will need to download an earlier compatible version of Docker for your
+   host machine. Docker release versions and docker API versions are not the same.
+   Typically, you will need to try the previous release (i.e. if you get this error
+   message using a docker 1.9 CLI, try a docker 1.8 CLI).
 
 
    If you are using Eclipse, you should follow these steps:
@@ -170,7 +194,7 @@ To use ADB with Host-Based tools
 
    3. Enable the Console by choosing **Windows->Show Views->Console**.
 
-   4. In the ``Docker Explorer`` view, click to add a connection. You should provide a "connection name."
+   4. In the ``Docker Explorer`` view, click to add a connection. You should provide a "connection name".
       If your Environment Variables are set correctly, the remaining fields will auto-populate. If not, using the
       output from ``vagrant service-manager env docker``, put the DOCKER_HOST
       variable in the "TCP Connection" field and the DOCKER_CERT_PATH in the
@@ -230,46 +254,58 @@ expected output is::
 Vagrant bi-directional folder sync
 ==================================
 
-For an introduction into Vagrant's synced folders feature we recommened to start with the
+For an introduction into Vagrant's synced folders feature, we recommend you to start with the
 corresponding `Vagrant documentation <https://www.vagrantup.com/docs/synced-folders/basic_usage.html>`_.
 
-Synced folders allows to move files (e.g. code) simply between host and Vagrant guest. Apart from the
+Synced folders enable movement of files (such as, code files) between the host and the Vagrant guest. Apart from the
 `rsync synced folder type <https://www.vagrantup.com/docs/synced-folders/rsync.html>`_, synced folder
-types are usually bi-directional and continue syncing the folder ongoingly while the guest is running.
+types are usually bi-directional and continuously sync the folder while the guest is running.
 
-The following synced folder types work out of the box with the ADB Vagrant box, both for Virtualbox as well as Libvirt/KVM :
+The following synced folder types work out of the box with the ADB Vagrant box, for both Virtualbox as well as Libvirt/KVM :
 
-* `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs>`_: works with Linux/GNU, OS X
+* `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs>`_: Works with Linux/GNU, OS X
   and Microsoft Windows. It is the recommended choice for enabling synced folders and the
   `custom Vagrantfile examples <#using-custom-vagrantfiles-for-specific-use-cases>`_ use it per default.
-  In the suggested default configuration your home directory on the host (for example ``/home/john``)
-  is synced to the equivalent path on the guest VM (``/home/john``). For Windows users there is
-  a little caveat since their home directory (for example `C:\Users\john`) must be mapped to a Unix style
+  In the suggested default configuration, your home directory on the host (for example, ``/home/john``)
+  is synced to the equivalent path on the guest VM (``/home/john``). For Windows users, there is
+  a little caveat, their home directory (for example, `C:\Users\john`) must be mapped to a Unix style
   path (``/c/users/john``).
 
-* `NFS <https://www.vagrantup.com/docs/synced-folders/nfs.html>`_: works with Linux/GNU and OS X.
+* `NFS <https://www.vagrantup.com/docs/synced-folders/nfs.html>`_: Works with Linux/GNU and OS X.
 
 There are also some other alternatives, which are, however, not yet properly tested with ADB.
 
 * `SMB <https://www.vagrantup.com/docs/synced-folders/smb.html>`_: For Microsoft Windows.
 
-  * You need to install cifs-utils RPM i.e. ``sudo yum install cifs-utils`` inside ADB for this to work.
+  * You need to install cifs-utils RPM inside ADB, for the SMB synced folder type to work::
+
+     sudo yum install cifs-utils
 
 * `Virtualbox shared folder  <https://www.virtualbox.org/manual/ch04.html#sharedfolders>`_: For Virtualbox users with Virtualbox guest additions.
 
   * At this point of time Virtualbox guest additions do not come pre-installed in the ADB Vagrant box.
-  * For installation details please refer to `Virtualbox documentation <https://www.virtualbox.org/manual/ch04.html>`_.
+  * For installation details, please refer to `Virtualbox documentation <https://www.virtualbox.org/manual/ch04.html>`_.
   * You can also use `vagrant-vbguest <https://github.com/dotless-de/vagrant-vbguest>`_ plugin to install Virtualbox guest additions in ADB Vagrant box.
 
 
-Destroying the Vagrant Box
-==========================
+Some Useful Commands
+====================
+* ``vagrant halt`` - Stop the vagrant box, temporarily:
 
-**Warning:**
-Doing this will destroy any data you have stored in the Vagrant box. You will
-not be able to restart this instance and will have to create a new one using
-``vagrant up``.
+  You can use ``vagrant halt`` to gracefully stop the vagrant box and continue with
+  your work when you start next with ``vagrant up``. This will not cause any loss
+  of data. It is recommended to stop the vagrant box before you shutdown your machine,
+  to save CPU and RAM consumption. Also, powering off your machine without stopping
+  the vagrant box, could cause errors when you resume using it.
 
-::
+* ``vagrant status`` - Check the Status of the Vagrant box:
 
-    vagrant destroy
+  Use ``vagrant status`` to check the status of ADB and to check which virtualization
+  provider is being used and the status of the provider.
+
+* ``vagrant destroy`` - Destroy the Vagrant Box:
+
+  **Warning:**
+  Using ``vagrant destroy``, will destroy any data you have stored in the Vagrant
+  box. You will not be able to restart this instance and will have to create a
+  new one using ``vagrant up``.
