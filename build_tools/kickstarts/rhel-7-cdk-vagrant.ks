@@ -199,7 +199,7 @@ sleep 120
 # Modify this as needed based on what you want to pre-pull
 # The tag renaming may not be strictly needed but having an image name
 # that points to an internal hostname will likely confuse people
-OPENSHIFT_TAG="v3.2.1.4"
+OPENSHIFT_TAG="v3.2.1.9"
 
 docker pull openshift3/ose:$OPENSHIFT_TAG
 docker pull openshift3/ose-haproxy-router:$OPENSHIFT_TAG
