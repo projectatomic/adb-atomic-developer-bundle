@@ -46,6 +46,8 @@ PROXY_PASSWORD ||= ''
 
 Vagrant.configure(2) do |config|
   config.vm.box = 'projectatomic/adb'
+  
+  config.servicemanager.services = 'openshift'
 
   config.vm.provider "virtualbox" do |v, override|
     v.memory = 2048
