@@ -16,12 +16,6 @@ VM_CPU = ENV['VM_CPU'] || 2
 # Amount of available RAM
 VM_MEMORY = ENV['VM_MEMORY'] || 3072
 
-# Variables to enable HTTP/HTTPS proxy
-
-#PROXY = "<proxy_server>:<port>"
-#PROXY_USER = "foo"
-#PROXY_PASSWORD = "mysecretpass"
-
 # Validate required plugins
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs landrush)
 errors = []
@@ -36,10 +30,6 @@ unless errors.empty?
   fail Vagrant::Errors::VagrantError.new, msg
 end
 
-# Set default values for proxy variables if not defined.
-PROXY ||= ''
-PROXY_USER ||= ''
-PROXY_PASSWORD ||= ''
 
 Vagrant.configure(2) do |config|
   config.vm.box = 'cdkv2'
@@ -63,6 +53,11 @@ Vagrant.configure(2) do |config|
     config.registration.username = ENV['SUB_USERNAME']
     config.registration.password = ENV['SUB_PASSWORD']
   end
+
+  # Proxy Information from environment
+  config.registration.proxy = PROXY = (ENV['PROXY'] || '')
+  config.registration.proxyUser = PROXY_USER = (ENV['PROXY_USER'] || '')
+  config.registration.proxyPassword = PROXY_PASSWORD = (ENV['PROXY_PASSWORD'] || '')
 
   # vagrant-sshfs
   config.vm.synced_folder '.', '/vagrant', disabled: true
