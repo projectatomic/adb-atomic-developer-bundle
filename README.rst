@@ -152,7 +152,7 @@ Detailed `installation instructions`_ are available.
         $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
 
 .. _Using Custom Vagrantfiles for Specific Use Cases: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.rst#using-custom-vagrantfiles-for-specific-use-cases
-.. _Using the Atomic Developer Bundle: using.rst
+.. _Using the Atomic Developer Bundle: docs/using.rst
 .. _Installation document: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
 .. _Docker Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile
 .. _Kubernetes Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile
@@ -170,7 +170,7 @@ You may wish to review the `Using the Atomic Developer Bundle`_ documentation be
 .. _Install VirtualBox: https://www.virtualbox.org/wiki/Downloads
 .. _Install Vagrant: https://docs.vagrantup.com/v2/installation/index.html
 .. _vagrant-service-manager: https://github.com/projectatomic/vagrant-service-manager
-.. _Using the Atomic Developer Bundle: using.rst
+.. _Using the Atomic Developer Bundle: docs/using.rst
 
 What is full feature set?
 =========================
