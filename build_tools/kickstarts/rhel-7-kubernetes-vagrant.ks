@@ -55,7 +55,7 @@ sed -i "/UUID/d" /etc/sysconfig/network-scripts/ifcfg-eth*
 cat << EOF > kube-apiserver.service
 [Unit]
 Description=Kubernetes API Server
-Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+Documentation=https://github.com/kubernetes/kubernetes
 After=network.target
 
 [Service]
