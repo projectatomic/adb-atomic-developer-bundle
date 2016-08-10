@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.3.0 Aug 10, 2016
+- Fixes issue #488. Using ENV variables for proxy @LalatenduMohanty
+- Issue #461 Enabling Landrush per default @hferentschik
+- Fix a couple broken links @shawnlower
+- Updated latest openshift tag @praveenkumar
+- Fix #478 Vagrantfile update for proxy support @praveenkumar
+- Fix #379 added note about using the latest origin image and corrected installation doc link @preeticp
+- Fix #460 Doc update for proxy support @praveenkumar
+- Fix #472, #473 and #477 @preeticp
+- marathon: embed ansible playbook in Vagrantfile @dustymabe
+- marathon: setup so that ports from host can be shared @dustymabe
+
 ## v2.2.2 Jul 18, 2016
 - Update README to add Mesos-Marathon and cache notes @bexelbie
 - Bumping /etc/os-release for ADB release 2.2.2 @@LalatenduMohanty
