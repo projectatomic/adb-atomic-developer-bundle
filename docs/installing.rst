@@ -48,7 +48,7 @@ The following virtualization providers are suggested for the respective operatin
     While the latest stable release should work, the majority of testing has
     been done with version 4.3.30.
 
-  * Installing libvirt dependencies can be skipped as they are automatically installed together with the ``vagrant-libvirt`` package. 
+  * Installing libvirt dependencies can be skipped as they are automatically installed together with the ``vagrant-libvirt`` package.
     Testing has been done with libvirt version 1.2.18 and vagrant-libvirt
     version 0.0.32.
 
@@ -126,7 +126,7 @@ The following virtualization providers are suggested for the respective operatin
       # Set libvirtd to start automatically on system boot
       $ sudo systemctl enable libvirtd
 
-    This would install both Vagrant and Libvirt. 
+    This would install both Vagrant and Libvirt.
 
 * CentOS
 
@@ -139,7 +139,7 @@ The following virtualization providers are suggested for the respective operatin
     $ sudo yum -y install centos-release-scl
     $ sudo yum -y install sclo-vagrant1
     $ sudo scl enable sclo-vagrant1 bash
-  
+
   To add `libvirt` support use this::
 
     # Start libvirtd
@@ -148,15 +148,32 @@ The following virtualization providers are suggested for the respective operatin
     # Set libvirtd to start automatically on system boot
     $ sudo systemctl enable libvirtd
 
------------------------------------------------------
-3. Install the vagrant-service-manager Vagrant plugin
------------------------------------------------------
+----------------------------------
+3. Install additional dependencies
+----------------------------------
 
-The `vagrant-service-manager`_ plugin can be installed using::
+For some operating systems, you might need to install additional dependencies before you install the Vagrant plugins.
 
-    vagrant plugin install vagrant-service-manager
+* Fedora 24
+
+  Run the following commands to install the additional dependencies::
+
+  $ sudo dnf install @'Development Tools'
+  $ sudo dnf install rpm-build zlib-devel ruby-devel gcc-c++
+
+--------------------------
+4. Install Vagrant plugins
+--------------------------
+
+Run the following commands to install the `vagrant-service-manager`_, `vagrant-sshfs`_, and `landrush`_ plugins::
+
+$ vagrant plugin install vagrant-service-manager
+$ vagrant plugin install vagrant-sshfs
+$ vagrant plugin install landrush
 
 .. _vagrant-service-manager: https://github.com/projectatomic/vagrant-service-manager
+.. _vagrant-sshfs: https://github.com/dustymabe/vagrant-sshfs
+.. _landrush: https://github.com/vagrant-landrush/landrush
 
 -------------------
 4. Download the ADB
@@ -166,21 +183,21 @@ There are two ways to download the ADB.
 
 * Vagrantfiles Initiated Download
 
-  The ADB project provides customized Vagrantfiles, which will download the ADB and automatically set up provider specific container development environments. They are listed below and more details are available, in the `Using Custom Vagrantfiles for Specific Use Cases`_ section of the `Using the Atomic Developer Bundle`_ document and the `Installation document`_. 
+  The ADB project provides customized Vagrantfiles, which will download the ADB and automatically set up provider specific container development environments. They are listed below and more details are available, in the `Using Custom Vagrantfiles for Specific Use Cases`_ section of the `Using the Atomic Developer Bundle`_ document and the `Installation document`_.
 
-  To download ADB and set up a provider specific container development environment: 
+  To download ADB and set up a provider specific container development environment:
 
 
   1. Create a directory for the Vagrant box
 
      ``$ mkdir directory && cd directory``
-   
+
   2. Download any of the following vagrantfiles, based on your requirements, to download the ADB and use it with host-based tools or via ``vagrant ssh``.
- 
+
      * For `Docker Vagrantfile`_ use::
 
         $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
-        
+
 
      * For `Kubernetes Vagrantfile`_ use::
 
@@ -203,7 +220,7 @@ There are two ways to download the ADB.
 
   You may wish to review the `Using the Atomic Developer Bundle`_ documentation before
   starting the ADB, especially if you are using host-based tools.
-  
+
 .. _Using Custom Vagrantfiles for Specific Use Cases: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.rst#using-custom-vagrantfiles-for-specific-use-cases
 .. _Using the Atomic Developer Bundle: using.rst
 .. _Installation document: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
@@ -232,4 +249,3 @@ There are two ways to download the ADB.
 
 At this point your Atomic Developer Bundle installation is complete. You can
 find `ADB Usage Information <using.rst>`_ in the documentation directory.
-
