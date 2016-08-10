@@ -208,15 +208,21 @@ To use ADB with Host-Based tools:
 Using the ADB behind http proxy
 ===============================
 
-ADB can be setup behind a proxy server. All you need to do is, un-comment the proxy variable in the Vagrantfile and assign the required value. 
+ADB can be setup behind a proxy server. You need to export the proxy server information in to the environment and then run ``vagrant up``.
 
 **Note:** Currently, only HTTP and HTTPS proxy servers are supported.
 
-Variable available for proxy setup::
+For GNU/Linux. OS X and Cygwin shell::
     
-    PROXY="<proxy_server>:<port>"
-    PROXY_USER="foo"
-    PROXY_PASSWORD="mysecretpass"
+    export PROXY="<proxy_server>:<port>"
+    export PROXY_USER="foo"
+    export PROXY_PASSWORD="mysecretpass"
+
+For Windows CMD or Powershell::
+
+    setx PROXY="<proxy_server>:<port>"
+    setx PROXY_USER="foo"
+    setx PROXY_PASSWORD="mysecretpass"
 
 Using the box via SSH
 =====================
