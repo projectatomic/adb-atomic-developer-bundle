@@ -1,6 +1,8 @@
 # Changelog
 
 ## v2.3.0 Aug 10, 2016
+- Add Landrush as plugin requirement in Vagrantfile @praveenkumar
+- Unify Vagrantfile for different Providers @praveenkumar
 - Fixes issue #488. Using ENV variables for proxy @LalatenduMohanty
 - Issue #461 Enabling Landrush per default @hferentschik
 - Fix a couple broken links @shawnlower
