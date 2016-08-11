@@ -127,6 +127,12 @@ To use ADB with Host-Based tools:
    2. ``config.servicemanager.openshift_image_name = "openshift/origin"`` - Specifies the image to be used.
    3. ``config.servicemanager.openshift_image_tag = "v1.2.0"`` - Specifies the version of the image to be used.
 
+   **Note:** Pending resolution of `Issue #366 <https://github.com/projectatomic/vagrant-service-manager/issues/366/>`_ in the vagrant-service-manager plugin, one needs to use all the three variables for any customization.
+
+   Due to  in
+   vagrant-service-manager, one need to use all the
+   three variables for any of the customization.
+
 4. Start the ADB using ``vagrant up``. For details consult the `Installation documentation`_.
 
 .. _Installation documentation: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
