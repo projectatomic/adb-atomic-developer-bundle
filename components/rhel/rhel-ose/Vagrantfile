@@ -99,7 +99,7 @@ Vagrant.configure(2) do |config|
     echo
     echo "To use OpenShift CLI, run:"
     echo "$ vagrant ssh"
-    echo "$ oc login #{OPENSHIFT_HOSTNAME }:8443"
+    echo "$ oc login"
     echo
     echo "Configured users are (<username>/<password>):"
     echo "openshift-dev/devel"
