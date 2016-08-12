@@ -64,16 +64,5 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
-  config.vm.provision "shell", run: "always", inline: <<-SHELL
-     sudo mkdir -p /etc/pki/kube-apiserver/
-     sudo openssl genrsa -out /etc/pki/kube-apiserver/serviceaccount.key 2048 > /dev/null 2>&1
-     sudo sed -i.back '/KUBE_API_ARGS=*/c\KUBE_API_ARGS="--service_account_key_file=/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/apiserver
-     sudo sed -i.back '/KUBE_CONTROLLER_MANAGER_ARGS=*/c\KUBE_CONTROLLER_MANAGER_ARGS="--service_account_private_key_file=/etc/pki/kube-apiserver/serviceaccount.key"' /etc/kubernetes/controller-manager
-     sudo systemctl enable etcd kube-apiserver kube-controller-manager kube-scheduler > /dev/null 2>&1
-     sudo systemctl start etcd kube-apiserver kube-controller-manager kube-scheduler
-     sudo systemctl enable kube-proxy kubelet > /dev/null 2>&1
-     sudo systemctl start kube-proxy kubelet
-     sudo systemctl restart docker
-     echo "kubernetes-single-node-setup configured successfully"
-  SHELL
+  config.servicemanager.services = 'kubernetes'
 end
