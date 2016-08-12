@@ -154,7 +154,7 @@ The following virtualization providers are suggested for the respective operatin
 
 For some operating systems, you might need to install additional dependencies before you install the Vagrant plugins.
 
-* Fedora 24
+* Fedora
 
   Run the following commands to install the additional dependencies::
 
