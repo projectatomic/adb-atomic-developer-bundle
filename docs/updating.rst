@@ -1,36 +1,63 @@
-===============================================================
-How to update the Atomic Developer Bundle to the latest version
-===============================================================
+===========================================================
+How to update Atomic Developer Bundle to the latest version
+===========================================================
 
-* If you are using the image from atlas.hashicorp.com
+Depending on your implementation of the ADB, you might be able to directly
+update your Vagrant box. In some cases, you will need to perform a clean
+installation or follow additional steps to complete the update.
 
-  1. Check if a newer version of the box is available use this command::
+-------------
+Prerequisites
+-------------
 
-      # vagrant box outdated
+1. If ADB is running, run the `vagrant halt` command::
 
-  2. If a newer version is available, the output should look like this::
+    # vagrant halt
 
-        # vagrant box outdated
+2. Delete the virtual machine with the `vagrant destroy` command. This
+   action will also delete any data or configuration in your ADB that is not saved
+   on your host machine::
 
-     Checking if box 'projectatomic/adb' is up to date...
-     A newer version of the box 'projectatomic/adb-testing' is available! You
-     currently have version '1.3.1'. The latest is version '1.3.2'. Run ``vagrant
-     box update`` to update.
+    # vagrant destroy
 
-  3. If you see the above output, update the ADB Vagrant image with this
-     command::
+-----------------------------------
+Update ADB from atlas.hashicorp.com
+-----------------------------------
 
-      # vagrant box update
+If you use ADB images from atlas.hashicorp.com, you can perform a direct update of
+the Vagrant boxes.
 
-  4. Once the image is updated, you can restart the ADB with the new version
-     with this command::
+1. Run the following command to check if a newer version of the box is available::
 
-      # vagrant up
+    # vagrant box outdated
 
-* If you are using image from cloud.centos.org
+2. If a newer version is available, the output should look like this::
 
-  You will need to monitor the mailing list and other announcement points to
-  determine if a new image is available. If an image is available, download it
-  and install it using the instructions in the `installation documentation
-  <installing.rst>`_.
 
+      Checking if box 'projectatomic/adb' is up to date...
+      A newer version of the box 'projectatomic/adb-testing' is available! You
+      currently have version '1.3.1'. The latest is version '1.3.2'. Run `vagrant
+      box update` to update.
+
+3. If you see the above output, update the ADB Vagrant image with this
+   command::
+
+    # vagrant box update
+
+--------------------------------
+Update ADB from cloud.centos.org
+--------------------------------
+
+If you use ADB images from cloud.centos.org, you must manually remove the
+previously-installed boxes from your host machine and perform a clean installation.
+
+1. Monitor the mailing list and other announcement points to determine if a new image
+   is available.
+
+2. If you are updating ADB on a Windows machine, run the following command to
+   delete the `.vagrant.d` directory::
+
+     # rm -rf C:/Users/<user_name>/.vagrant.d/
+
+3. Download the latest image and perform a clean install as described in
+   the `installation documentation <installing.rst>`_.
