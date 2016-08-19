@@ -4,23 +4,23 @@
    :backlinks: none
 
 ======================================
-Installing the Atomic Developer Bundle
+Installing Atomic Developer Bundle
 ======================================
 
 ------------------------------------
-1. Install a Virtualization Provider
+1. Install a virtualization provider
 ------------------------------------
 
-Two virtualization providers have been tested with the ADB; VirtualBox and Libvirt.
+Two virtualization providers have been tested with ADB; VirtualBox and Libvirt.
 
 The following virtualization providers are suggested for the respective operating systems:
 
 * Microsoft Windows and Mac OS X
 
-  The suggested virtualization provider for Microsoft Windows and Mac OS X is `VirtualBox`_. Installation
-  instructions are available `online`_. While the latest stable shipping release
-  should work, the majority of testing has been done with version 5.0.0 on Mac
-  OS X and 5.0.8 on Microsoft Windows.
+  The suggested virtualization provider for Microsoft Windows and Mac OS X is
+  `VirtualBox`_. Installation instructions are available `online`_. While the
+  latest stable shipping release should work, the majority of testing has been
+  done with version 5.0.0 on Mac OS X and 5.0.8 on Microsoft Windows.
 
 .. _VirtualBox: https://www.virtualbox.org
 .. _online: https://www.virtualbox.org/manual/UserManual.html
@@ -176,58 +176,77 @@ $ vagrant plugin install landrush
 .. _landrush: https://github.com/vagrant-landrush/landrush
 
 -------------------
-4. Download the ADB
+5. Download ADB
 -------------------
 
-There are two ways to download the ADB.
+There are two ways to download ADB.
 
 * Vagrantfiles Initiated Download
 
-  The ADB project provides customized Vagrantfiles, which will download the ADB and automatically set up provider specific container development environments. They are listed below and more details are available, in the `Using Custom Vagrantfiles for Specific Use Cases`_ section of the `Using the Atomic Developer Bundle`_ document and the `Installation document`_.
+  The ADB project provides customized Vagrantfiles, which will download ADB
+  and automatically set up provider-specific container development environments.
+  They are listed below and more details are available in their respective Readmes.
 
-  To download ADB and set up a provider specific container development environment:
-
+  To download ADB and set up a provider-specific container development environment:
 
   1. Create a directory for the Vagrant box
 
      ``$ mkdir directory && cd directory``
 
-  2. Download any of the following vagrantfiles, based on your requirements, to download the ADB and use it with host-based tools or via ``vagrant ssh``.
+  2. Download any of the following vagrantfiles, to configure the development environment you need.
 
-     * For `Docker Vagrantfile`_ use::
+     * To configure a `Docker`_ specific container development environment use::
 
-        $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
+       $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
 
-
-     * For `Kubernetes Vagrantfile`_ use::
-
-        $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile > Vagrantfile
-
-     * For `OpenShift Origin Vagrantfile`_ use::
-
-        $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-openshift-setup/Vagrantfile > Vagrantfile
+       Refer: `README <../components/centos/centos-docker-base-setup/README.rst>`_
 
 
-     * For `Apache Mesos Marathon Vagrantfile`_ use::
+     * To configure a `Kubernetes`_ specific container development environment use::
 
-        $curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
+       $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile > Vagrantfile
 
-  3. Start the ADB
+
+       Refer: `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
+
+
+     * To configure an `OpenShift`_ specific container development environment use::
+
+       $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-openshift-setup/Vagrantfile > Vagrantfile
+
+
+       Refer: `README <../components/centos/centos-openshift-setup/README.rst>`_
+
+
+     * To configure an `Apache Mesos Marathon`_ specific container development environment use::
+
+       $curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
+
+
+       Refer: `README <../components/centos/centos-mesos-marathon-singlenode-setup/README.rst>`_
+
+
+  3. Start ADB
 
      ``vagrant up``
 
-  This will download the ADB and set it up to work with Docker, for use with host-based tools or via ``vagrant ssh``.
+  This will download ADB and set it up to work with the provider of choice,
+  for use with host-based tools or via ``vagrant ssh``.
 
-  You may wish to review the `Using the Atomic Developer Bundle`_ documentation before
-  starting the ADB, especially if you are using host-based tools.
+  **Note:** On Fedora and CentOS you may need to specify the virtualization
+  provider to use. For example, to use VirtualBox, the command would be
 
-.. _Using Custom Vagrantfiles for Specific Use Cases: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.rst#using-custom-vagrantfiles-for-specific-use-cases
-.. _Using the Atomic Developer Bundle: using.rst
-.. _Installation document: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
-.. _Docker Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile
-.. _Kubernetes Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile
-.. _OpenShift Origin Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-openshift-setup/Vagrantfile
-.. _Apache Mesos Marathon Vagrantfile: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile
+  ``vagrant up --provider virtualbox``
+
+
+  You may wish to review the `Using Atomic Developer Bundle`_ documentation before
+  starting ADB, especially if you are using host-based tools.
+
+.. _Using Atomic Developer Bundle: docs/using.rst
+.. _Docker: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile
+.. _Kubernetes: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile
+.. _OpenShift Origin: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-openshift-setup/Vagrantfile
+.. _Apache Mesos Marathon: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile
 
 * Manually Downloading the Vagrant Box Image
 
@@ -246,6 +265,27 @@ There are two ways to download the ADB.
 
     # Add the image to vagrant
     $ vagrant box add adb <local path to the downloded image>
+
+-----------------------------------
+Setting up ADB behind an HTTP proxy
+-----------------------------------
+
+ADB can be set up behind a proxy server. You need to export the proxy server
+information in to the environment and then run ``vagrant up``.
+
+**Note:** Currently, only HTTP and HTTPS proxy servers are supported.
+
+For Linux, OS X and Windows Cygwin shell::
+
+  export PROXY="<proxy_server>:<port>"
+  export PROXY_USER="foo"
+  export PROXY_PASSWORD="mysecretpass"
+
+For Windows CMD or Powershell::
+
+  setx PROXY="<proxy_server>:<port>"
+  setx PROXY_USER="foo"
+  setx PROXY_PASSWORD="mysecretpass"
 
 At this point your Atomic Developer Bundle installation is complete. You can
 find `ADB Usage Information <using.rst>`_ in the documentation directory.
