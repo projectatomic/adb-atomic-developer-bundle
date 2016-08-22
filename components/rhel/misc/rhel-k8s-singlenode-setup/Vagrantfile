@@ -22,6 +22,11 @@ Vagrant.configure(2) do |config|
     config.registration.password = ENV['SUB_PASSWORD']
   end
 
+  # Proxy Information from environment
+  config.registration.proxy = PROXY = (ENV['PROXY'] || '')
+  config.registration.proxyUser = PROXY_USER = (ENV['PROXY_USER'] || '')
+  config.registration.proxyPassword = PROXY_PASSWORD = (ENV['PROXY_PASSWORD'] || '')
+
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
     libvirt.memory = 1024
@@ -47,5 +52,8 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
-  config.servicemanager.services = 'kubernetes'
+  # Explicitly enable and start kubernetes
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} /usr/bin/sccli kubernetes
+  SHELL
 end
