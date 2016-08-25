@@ -54,6 +54,11 @@ Vagrant.configure(2) do |config|
     config.ssh.username = 'vagrant'
   end
 
+  # Proxy Information from environment
+  PROXY = (ENV['PROXY'] || '')
+  PROXY_USER = (ENV['PROXY_USER'] || '')
+  PROXY_PASSWORD = (ENV['PROXY_PASSWORD'] || '')
+
   config.vm.synced_folder '.', '/vagrant', disabled: true
   if Vagrant::Util::Platform.windows?
     target_path = ENV['USERPROFILE'].gsub(/\\/,'/').gsub(/[[:alpha:]]{1}:/){|s|'/' + s.downcase.sub(':', '')}
@@ -65,5 +70,8 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
-  config.servicemanager.services = 'kubernetes'
+  # Explicitly enable and start kubernetes
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} /usr/bin/sccli kubernetes
+  SHELL
 end
