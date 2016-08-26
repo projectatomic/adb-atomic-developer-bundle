@@ -46,6 +46,7 @@ Vagrant.configure(2) do |config|
     v.memory = VM_MEMORY
     v.cpus   = VM_CPU
     v.driver = "kvm"
+    v.suspend_mode = "managedsave"
   end
 
   # vagrant-registration

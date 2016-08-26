@@ -22,6 +22,7 @@ Vagrant.configure(2) do |config|
     libvirt.driver = "kvm"
     libvirt.memory = 1024
     libvirt.cpus = 2
+    libvirt.suspend_mode = "managedsave"
   end
 
   config.vm.provider "virtualbox" do |vbox, override|
