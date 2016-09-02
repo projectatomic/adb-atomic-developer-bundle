@@ -114,9 +114,11 @@ Vagrant.configure(2) do |config|
     echo
     echo "Configured cluster admin user: admin, Password: admin"
     echo
+    echo "To download and install OC binary, run:"
+    echo "vagrant service-manager install-cli openshift"
+    echo
     echo "To use OpenShift CLI, run:"
-    echo "$ vagrant ssh"
-    echo "$ oc login"
+    echo "$ oc login ${OPENSHIFT_HOSTNAME}:8443"
     echo
     echo "To browse the OpenShift API documentation, follow this link:"
     echo "http://openshift3swagger-claytondev.rhcloud.com"
