@@ -1,14 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# The top level domain for your VM and the created application routes
-TLD = 'cdk'
-
-# The host name of the VM. Needs to have a different TLD due to Kubernetes issue
-HOSTNAME = 'cdk.vm'
-
-# Host name for accessing OpenShift
-OPENSHIFT_HOSTNAME = "openshift.#{TLD}"
+# The private network IP of the VM. You will use this IP to connect to OpenShift.
+# This variable is ignored for Hyper-V provider.
+PUBLIC_ADDRESS="10.1.2.2"
 
 # Number of virtualized CPUs
 VM_CPU = ENV['VM_CPU'] || 2
@@ -17,7 +12,7 @@ VM_CPU = ENV['VM_CPU'] || 2
 VM_MEMORY = ENV['VM_MEMORY'] || 3072
 
 # Validate required plugins
-REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs landrush)
+REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
 errors = []
 
 def message(name)
@@ -33,7 +28,6 @@ end
 
 Vagrant.configure(2) do |config|
   config.vm.box = 'cdkv2'
-  config.vm.hostname = HOSTNAME
 
   config.vm.provider "virtualbox" do |v, override|
     v.memory = VM_MEMORY
@@ -48,6 +42,8 @@ Vagrant.configure(2) do |config|
     v.driver = "kvm"
     v.suspend_mode = "managedsave"
   end
+
+  config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}" 
 
   # vagrant-registration
   if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
@@ -72,16 +68,6 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
-  # landrush
-  config.landrush.enabled = true
-  config.landrush.tld = TLD
-  config.landrush.host TLD, HOSTNAME
-  config.landrush.guest_redirect_dns = false
-  config.vm.provision :shell, inline: <<-SHELL
-    sed -i.orig -e "s/^ip=.*/ip='#{OPENSHIFT_HOSTNAME}'/g" /opt/adb/openshift/openshift
-    sed -i.orig -e "s/OPENSHIFT_SUBDOMAIN=.*/OPENSHIFT_SUBDOMAIN='#{TLD}'/g" /etc/sysconfig/openshift_option
-  SHELL
-
   # prevent the automatic start of openshift via service-manager by just enabling Docker
   config.servicemanager.services = "docker"
 
@@ -91,12 +77,14 @@ Vagrant.configure(2) do |config|
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
+    #Get the routable IP address of OpenShift
+    OSIP=`/opt/adb/openshift/get_ip_address`
     echo
     echo "Successfully started and provisioned VM with #{VM_CPU} cores and #{VM_MEMORY} MB of memory."
     echo "To modify the number of cores and/or available memory set the environment variables"
     echo "VM_CPU respectively VM_MEMORY."
     echo
-    echo "You can now access the OpenShift console on: https://#{OPENSHIFT_HOSTNAME}:8443/console"
+    echo "You can now access the OpenShift console on: https://${OSIP}:8443/console"
     echo
     echo "To use OpenShift CLI, run:"
     echo "$ vagrant ssh"
