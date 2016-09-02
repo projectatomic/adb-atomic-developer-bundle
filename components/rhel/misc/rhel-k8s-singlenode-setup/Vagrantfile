@@ -53,8 +53,12 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
+  # prevent the automatic start of openshift via service-manager by just enabling Docker
+  config.servicemanager.services = "docker"
+
   # Explicitly enable and start kubernetes
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} /usr/bin/sccli kubernetes
+    echo "kubernetes single node cluster setup successfully"
   SHELL
 end
