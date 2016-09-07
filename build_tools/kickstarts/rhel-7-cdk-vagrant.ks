@@ -206,6 +206,7 @@ docker pull openshift3/ose-haproxy-router:$OPENSHIFT_TAG
 docker pull openshift3/ose-deployer:$OPENSHIFT_TAG
 docker pull openshift3/ose-docker-registry:$OPENSHIFT_TAG
 docker pull openshift3/ose-sti-builder:$OPENSHIFT_TAG
+docker pull openshift3/ose-pod:$OPENSHIFT_TAG
 
 echo "Finished pull, running docker images for log debugging"
 docker images
