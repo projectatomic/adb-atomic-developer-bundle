@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.3.1 Sep 08, 2016
+- Fix #532 disable rsync and use sshfs by default in CDK Kubernetes Vagrantfile @praveenkumar
+- Fix #528 Failed to start Etcd Server K8s Vagrantfile @praveenkumar
+- Revert landrush plugin for CDK Vagrantfiles @praveenkumar
+- Fix #444, added CDK product page link and cleaned up formatting issues @Preeticp
+- Fix #509 Proxy support k8s vagrantfile @praveenkumar
+- Fix #517 rsync: connection unexpectedly closed @praveenkumar
+- Updated centos-k8s Vagrantfile to start through service-manager hook @budhrg
+- Adding Budh Ram Gurung(@budhrg) as maintainer @budhrg
+- Adding suspend_mode = 'managedsave' in libvirt configuration @rimolive
+
 ## v2.3.0 Aug 10, 2016
 - Add Landrush as plugin requirement in Vagrantfile @praveenkumar
 - Unify Vagrantfile for different Providers @praveenkumar
