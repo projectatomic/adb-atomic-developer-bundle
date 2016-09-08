@@ -4,7 +4,7 @@
 koji -p cbs image-build \
   centos-7-adb 2.3 atomic7-adb-common-el7 \
   http://mirror.centos.org/centos/7/os/x86_64/ x86_64 \
-  --release=0 \
+  --release=1 \
   --distro RHEL-7.0 \
   --ksver RHEL7 \
   --kickstart=./build_tools/kickstarts/centos-7-adb-vagrant.ks \
