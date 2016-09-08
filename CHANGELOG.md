@@ -1,6 +1,8 @@
 # Changelog
 
 ## v2.3.1 Sep 08, 2016
+- Fix #534. Fixing the CDK OpenShift kickstart file to cache ose-pod container image @LalatenduMohanty
+- Increasing the /etc/os-release version to 2.3.0 @LalatenduMohanty
 - Fix #532 disable rsync and use sshfs by default in CDK Kubernetes Vagrantfile @praveenkumar
 - Fix #528 Failed to start Etcd Server K8s Vagrantfile @praveenkumar
 - Revert landrush plugin for CDK Vagrantfiles @praveenkumar
