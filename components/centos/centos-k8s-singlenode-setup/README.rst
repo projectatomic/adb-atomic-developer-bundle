@@ -12,7 +12,7 @@ QuickStart
 
 2. Create a directory for the Vagrant Box
 
-  ``$ mkdir directory && cd directory``
+  ``$ mkdir directory && cd $_``
 
 3. Download this Vagrantfile
 
