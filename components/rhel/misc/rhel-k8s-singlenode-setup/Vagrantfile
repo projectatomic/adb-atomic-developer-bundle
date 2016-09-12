@@ -23,9 +23,9 @@ Vagrant.configure(2) do |config|
   end
 
   # Proxy Information from environment
-  config.registration.proxy = PROXY = (ENV['PROXY'] || '')
-  config.registration.proxyUser = PROXY_USER = (ENV['PROXY_USER'] || '')
-  config.registration.proxyPassword = PROXY_PASSWORD = (ENV['PROXY_PASSWORD'] || '')
+  ENV['PROXY'] ? (config.registration.proxy = PROXY = ENV['PROXY']) : PROXY = ''
+  ENV['PROXY_USER'] ? (config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER']) : PROXY_USER = ''
+  ENV['PROXY_PASSWORD'] ? (config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD']) : PROXY_PASSWORD = ''
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
