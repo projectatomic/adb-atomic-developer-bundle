@@ -82,7 +82,7 @@ Vagrant.configure(2) do |config|
     echo
     echo "Successfully started and provisioned VM with #{VM_CPU} cores and #{VM_MEMORY} MB of memory."
     echo "To modify the number of cores and/or available memory set the environment variables"
-    echo "VM_CPU respectively VM_MEMORY."
+    echo "VM_CPU and/or VM_MEMORY respectively."
     echo
     echo "You can now access the OpenShift console on: https://${OSIP}:8443/console"
     echo
