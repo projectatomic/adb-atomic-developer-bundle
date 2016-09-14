@@ -7,20 +7,19 @@
    :backlinks: none
 
 =================================
-Using the Atomic Developer Bundle
+Using Atomic Developer Bundle
 =================================
 
 Principles
 ==========
 
-Consider the ADB to be ephemeral and do not store data in it long term. It is
+Consider ADB to be ephemeral and do not store data in it long term. It is
 recommended that you do the following:
 
 * Back up your code.
 * Use a source control system.
-* Mount your code into the box from your host system. The provided `custom Vagrantfile examples
-  <#using-custom-vagrantfiles-for-specific-use-cases>`_ already mount your home directory on the host
-  into the guest using `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs/>`_.
+* Mount your code into the box from your host system. The `ADB Vagrantfiles <docs/installing.rst#4-download-the-adb>`_
+  already mount your home directory from the host into ADB using `vagrant-sshfs <https://github.com/dustymabe/vagrant-sshfs/>`_.
   Additional shares can also be defined. Refer to the `bi-directional folder sync
   section <#vagrant-bi-directional-folder-sync>`_ for more information.
 
@@ -28,71 +27,28 @@ Doing these things is beyond the scope of this document. Consult your Operating
 System manuals and the `Vagrant <http://vagrantup.com/>`_ website for more
 details.
 
-Starting the Vagrant Box
-========================
+Once you start ADB you can use it as:
 
-1. Initialize a new Vagrant environment by creating a Vagrantfile. You may find
-   it helpful to first create a new directory for use by this environment.
-   Create the Vagrantfile with this command:
+* a server resource for host-based tools (Eclipse/CLIs) or
+* a Linux virtual machine.
 
-   ``vagrant init <box name>``
+For a quick high level glimpse at ADB and how you can use it refer to the
+`Readme <https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/README.rst>`_.
+For detailed instructions on how to install ADB refer to the `Installation Document`_.
 
-   Box name is typically ``projectatomic/adb`` or whatever you named it when you
-   loaded it manually.
+.. _Installation Document: docs/installing.rst
 
-2. Edit the ``Vagrantfile`` to setup private networking. The private network is
-   used to expose ADB-based services, such as the docker daemon, to the host.
-   This is done by adding the following line in the ``Vagrant.configure``
-   section.
-
-   ``config.vm.network "private_network", type: "dhcp"``
-
-3. Start the Vagrant image with this command:
-
-   ``vagrant up``
-
-   **Note:** On Fedora and CentOS you may need to specify which virtualization
-   provider to use.  For example, to use VirtualBox, the command would be
-   ``vagrant up --provider virtualbox``
-
-Using Custom Vagrantfiles for Specific Use Cases
-================================================
-
-Custom Vagrant files are shipped for specific use cases. The README files
-contain useful documentation and a quickstart guide.
-
-* Docker for use with host-based tools, such as Eclipse and the docker CLI, or
-  via ``vagrant ssh``
-
-  * `Vagrantfile <../components/centos/centos-docker-base-setup/Vagrantfile>`_
-  * `README <../components/centos/centos-docker-base-setup/README.rst>`_
-
-* Kubernetes for use with host-based tools or via ``vagrant ssh``
-
-  * `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_
-  * `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
-
-* OpenShift Origin for use with host-based tools or via ``vagrant ssh``
-
-  * `Vagrantfile <../components/centos/centos-openshift-setup/Vagrantfile>`_
-  * `README <../components/centos/centos-openshift-setup/README.rst>`_
-
-* Apache Mesos Marathon for use with host-based tools or via ``vagrant ssh``
-
-  * `Vagrantfile <../components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile>`_
-  * `README <../components/centos/centos-mesos-marathon-singlenode-setup/README.rst>`_
-
-Using the ADB with Host-based Tools (Eclipse and CLIs)
+Using ADB with host-based tools (Eclipse and CLIs)
 ======================================================
 
 Many users have preferred development environments built from tools running on
 their development workstation. Even if these workstations are unable to run
 containers or container-components natively, the user may still want to use their
 preferred tools, editors, etc.
-The ADB can be used with these tools in a way that makes it seamless to interact
+ADB can be used with these tools in a way that makes it seamless to interact
 with files, preferred development tools, etc.
 
-The ADB exposes the docker daemon port and orchestrator access points so that tools
+ADB exposes the docker daemon port and orchestrator access points so that tools
 like Eclipse and various CLIs can interact with them. For security reasons,
 some ports, such as the docker daemon port, are TLS protected. Therefore some
 configuration is required before the service can be accessed.
@@ -114,22 +70,23 @@ To use ADB with Host-Based tools:
     config.servicemanager.services = 'openshift'
 
    **Note:**
-* Docker is a default service for the ADB and does not require any configuration to ensure it is started.
-  Additionally, the Red Hat Enterprise Linux Container Development Kit, which is
-  based on the Atomic Developer Bundle, automatically starts OpenShift as well.
-* You can enable multiple services as a comma separated list. For instance: `docker, openshift`.
 
-3. Enable any specific options for the services you have selected as:
+   * Docker is the default service for ADB and does not require any configuration to ensure it is started.
+     Red Hat Enterprise Linux Container Development Kit, which is based on
+     Atomic Developer Bundle, automatically starts OpenShift.
+   * You can use a comma-separated list to enable multiple services. For instance: `docker, openshift`.
 
-   For instance, in OpenShift, specific versions can be specified using the following variables:
+3. Enable the relevant option for the services you have selected in the Vagrantfile as:
+
+   For example, specific versions of OpenShift can be specified using the following variables:
 
    1. ``config.servicemanager.openshift_docker_registry = "docker.io"`` - Specifies the registry from where the service should be pulled.
    2. ``config.servicemanager.openshift_image_name = "openshift/origin"`` - Specifies the image to be used.
    3. ``config.servicemanager.openshift_image_tag = "v1.2.0"`` - Specifies the version of the image to be used.
 
-4. Start the ADB using ``vagrant up``. For details consult the `Installation documentation`_.
+4. Start ADB using ``vagrant up``. You will find detailed installation instructions in the `Installation document`_.
 
-.. _Installation documentation: https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.rst
+.. _Installation document: docs/installing.rst
 
 
 5. Configure the environment and download the required TLS certificates using
@@ -151,10 +108,10 @@ To use ADB with Host-Based tools:
    Setting these environment variables allows programs, such as Eclipse and the
    docker CLI to access the docker daemon.
 
-   **Note:** When the OpenShift service is running in the VM, a docker registry
-   is also started. This Docker registry can be consumed by external
-   tools such as Eclipse to push or pull images. The Docker registry url is exported
-   as a variable, and can be accessed as shown below::
+   **Note:** When the OpenShift service is running in the VM, a Docker registry
+   is also started. This Docker registry can be used by external tools such
+   as Eclipse to push or pull images. The Docker registry URL is exported as a
+   variable, and can be accessed by running the following command::
 
      $ vagrant service-manager env openshift
      # openshift env:
@@ -166,8 +123,7 @@ To use ADB with Host-Based tools:
 
 6. Begin developing.
 
-   If you do not have the docker CLI, you can use the ``install-cli`` command as
-   shown below::
+   If you do not have the docker CLI, you can use the ``install-cli`` command as::
 
      $ vagrant service-manager install-cli docker
 
@@ -200,29 +156,10 @@ To use ADB with Host-Based tools:
       variable in the "TCP Connection" field and the DOCKER_CERT_PATH in the
       "Authentication Section" Path.
 
-   5. You can test the connection and then accept the results. At this point, you are ready to use the ADB with Eclipse.
+   5. You can test the connection and then accept the results. At this point, you are ready to use ADB with Eclipse.
 
 .. _Docker Tooling: http://www.eclipse.org/community/eclipse_newsletter/2015/june/article3.php
       **Note:** Testing has been done with Eclipse 4.5.0.
-
-Using the ADB behind http proxy
-===============================
-
-ADB can be setup behind a proxy server. You need to export the proxy server information in to the environment and then run ``vagrant up``.
-
-**Note:** Currently, only HTTP and HTTPS proxy servers are supported.
-
-For GNU/Linux. OS X and Cygwin shell::
-    
-    export PROXY="<proxy_server>:<port>"
-    export PROXY_USER="foo"
-    export PROXY_PASSWORD="mysecretpass"
-
-For Windows CMD or Powershell::
-
-    setx PROXY="<proxy_server>:<port>"
-    setx PROXY_USER="foo"
-    setx PROXY_PASSWORD="mysecretpass"
 
 Using the box via SSH
 =====================
@@ -236,30 +173,33 @@ You are now at a shell prompt inside the Vagrant box. You can now execute
 commands and use the tools provided.
 
 You can use the `sccli <https://github.com/projectatomic/adb-utils/blob/master/README.rst>`_
-to manage the orchestration services inside of the ADB.
+to manage the orchestration services inside of ADB.
 ``sccli`` makes it easy to start and stop orchestration providers like Kubernetes
 or OpenShift.
 
 Using ``docker``
 ################
 
-The ADB provides a full container environment and runs both ``docker`` and
+ADB provides a full container environment and runs both ``docker`` and
 ``kubernetes``. All standard commands work, for example::
 
-   docker pull centos
+  ADB pull centos
    docker run -t -i centos /bin/bash
 
 Using Atomic App and Nulecule
 #############################
 
-Details on these projects can be found at these urls:
+Details on these projects can be found at these URLs:
 
 * Atomic App: https://github.com/projectatomic/atomicapp
 * Nulecule: https://github.com/projectatomic/nulecule
 
 The `helloapache`_ example can be used to test your installation.
 
-**Note:** Many Nulecule examples expect a working kubernetes environment. Use the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_ and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_ to set up a single node kubernetes environment.
+**Note:** Many Nulecule examples expect a working Kubernetes environment. Use
+the `Vagrantfile <../components/centos/centos-k8s-singlenode-setup/Vagrantfile>`_
+and refer the corresponding `README <../components/centos/centos-k8s-singlenode-setup/README.rst>`_
+to set up a single node Kubernetes environment.
 
 You can verify your environment by executing ``kubectl get nodes``. The
 expected output is::
@@ -307,7 +247,7 @@ There are also some other alternatives, which are, however, not yet properly tes
   * You can also use `vagrant-vbguest <https://github.com/dotless-de/vagrant-vbguest>`_ plugin to install Virtualbox guest additions in ADB Vagrant box.
 
 
-Some Useful Commands
+Some useful commands
 ====================
 * ``vagrant halt`` - Stop the vagrant box, temporarily:
 
@@ -322,9 +262,9 @@ Some Useful Commands
   Use ``vagrant status`` to check the status of ADB and to check which virtualization
   provider is being used and the status of the provider.
 
-* ``vagrant destroy`` - Destroy the Vagrant Box:
+* ``vagrant destroy`` - Destroy the Vagrant box:
 
   **Warning:**
-  Using ``vagrant destroy``, will destroy any data you have stored in the Vagrant
+  Using ``vagrant destroy`` will destroy any data you stored in the Vagrant
   box. You will not be able to restart this instance and will have to create a
   new one using ``vagrant up``.
