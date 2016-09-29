@@ -1,0 +1,37 @@
+= Vagrantfile: CentOS Docker Base
+:toc:
+
+This Vagrantfile is the default suggested configuration for the ADB.
+This file sets up private networking that will be used to expose the
+docker daemon to the host. This Vagrantfile is useful for anyone using
+host-based tools, such as the
+https://wiki.eclipse.org/Linux_Tools_Project/Docker_Tooling[Eclipse
+docker tooling] or the docker CLI, with the ADB.
+
+[[quickstart]]
+== Quickstart
+
+.  Get latest ADB box and add it to vagrant as described in
+link:../../../docs/installing.adoc[Installing the Atomic Developer
+Bundle].
+
+.  Create a directory for the Vagrant Box.
++
+----
+$ mkdir directory && cd directory
+----
+
+.  Download the Vagrantfile.
++
+----
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
+----
+
+.  Start the Vagrant Box.
++
+----
+$ vagrant up
+----
+
+.  Proceed with using ADB as described in link:../../../docs/using.adoc[Using
+Atomic Developer Bundle].

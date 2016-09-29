@@ -1,0 +1,39 @@
+= Using Cockpit with Atomic Developer Bundle
+:toc:
+
+http://cockpit-project.org/[Cockpit] makes it easy to administer your
+GNU/Linux servers via a web browser. It can manage system resources and
+has special functionality built in for managing docker containers.
+Specifically for containers, it can:
+
+* Display a list of images
+* Display a list of containers (started and stopped)
+* Start and stop containers
+* Pull and delete images
+
+[[accessing-cockpit-in-the-adb]]
+== Accessing Cockpit in ADB
+
+These instructions are written assuming you are at a command prompt on
+the host you are running ADB on.
+
+.  Start ADB.
+
+.  Start Cockpit.
++
+`$ vagrant ssh -c "sudo systemctl start cockpit"`
+
+.  Determine the IP Address of the ADB
++
+`$ vagrant service-manager box ip`
+
+.  Open cockpit in your web browser using the IP address above:
++
+`http://<IP Address>:9090/`
++
+You may need to accept a TLS certificate as cockpit generates a
+self-signed SSL certificate.
+
+.  You may now use cockpit on the ADB. Two users are available by
+default. The username for a standard user is `vagrant` the password is
+`vagrant`. The root user has a password of `vagrant`.

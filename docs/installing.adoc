@@ -1,0 +1,313 @@
+= Installing Atomic Developer Bundle
+:toc:
+
+
+[[install-a-virtualization-provider]]
+== Install a virtualization provider
+
+Two virtualization providers have been tested with ADB; VirtualBox and
+Libvirt.
+
+The following virtualization providers are suggested for the respective
+operating systems:
+
+* Microsoft Windows and Mac OS X
++
+The suggested virtualization provider for Microsoft Windows and Mac OS X
+is https://www.virtualbox.org[VirtualBox]. Installation instructions are
+available https://www.virtualbox.org/manual/UserManual.html[online].
+While the latest stable shipping release should work, the majority of
+testing has been done with version 5.0.0 on Mac OS X and 5.0.8 on
+Microsoft Windows.
+
+* Fedora
++
+Two different virtualization providers are supported on Linux;
+https://www.virtualbox.org[VirtualBox] and http://libvirt.org/[libvirt].
+The choice as to which to use should be driven by your preferences and
+environmental concerns and is outside of the scope of this document.
+Both will work equally well in their default configuration. You may wish
+to read the section on file synchronization in the
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.adoc[Using ADB documentation] when making this decision.
++
+** VirtualBox installation instructions are available
+https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux[online
+at the VirtualBox website]. Testing has been done with versions 4.3.34
+and 5.0.0.
++
+A summary of the installation is listed below:
++
+....
+$ sudo dnf -y install dkms
+$ curl -O http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+$ sudo mv virtualbox.repo /etc/yum.repos.d/
+$ sudo dnf -y install VirtualBox-4.3
+$ sudo /etc/init.d/vboxdrv setup
+....
++
+While the latest stable release should work, the majority of testing has
+been done with version 4.3.30.
+** Installing libvirt dependencies can be skipped as they are
+automatically installed together with the `vagrant-libvirt` package.
+Testing has been done with libvirt version 1.2.18 and vagrant-libvirt
+version 0.0.32.
+
+* CentOS
++
+Two different virtualization providers are supported on Linux;
+https://www.virtualbox.org[VirtualBox] and http://libvirt.org/[libvirt].
+The choice as to which to use should be driven by your preferences and
+environmental concerns and is outside of the scope of this document.
+Both will work equally well in their default configuration. You may wish
+to read the section onfile synchronization in the
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.adoc[Using ADB documentation] when making this decision.
++
+** VirtualBox installation instructions are available
+https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux[online
+at the VirtualBox website].
+https://wiki.centos.org/HowTos/Virtualization/VirtualBox[CentOS specific
+instructions] are also available.
++
+While the latest stable release should work, the majority of testing has
+been done with version 4.3.30.
++
+A summary of the installation is listed below:
++
+....
+$ sudo yum -y install epel-release
+$ sudo yum -y install dkms
+$ curl -O http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+$ sudo mv virtualbox.repo /etc/yum.repos.d/
+$ sudo yum -y install VirtualBox-4.3
+$ sudo /etc/init.d/vboxdrv setup
+....
+** Installing libvirt dependencies can be skipped as they are
+automatically installed together with the CentOS software collections
+build.
+
+[[install-vagrant]]
+== Install Vagrant
+
+* Microsoft Windows
+1.  Follow the directions at
+https://docs.vagrantup.com/v2/installation/index.html[vagrantup.com].
+Testing has been done with version 1.7.4.
+2.  Install an `ssh` client. Two good options are:
+** https://cygwin.com/install.html[Cygwin]
+** http://www.mingw.org/[mingw]
++
+Please note, Putty is not recommended as it doesn't currently interface with Vagrant.
+
+* Mac OS X
++
+Follow the directions at
+https://docs.vagrantup.com/v2/installation/index.html[vagrantup.com].
+Testing has been done with version 1.7.4.
+
+* Fedora 23/24
++
+Testing has been done with version 1.7.2.
++
+** To install Vagrant with VirtualBox in Fedora 23/24:
++
+....
+$ sudo dnf install -y vagrant
+....
+** To install Vagrant with libvirt in Fedora 23/24:
++
+....
+$ sudo dnf -y install vagrant-libvirt
+
+# Start libvirtd
+$ sudo systemctl start libvirtd
+
+# Set libvirtd to start automatically on system boot
+$ sudo systemctl enable libvirtd
+....
++
+This would install both Vagrant and Libvirt.
+
+* CentOS
++
+Vagrant packages are not available directly in CentOS core. However,
+they are available through official CentOS
+http://softwarecollections.org[Software Collections] builds.
++
+Here are the commands to get Vagrant in CentOS:
++
+....
+$ sudo yum -y install centos-release-scl
+$ sudo yum -y install sclo-vagrant1
+$ sudo scl enable sclo-vagrant1 bash
+....
++
+To add libvirt support use this:
++
+....
+# Start libvirtd
+$ sudo systemctl start libvirtd
+
+# Set libvirtd to start automatically on system boot
+$ sudo systemctl enable libvirtd
+....
+
+[[install-additional-dependencies]]
+== Install additional dependencies
+
+For some operating systems, you might need to install additional
+dependencies before you install the Vagrant plugins.
+
+* Fedora 23/24
++
+Run the following commands to install the additional dependencies:
++
+....
+$ sudo dnf install @'Development Tools'
+$ sudo dnf install rpm-build zlib-devel ruby-devel gcc-c++
+....
+
+[[install-vagrant-plugins]]
+== Install Vagrant plugins
+
+Run the following commands to install the
+https://github.com/projectatomic/vagrant-service-manager[vagrant-service-manager],
+https://github.com/dustymabe/vagrant-sshfs[vagrant-sshfs], and
+https://github.com/vagrant-landrush/landrush[landrush] plugins:
+
+....
+$ vagrant plugin install vagrant-service-manager
+$ vagrant plugin install vagrant-sshfs
+$ vagrant plugin install landrush
+....
+
+[[download-adb]]
+== Download ADB
+
+There are two ways to download ADB.
+
+* Vagrantfiles Initiated Download
++
+The ADB project provides customized Vagrantfiles, which will download
+ADB and automatically set up provider-specific container development
+environments. They are listed below and more details are available in
+their respective Readmes.
++
+To download ADB and set up a provider-specific container development
+environment:
++
+.  Create a directory for the Vagrant box
++
+`$ mkdir directory && cd directory`
+.  Download any of the following vagrantfiles, to configure the
+development environment you need.
+** To configure a
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile[Docker]
+specific container development environment use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
+....
++
+Refer:
+link:../components/centos/centos-docker-base-setup/README.adoc[README]
+** To configure a
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile[Kubernetes]
+specific container development environment use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile > Vagrantfile
+....
++
+Refer:
+link:../components/centos/centos-k8s-singlenode-setup/README.adoc[README]
+** To configure an https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-openshift-setup/Vagrantfile[OpenShift Origin] specific container development environment
+use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-openshift-setup/Vagrantfile > Vagrantfile
+....
++
+Refer:
+link:../components/centos/centos-openshift-setup/README.adoc[README]
+** To configure an
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile[Apache
+Mesos Marathon] specific container development environment use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
+....
++
+Refer:
+link:../components/centos/centos-mesos-marathon-singlenode-setup/README.adoc[README]
+
+. Start ADB by running the `vagrant up` command.
++
+----
+$ vagrant up
+----
++
+This will download ADB and set it up to work with the provider of
+choice, for use with host-based tools or via `vagrant ssh`.
++
+[NOTE]
+====
+On Fedora and CentOS you may need to specify the virtualization
+provider to use. For example, to use VirtualBox, the command would be:
+----
+$ vagrant up --provider virtualbox
+----
+====
++
+You may wish to review the link:docs/using.adoc[Using Atomic Developer
+Bundle] documentation before starting ADB, especially if you are using
+host-based tools.
+
+* Manually Downloading the Vagrant Box Image
++
+Alternatively, you can manually download the vagrant box from
+http://cloud.centos.org/centos/7/atomic/images/[cloud.centos.org] using
+your web browser or curl. For example:
++
+....
+# To get the libvirt image
+$ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<latest>.box
+
+# To get the virtual box image
+$ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<latest>.box
+....
++
+Once you have downloaded the image, you can add it to `vagrant` with
+this command:
++
+....
+# Add the image to vagrant
+$ vagrant box add adb <local path to the downloded image>
+....
+
+[[set-up-adb-behind-an-http-proxy]]
+== Set up ADB behind an HTTP proxy
+
+ADB can be set up behind a proxy server. You need to export the proxy
+server information in to the environment and then run `vagrant up`.
+
+NOTE: Currently, only HTTP and HTTPS proxy servers are supported.
+
+For Linux, OS X and Windows Cygwin shell:
+
+....
+export PROXY="<proxy_server>:<port>"
+export PROXY_USER="foo"
+export PROXY_PASSWORD="mysecretpass"
+....
+
+For Windows CMD or Powershell:
+
+....
+setx PROXY="<proxy_server>:<port>"
+setx PROXY_USER="foo"
+setx PROXY_PASSWORD="mysecretpass"
+....
+
+At this point your Atomic Developer Bundle installation is complete. You
+can find link:using.adoc[ADB Usage Information] in the documentation
+directory.
