@@ -108,15 +108,15 @@ The following virtualization providers are suggested for the respective operatin
 
 .. _vagrantup.com: https://docs.vagrantup.com/v2/installation/index.html
 
-* Fedora 22/23/Rawhide(24)
+* Fedora 23/24
 
   Testing has been done with version 1.7.2.
 
-  * To install Vagrant with VirtualBox in Fedora 22/23/24 (Rawhide)::
+  * To install Vagrant with VirtualBox in Fedora 23/24::
 
     $ sudo dnf install -y vagrant
 
-  * To install Vagrant with libvirt in Fedora 22/23/24 (Rawhide)::
+  * To install Vagrant with libvirt in Fedora 23/24::
 
       $ sudo dnf -y install vagrant-libvirt
 
@@ -154,7 +154,7 @@ The following virtualization providers are suggested for the respective operatin
 
 For some operating systems, you might need to install additional dependencies before you install the Vagrant plugins.
 
-* Fedora 24
+* Fedora 23/24
 
   Run the following commands to install the additional dependencies::
 
