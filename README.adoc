@@ -1,0 +1,274 @@
+= Atomic Developer Bundle
+:toc:
+
+[[what-is-atomic-developer-bundle-adb]]
+== What is Atomic Developer Bundle (ADB)?
+
+Atomic Developer Bundle (ADB) is a prepackaged development environment
+filled with production-grade, pre-configured tools, that makes container
+developers' lives easier. ADB supports the development of
+multi-container applications against different technologies and
+orchestrators while providing a path that promotes best practices.
+
+As a container developer, you want to use ADB for these reasons:
+
+* **Pre-Configured**: You don't have to spend time building an
+environment and fighting configuration battles.
+
+* **Multiple Environment Support**: ADB works on Windows, Linux and Mac
+OS X. ADB supports several orchestrators (OpenShift, Kubernetes, Mesos,
+and plain Docker). ADB is language independent and supports multiple
+developer models (IDE, CLI, SSH containment).
+
+* **Production-Grade**: The components of ADB are configured to behave
+just as they will in production. Containers promise seamless delivery,
+but only if you test them in the right environment. This is that
+environment.
+
+* **Self-Contained**: ADB is ready to go once installed. It comes
+prepackaged with the most common components ready, in case they are
+needed.
+
+* **Open Source**: ADB leverages existing tools and technologies
+wherever possible to avoid pushing a developer into an environment that
+won't be supportable in production or that is tied to a single vendor.
+This also means it benefits from the stability of existing projects
+instead of reinventing the wheel.
+
+ADB is a virtual machine that is executed with Vagrant and some Vagrant
+plugins.
+
+[[when-would-adb-typically-be-used]]
+== When would ADB typically be used?
+
+A developer begins using ADB, in most cases, once they have a working
+application that has been decomposed into micro-services. They then
+follow this general outline of steps:
+
+. Consider ways to divide your application into its component services
+or micro-services. For standard pieces, such as web servers, consider
+using pre-built containers from trusted sources. For truly unique
+pieces, build a custom container.
+
+. Confirm the application works in ADB by manually launching the
+application's container components or by using the instance of OpenShift
+in the container to launch the application.
+
+. Build orchestration configurations that provide scaling and other
+required features, or complete the OpenShift application configuration.
+Alternatively, build a Nulecule description of the application.
+
+. Test the application.
+
+The http://docs.projectatomic.io/container-best-practices/[Container
+Best Practices] document in this project may also be of interest.
+
+[[what-is-the-typical-usage-pattern]]
+== What is the typical usage pattern?
+
+ADB supports three basic modes of usage. The modes vary by how much they
+rely on tools on the developer's workstation. From most to least
+reliant, they are:
+
+* Host-based IDE Mode
++
+This mode uses ADB as a server resource for host-based IDE tools. In
+this mode, the user will run `eclipse` or other IDE tools that will
+access the resources of ADB.
+
+* Host-based CLI Mode
++
+This mode uses ADB as a server resource for host-based CLI tools. In
+this mode, the user will run `docker` and other CLI tools on their
+workstation and the result will be containers executed inside of ADB.
+
+* SSH Mode
++
+This mode uses ADB as a Linux virtual machine. The user will use the
+`ssh` command to log into ADB and will directly execute `docker` and
+other commands from the command line. This is similar to having
+installed a Linux virtual machine and then installing and configuring
+all of the software ADB ships with.
+
+More information about link:docs/using.adoc[using ADB] is available.
+
+[[what-does-adb-utilize]]
+== What does ADB utilize?
+
+ADB is built on top of https://www.centos.org/[CentOS 7] and the
+following projects:
+
+* https://www.docker.com/[Docker]: container runtime and packaging
+
+* https://github.com/projectatomic/atomic/[Atomic CLI]: container usage
+assistance
+
+* http://kubernetes.io/[Kubernetes]: container orchestration
+
+* http://www.openshift.org/[OpenShift Origin]: a next generation PaaS
+for docker containers
+
+* https://github.com/projectatomic/openshift2nulecule/[openshift2nulecule]:
+a tool that creates a Nulecule application from an existing OpenShift
+project
+
+* https://mesosphere.github.io/marathon/[Mesos Marathon]: a
+production-grade container orchestration platform for Mesosphere's
+Datacenter Operating System (DCOS) and Apache Mesos
+
+ADB supports https://github.com/projectatomic/atomicapp/[Atomic App], an
+implementation of the multi-container application specification
+https://github.com/projectatomic/nulecule/[nulecule], for
+multi-container applications.
+
+You need to use the customized Vagrantfiles provided in ADB project to
+set up the above mentioned environments. For further details refer to
+the Installation steps in the next section.
+
+[[how-do-i-install-and-run-adb]]
+== How do I install and run ADB?
+
+Below is an installation overview using the most common options.
+Detailed link:docs/installing.adoc[installation instructions] are
+available.
+
+. https://www.virtualbox.org/wiki/Downloads[Install VirtualBox] for
+your operating system.
+
+. https://docs.vagrantup.com/v2/installation/index.html[Install
+Vagrant] for your operating system.
+
+. Install the https://github.com/projectatomic/vagrant-service-manager[vagrant-service-manager],
+https://github.com/dustymabe/vagrant-sshfs[vagrant-sshfs], and https://github.com/vagrant-landrush/landrush[landrush]
+Vagrant plugins.
++
+----
+$ vagrant plugin install vagrant-service-manager vagrant-sshfs landrush
+----
+Some operating systems may need additional dependencies to be
+installed before you proceed with the installation of the vagrant
+plugins. For details refer to the detailed
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.adoc[Installation
+document].
+
+. Download the customized Vagrantfiles provided by the ADB project.
+These Vagrantfiles will download ADB and automatically set up
+provider-specific container development environments. They are listed
+below and more details are available in the
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.adoc[Installation
+document].
++
+To download ADB and set up a provider-specific container development
+environment:
++
+.. Create a directory for the Vagrant box
++
+`$ mkdir directory && cd directory`
+
+.. Download any of the following vagrantfiles, to configure the
+development environment you need.
+* To configure a
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile[Docker
+specific container development environment] use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
+....
+* To configure a
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile[Kubernetes
+specific container development environment] use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile > Vagrantfile
+....
+* To configure an
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-openshift-setup/Vagrantfile[OpenShift
+Origin specific container development environment] use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-openshift-setup/Vagrantfile > Vagrantfile
+....
+* To configure an
+https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile[Apache
+Mesos Marathon specific container development environment] use:
++
+....
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
+....
+
+. Start ADB:
++
+----
+vagrant up
+----
++
+This will download ADB and set it up to work with the provider of
+choice, for use with host-based tools or via `vagrant ssh`. You may wish
+to review the link:docs/using.adoc[Using Atomic Developer Bundle]
+documentation before starting ADB, especially if you are using
+host-based tools.
+
+[[included-features]]
+== Which features are included?
+
+Currently, the box provides the following:
+
+* Docker support to unsupported platforms (i.e. Microsoft Windows, Mac
+OS X, etc.)
+* Kubernetes orchestration for local testing of applications
+* Application definition using the Nulecule specification
+
+Additional goals, objectives and work in progress can be found on the
+Project Atomic https://trello.com/b/j1rEolFe/container-tools[trello
+board].
+
+[[deliverables-and-downloading]]
+== What are the deliverables and where are they delivered?
+
+ADB is delivered as a Vagrant box for various (currently libvirt and
+VirtualBox) providers. The boxes are built using the CentOS powered
+https://wiki.centos.org/HowTos/CommunityBuildSystem[Community Build
+System]. Boxes are delivered via
+https://atlas.hashicorp.com/boxes/search[Hashicorp's Atlas] and are
+available at
+http://cloud.centos.org/centos/7/vagrant/x86_64/images/[cloud.centos.org].
+These boxes differ from existing Vagrant boxes for CentOS as they have
+specific build requirements that are not enabled in those boxes.
+
+[[documentation]]
+== Documentation
+
+* link:docs/installing.adoc[Installing ADB]
+* link:docs/using.adoc[How to use ADB]
+** link:docs/cockpit.adoc[Using Cockpit with ADB]
+* link:docs/updating.adoc[Updating ADB]
+* link:docs/building.adoc[Building the Vagrant box] for Developers
+
+[[interested-in-contributing-to-this-project]]
+== Interested in Contributing to this project?
+
+We welcome new ideas, suggestions, issues and pull requests. Want to be
+more involved, join us:
+
+* Mailing List:
+https://www.redhat.com/mailman/listinfo/container-tools[container-tools@redhat.com]
+* IRC: #atomic and #nulecule on https://freenode.net/[freenode]
+* Weekly Standup/Review/Planning Meeting: Every Monday at 1300 UTC in
+#nulecule (https://freenode.net/[freenode]) for 0.5 hour. An agenda for
+this meeting is maintained at https://titanpad.com/adbmeeting
+
+Documentation is written using
+http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[ASCIIDoc].
+You can create and edit content in your favorite text editor with
+http://asciidoctor.org/docs/editing-asciidoc-with-live-preview/[live preview].
+
+== Additional online resources
+
+* Using OpenShift in ADB:
+http://www.projectatomic.io/blog/2016/05/App-Development-on-OpenShift-using-ADB
+* Using Kubernetes in ADB:
+http://www.projectatomic.io/blog/2016/04/k8s-adb-usage/
+* Introduction to ADB from DevConf.cz 2016:
+https://www.youtube.com/watch?v=jxFw6qnGaRk
+* OpenShift in ADB Quickstart (video):
+https://www.youtube.com/watch?v=H58prwM3IbE

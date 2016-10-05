@@ -1,0 +1,51 @@
+= Vagrantfile: Single-Node Kubernetes
+:toc:
+
+This Vagrantfile is the suggested configuration for using the CDK with
+Kubernetes. This file sets up private networking that will be used to
+expose the docker daemon and Kubernetes to the host. This Vagrant file
+also sets up a single node Kubernetes instance where the master and node
+are on the same machine.
+
+This Vagrantfile is useful for anyone using host-based tools, such as
+the https://wiki.eclipse.org/Linux_Tools_Project/Docker_Tooling[Eclipse
+docker tooling] or the kubectl, oc and docker CLIs, with the CDK.
+
+[[quickstart]]
+== Quickstart
+
+.  Get the latest CDK box and add it to Vagrant. You can download the CDK
+and find further information about CDK
+http://developers.redhat.com/products/cdk/overview/[here].
+
+.  Create a directory for the Vagrant Box.
++
+----
+$ mkdir directory && cd directory
+----
+
+.  Download the vagrantfile.
++
+----
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/rhel/misc/rhel-k8s-singlenode-setup/Vagrantfile > Vagrantfile
+----
+
+.  Start the Vagrant Box.
++
+----
+$ vagrant up
+----
+
+.  Proceed with using the CDK box.
+
+[[verifying-install]]
+== Verifying the installation
+
+You may wish to `vagrant ssh` into the CDK and verify that Kubernetes is
+setup using the `kubectl` CLI as follows:
+
+....
+$ kubectl get nodes
+NAME        LABELS                             STATUS
+127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
+....

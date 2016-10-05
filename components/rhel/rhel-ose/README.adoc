@@ -1,0 +1,90 @@
+= Vagrantfile: OpenShift Container Platform
+:toc:
+
+This Vagrantfile sets up the CDK for development with OpenShift. This
+file also sets up private networking that will be used to expose various
+services to the host. This Vagrantfile also provisions an instance of
+https://www.openshift.com/container-platform/whats-new.html[OpenShift
+Container Platform].
+
+If you are interested in the process used in the Vagranfile to setup
+OpenShift, please read the comments at the top of the file.
+
+[[quickstart]]
+== Quickstart
+
+.  Get the latest CDK box (Using Developer Subscription). You can download
+the CDK and find further information about CDK
+http://developers.redhat.com/products/cdk/overview/[here].
+
+.  Create a directory for the Vagrant Box.
++
+----
+$ mkdir directory && cd directory
+----
+
+.  Download the Vagrantfile.
++
+----
+$ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/rhel/rhel-ose/Vagrantfile > Vagrantfile
+----
+
+.  Start the Vagrant Box.
++
+----
+$ vagrant up
+----
+
+.  Proceed with using the CDK box.
+
+[additiona-openshit-config]
+== Additional configuration for OpenShift
+
+If you plan to use OpenShift from the host, you may wish to download
+`oc` for your platform from an
+https://access.redhat.com/downloads/content/290[OpenShift Container Platform
+Release].
+
+You may wish to verify that OpenShift is setup using the `oc` CLI as
+follows:
+
+.  Login to OpenShift using `oc`.
++
+----
+$ oc login <ip>:<port>
+----
++
+Default configured values:
++
+* User: openshift-dev/devel
+* Administrator: admin/admin
+* IP: 10.1.2.2
+* Port: 8443
+
+.  Create a test project to OpenShift using `oc`.
++
+----
+$ oc new-project test
+----
+
+.  Check OpenShift status using `oc`.
++
+----
+$ oc status
+----
+
+.  Check available templates.
++
+----
+$ oc get templates -n openshift
+----
+
+.  Deploy an application using available templates.
++
+----
+$ oc new-app nodejs-example
+----
+
+.  Get route information of different deployed apps.
++
+`$ oc get routes`
