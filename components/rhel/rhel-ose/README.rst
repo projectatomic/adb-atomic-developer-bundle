@@ -1,10 +1,10 @@
-Vagrantfile to setup  OpenShift Enterprise
+Vagrantfile to setup OpenShift Container Platform
 ==========================================
 
 This Vagrantfile sets up the CDK for development with OpenShift.
 This file also sets up private networking that will be used to expose various
 services to the host.  This Vagrantfile also provisions an instance of
-`OpenShift Enterprise <https://www.openshift.com/enterprise/whats-new.html>`_.
+`OpenShift Container Platform <https://www.openshift.com/container-platform/whats-new.html>`_.
 
 If you are interested in the process used in the Vagranfile to setup OpenShift,
 please read the comments at the top of the file.
@@ -28,7 +28,7 @@ QuickStart
 5. Proceed with using the CDK.
 
    If you plan to use OpenShift from the host, you may wish to download ``oc``
-   for your platform from an `OpenShift Enterprise Release <https://access.redhat.com/downloads/content/290>`_.
+   for your platform from an `OpenShift Container Platform Release <https://access.redhat.com/downloads/content/290>`_.
 
    You may wish to verify that OpenShift is setup using the ``oc`` CLI as follows:
 
