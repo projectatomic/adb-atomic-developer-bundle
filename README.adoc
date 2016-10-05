@@ -1,14 +1,18 @@
 = Atomic Developer Bundle
 :toc:
-
-[[what-is-atomic-developer-bundle-adb]]
-== What is Atomic Developer Bundle (ADB)?
+:toc-placement!:
 
 Atomic Developer Bundle (ADB) is a prepackaged development environment
 filled with production-grade, pre-configured tools, that makes container
 developers' lives easier. ADB supports the development of
 multi-container applications against different technologies and
 orchestrators while providing a path that promotes best practices.
+
+'''
+toc::[]
+'''
+
+== Advantage of ADB
 
 As a container developer, you want to use ADB for these reasons:
 

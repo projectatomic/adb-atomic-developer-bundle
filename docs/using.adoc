@@ -1,5 +1,12 @@
 = Using Atomic Developer Bundle
 :toc:
+:toc-placement!:
+
+This document describes how to configure and use ADB and its related plugins.
+
+'''
+toc::[]
+'''
 
 [[principles]]
 == Principles
