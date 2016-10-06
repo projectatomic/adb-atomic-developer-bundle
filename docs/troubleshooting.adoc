@@ -1,0 +1,158 @@
+= Troubleshooting
+:toc:
+:toc-placement!:
+
+Use this document to identify and resolve basic ADB issues that you encounter.
+
+'''
+toc::[]
+'''
+
+== Troubleshooting Landrush
+https://github.com/vagrant-landrush/landrush/blob/master/README.md[Landrush] is a platform-agnostic DNS server used by ADB to provide name based
+access to services, such as Openshift, running in the ADB.
+
+In ADB, you use Landrush as a vagrant plugin. Refer to the
+link:installing.rst[Installation document] for details on downloading
+Landrush.
+
+
+=== I am unable to access the Internet or override the Landrush upstream DNS? +
+
+By default, Landrush uses Google's DNS server, with the IP address
+8.8.8.8, to resolve DNS queries that are not for Landrush managed
+hostnames. If your network blocks access to the Google DNS servers, due
+to firewalls, VPN and so on, you need to set a custom upstream DNS
+server. This server is configured with the `config.landrush.upstream`
+option.
+
+For example, to use 10.25.35.4 as a DNS server, add this line to your
+`Vagrantfile`:
+
+`config.landrush.upstream '10.25.35.4'`
+
+You will need to check your network configuration on the host or ask your
+network administrator for the right DNS server address to use.
+
+For further details, refer to the *Guest is unable to access the Internet* and
+the *Unmatched Queries* sections in the https://github.com/vagrant-landrush/landrush/blob/master/README.md[Landrush documentation].
+
+
+=== I cannot access OpenShift console from my browser. +
+
+Landrush enables you to access services running in the ADB, such as
+OpenShift, from the browser. When you start ADB, it provides Landrush
+with the IP address and the hostname it wishes to use. Landrush always
+uses the latest information available. Occasionally, using multiple
+copies of ADB on the same host or other problems with ADB can cause
+Landrush to store stale data in the `hosts.json` file, which prevents
+access to the OpenShift console. +
+
+There are two ways you can remove these stale entries, you can do the
+following:
+
+. Use `vagrant landrush ls` to check the existing domains for Landrush.
+. Use `vagrant  landrush del <domain_name>` to delete the unwanted
+domains.
+
+Alternatively, you can:
+
+. Run `vagrant destroy` to destroy the ADB vagrant box.
++
+WARNING: Using vagrant destroy will destroy any data you stored in the Vagrant box.
+You will not be able to restart this instance and will have to create a new one using `vagrant up`.
+
+. Delete extra entries from the `hosts.json` file :
+
+  * Windows users will find this file in: `C:/Users/<USER>/.vagrant.d/data/landrush/hosts.json`
+  * Linux and OS X users will find this file in: `~/.vagrant.d/data/landrush/hosts.json`
++
+The `hosts.json` file should now have an empty list of hostnames,
+represented by a file containing only curly braces `{}`.
+
+To verify that your hostname has been correctly registered with Landrush,
+run `vagrant up`. The expected output is:
+
+....
+$ vagrant.exe landrush ls
+cdk.vm                         172.28.128.3
+3.128.28.172.in-addr.arpa      cdk.vm
+cdk                            cdk.vm
+....
+
+
+=== OpenShift Web console fails to reconnect when you switch networks or reconnect to VPN. +
+
+Linux users are most likely to encounter this problem because
+**NetworkManager** overwrites Landrush’s entry in the `/etc/resolve.conf` file, on enterprise Linux. The **NetworkManager** controls the
+`/etc/resolve.conf` file. When you connect to a VPN network or switch
+networks (for example, from a work network to a home network),
+**NetworkManager** overwrites this file and the Landrush entry is deleted.
+
+To resolve this you need to add the following lines, at the top of the `/etc/resolv.conf` file:
+
+....
+# Added by landrush, a vagrant plugin
+nameserver 127.0.0.1
+....
+
+
+=== I use libvirt and am unable to connect to the OpenShift console or the other applications running in the ADB, or I use Libvirt but want to use VirtualBox for ADB. +
+
+Linux users may be affected by this issue. If you use libvirt provider,
+`libvirtd` uses `dnsmasq` as part of it's internal DNS resolution for
+virtual machines. When Landrush starts, it expects to be able to reset
+the system `dnsmasq`. The libvirt started `dnsmasq` blocks this action.
+Therefore, it is important that the system `dnsmasq` be started before
+libvirt.
+
+Perform these steps to resolve this issue:
+
+NOTE: The following steps must be run as root.
+
+
+. Stop the libvirt and dnsmasq process:
++
+....
+$ systemctl stop libvirtd
+$ systemctl stop dnsmasq
+....
+
+. Kill the dnsmasq process running on the host:
++
+....
+$ ps aux | grep dnsmasq
+$ kill -9 <pid>
+$ ps aux | grep dnsmasq
+....
++
+Or you could:
++
+....
+$ killall -9 dnsmasq
+....
+
+. Start the dnsmasq process first and then start the libvirt process.
++
+....
+$ systemctl start dnsmasq
+$ systemctl status dnsmasq
+$ systemctl start libvirtd
+$ systemctl status libvirtd
+....
++
+[NOTE]
+====
+If you wish to use the VirtualBox provider, start the dnsmasq process
+only and skip the start libvirt process:
+....
+$ systemctl start dnsmasq
+$ systemctl status dnsmasq
+....
+====
+
+. Now, `vagrant up`.
++
+....
+$ vagrant up
+....
