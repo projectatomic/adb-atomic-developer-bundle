@@ -1,12 +1,15 @@
 = Updating Atomic Developer Bundle to the latest version
 :toc:
+:toc-placement!:
 
 Depending on your implementation of the ADB, you might be able to
 directly update your Vagrant box. In some cases, you will need to
 perform a clean installation or follow additional steps to complete the
 update.
 
+'''
 toc::[]
+'''
 
 [[prerequisites]]
 == Prerequisites
