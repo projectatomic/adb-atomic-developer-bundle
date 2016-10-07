@@ -9,7 +9,7 @@ toc::[]
 '''
 
 [[install-a-virtualization-provider]]
-== Install a virtualization provider
+== Step 1. Install a virtualization provider
 
 Two virtualization providers have been tested with ADB; VirtualBox and
 Libvirt.
@@ -92,7 +92,7 @@ automatically installed together with the CentOS software collections
 build.
 
 [[install-vagrant]]
-== Install Vagrant
+== Step 2. Install Vagrant
 
 * Microsoft Windows
 1.  Follow the directions at
@@ -158,7 +158,7 @@ $ sudo systemctl enable libvirtd
 ....
 
 [[install-additional-dependencies]]
-== Install additional dependencies
+== Step 3. Install additional dependencies
 
 For some operating systems, you might need to install additional
 dependencies before you install the Vagrant plugins.
@@ -173,7 +173,7 @@ $ sudo dnf install rpm-build zlib-devel ruby-devel gcc-c++
 ....
 
 [[install-vagrant-plugins]]
-== Install Vagrant plugins
+== Step 4. Install Vagrant plugins
 
 Run the following commands to install the
 https://github.com/projectatomic/vagrant-service-manager[vagrant-service-manager],
@@ -187,7 +187,7 @@ $ vagrant plugin install landrush
 ....
 
 [[download-adb]]
-== Download ADB
+== Step 5. Download ADB
 
 There are two ways to download ADB.
 
@@ -291,7 +291,7 @@ $ vagrant box add adb <local path to the downloded image>
 ....
 
 [[set-up-adb-behind-an-http-proxy]]
-== Set up ADB behind an HTTP proxy
+== Step 6. (Optional) Set up ADB behind an HTTP proxy
 
 ADB can be set up behind a proxy server. You need to export the proxy
 server information in to the environment and then run `vagrant up`.
