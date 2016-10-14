@@ -1,5 +1,6 @@
 = Vagrantfile: OpenShift Container Platform
 :toc:
+:toc-placement!:
 
 This Vagrantfile sets up the CDK for development with OpenShift. This
 file also sets up private networking that will be used to expose various
@@ -10,18 +11,27 @@ Container Platform].
 If you are interested in the process used in the Vagranfile to setup
 OpenShift, please read the comments at the top of the file.
 
+'''
+toc::[]
+'''
+
 [[quickstart]]
 == Quickstart
-
-.  Get the latest CDK box (Using Developer Subscription). You can download
-the CDK and find further information about CDK
-http://developers.redhat.com/products/cdk/overview/[here].
 
 .  Create a directory for the Vagrant Box.
 +
 ----
 $ mkdir directory && cd directory
 ----
+
+.  Get the latest CDK box (using Developer Subscription). You can download
+the CDK and find further information about CDK
+http://developers.redhat.com/products/cdk/overview/[here]. For detailed instructions on how to install CDK refer to the
+https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.2/paged/installation-guide[CDK Installation Guide].
+
++
+NOTE: The name you assign to the box using the --name parameter in the `$ vagrant box add --name cdkv2 \
+  ~/Downloads/rhel-cdk-kubernetes-7.2-*.x86_64.vagrant-libvirt.box` command, must correspond to the name used by the Vagrantfile used to initialize the box. By default, this is cdkv2 for the Vagrantfiles provided with Container Development Kit.
 
 .  Download the Vagrantfile.
 +
