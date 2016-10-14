@@ -1,5 +1,6 @@
 = Vagrantfile: Single-Node Kubernetes
 :toc:
+:toc-placement!:
 
 This Vagrantfile is the suggested configuration for using the CDK with
 Kubernetes. This file sets up private networking that will be used to
@@ -11,18 +12,25 @@ This Vagrantfile is useful for anyone using host-based tools, such as
 the https://wiki.eclipse.org/Linux_Tools_Project/Docker_Tooling[Eclipse
 docker tooling] or the kubectl, oc and docker CLIs, with the CDK.
 
+'''
+toc::[]
+'''
+
 [[quickstart]]
 == Quickstart
-
-.  Get the latest CDK box and add it to Vagrant. You can download the CDK
-and find further information about CDK
-http://developers.redhat.com/products/cdk/overview/[here].
 
 .  Create a directory for the Vagrant Box.
 +
 ----
 $ mkdir directory && cd directory
 ----
+.  Get the latest CDK box and add it to Vagrant. You can download the CDK
+and find further information about CDK
+http://developers.redhat.com/products/cdk/overview/[here]. For detailed instructions on how to install CDK refer to the https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.2/paged/installation-guide[CDK Installation Guide].
+
++
+NOTE: The name you assign to the box using the --name parameter in the `$ vagrant box add --name cdkv2 \
+  ~/Downloads/rhel-cdk-kubernetes-7.2-*.x86_64.vagrant-libvirt.box` command, must correspond to the name used by the Vagrantfile used to initialize the box. By default, this is cdkv2 for the Vagrantfiles provided with Container Development Kit.
 
 .  Download the vagrantfile.
 +
