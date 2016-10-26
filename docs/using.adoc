@@ -185,47 +185,34 @@ point, you are ready to use ADB with Eclipse.
 +
 NOTE: Testing has been done with Eclipse 4.5.0.
 
-[[using-the-box-via-ssh]]
-== Using the box via SSH
+[[using-the-vm-via-ssh]]
+== Using the VM via SSH
 
-Today, most users will work inside the Vagrant box. Access the box by
-using `ssh` to login to it with the following command:
+You can access the VM by using `ssh` to login to it with the following command:
 
 ....
 vagrant ssh
 ....
 
-You are now at a shell prompt inside the Vagrant box. You can now
+You are now at a shell prompt inside the Vagrant VM. You can now
 execute commands and use the tools provided.
 
-You can use the
+=== Using sccli
+
+You can use
 https://github.com/projectatomic/adb-utils/blob/master/README.adoc[sccli]
-to manage the orchestration services inside of ADB. `sccli` makes it
-easy to start and stop orchestration providers like Kubernetes or
-OpenShift.
-
-[[using-docker]]
-=== Using `docker`
-
-ADB provides a full container environment and runs both `docker` and
-`kubernetes`. All standard commands work, for example:
-
-....
-ADB pull centos
- docker run -t -i centos /bin/bash
-....
+to manage the orchestration services inside ADB. With `sccli`, you can start, stop,
+restart, and get the status of orchestration providers like OpenShift, Docker,
+and Kubernetes.
 
 [[using-atomic-app-and-nulecule]]
 === Using Atomic App and Nulecule
 
-Details on these projects can be found at these URLs:
+You can use Atomic App and Nulecule to run ADB. Details on these projects can be
+found at:
 
 * Atomic App: https://github.com/projectatomic/atomicapp
 * Nulecule: https://github.com/projectatomic/nulecule
-
-The
-https://registry.hub.docker.com/u/projectatomic/helloapache/[helloapache]
-example can be used to test your installation.
 
 NOTE: Many Nulecule examples expect a working Kubernetes environment.
 Use the
@@ -233,15 +220,6 @@ link:../components/centos/centos-k8s-singlenode-setup/Vagrantfile[Vagrantfile]
 and refer the corresponding
 link:../components/centos/centos-k8s-singlenode-setup/README.adoc[README]
 to set up a single node Kubernetes environment.
-
-You can verify your environment by executing `kubectl get nodes`. The
-expected output is:
-
-....
-$ kubectl get nodes
-NAME        LABELS                             STATUS
-127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
-....
 
 [[vagrant-bi-directional-folder-sync]]
 == Vagrant bi-directional folder sync
