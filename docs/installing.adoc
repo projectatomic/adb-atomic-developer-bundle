@@ -252,29 +252,6 @@ $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-
 Refer:
 link:../components/centos/centos-mesos-marathon-singlenode-setup/README.adoc[README]
 
-. Start ADB by running the `vagrant up` command.
-+
-----
-$ vagrant up
-----
-+
-This will download ADB and set it up to work with the provider of
-choice, for use with host-based tools or via `vagrant ssh`.
-+
-[NOTE]
-====
-On Fedora and CentOS you may need to specify the virtualization
-provider to use. For example, to use VirtualBox, the command would be:
-
-----
-$ vagrant up --provider virtualbox
-----
-====
-+
-You may wish to review the link:docs/using.adoc[Using Atomic Developer
-Bundle] documentation before starting ADB, especially if you are using
-host-based tools.
-
 === Manually Download the Vagrant Box
 
 Alternatively, you can manually download the vagrant box from
@@ -308,31 +285,43 @@ export BOX=<box-name>
 ----
 ====
 
-
 [[set-up-adb-behind-an-http-proxy]]
 == Step 6. (Optional) Set up ADB behind an HTTP proxy
 
-ADB can be set up behind a proxy server. You need to export the proxy
-server information in to the environment and then run `vagrant up`.
+ADB can be set up behind a proxy server. Set the following proxy parameters in the
+Vagrantfile you chose in the previous step:
 
-NOTE: Currently, only HTTP and HTTPS proxy servers are supported.
+....
+config.servicemanager.proxy = <Proxy URL>
+config.servicemanager.proxy_user = <Proxy user name>
+config.servicemanager.proxy_password = <Proxy user password>
+....
 
-For Linux, OS X and Windows Cygwin shell:
+Once these settings are applied, they are passed through to the Docker and
+OpenShift services to enable them to function correctly.
+In an unauthenticated proxy environment, the `proxy_user` and `proxy_password`
+configurations can be omitted.
+
+== Step 7. Start ADB
+Start ADB by running the `vagrant up` command.
 
 ----
-export PROXY="<proxy_server>:<port>"
-export PROXY_USER="foo"
-export PROXY_PASSWORD="mysecretpass"
+$ vagrant up
 ----
 
-For Windows CMD or Powershell:
+This will start the ADB and set it up to work with the provider of
+choice, for use with host-based tools or via `vagrant ssh`.
 
+[NOTE]
+====
+On Fedora and CentOS you may need to specify the virtualization
+provider to use. For example, to use VirtualBox, the command would be:
 ----
-setx PROXY="<proxy_server>:<port>"
-setx PROXY_USER="foo"
-setx PROXY_PASSWORD="mysecretpass"
+$ vagrant up --provider virtualbox
 ----
+====
 
-At this point your Atomic Developer Bundle installation is complete. You
-can find link:using.adoc[ADB Usage Information] in the documentation
-directory.
+At this point your Atomic Developer Bundle installation is complete. You may wish
+to review the link:docs/using.adoc[Using Atomic Developer
+Bundle] documentation before starting ADB, especially if you are using
+host-based tools.
