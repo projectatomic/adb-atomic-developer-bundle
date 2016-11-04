@@ -1,0 +1,67 @@
+= Staging your application with the OpenShift registry
+
+You can prepare your application for production locally with the internal OpenShift
+Docker registry.
+
+The scenario assumes the following parameters:
+
+- OpenShift registry endpoint is *hub.openshift.adb*
+- OpenShift instance URL is *https://10.1.2.2:8443*
+- Username/password credentials is *openshift-dev/devel*
+- Default ADB project name is *sample-project*
+- Application name is *my-app*
+
+This scenario is intended to illustrate how to test an application Docker image to
+a local instance of OpenShift platform that runs in the ADB box which on your host
+before push the image to a public instance of OpenShift.
+
+. Expose the host name of the OpenShift registry with the `vagrant service-manager env`
+command.
++
+----
+$ vagrant service-manager env openshift
+
+# You can access the OpenShift console on: https://10.1.2.2:8443/console
+# To use OpenShift CLI, run: oc login https://10.1.2.2:8443
+export OPENSHIFT_URL=https://10.1.2.2:8443
+export OPENSHIFT_WEB_CONSOLE=https://10.1.2.2:8443/console
+export DOCKER_REGISTRY=hub.openshift.adb
+
+# run the following command to configure your shell.
+# eval "$(vagrant service-manager env openshift)"
+----
+
+. Build the Docker image as usual.
+
+. Make sure you are logged in to OpenShift.
++
+----
+$ oc login 10.1.2.2:8443 -u openshift-dev -p devel
+----
+
+. Tag the image against the OpenShift registry with the hostname that you retrieved
+from the `vagrant service-manager env` command.
++
+----
+$ docker tag my-app hub.openshift.adb/sample-project/my-app
+----
+
+. Log in to the OpenShift registry.
++
+----
+$ docker login -u openshift-dev -p `oc whoami -t` -e foo@bar.com hub.openshift.adb
+----
+
+. Push the image to the registry to create an image stream with the same name as
+the application.
++
+----
+$ docker push hub.openshift.adb/sample-project/my-app
+----
+
+. Create an application from the image stream and expose the image.
++
+----
+$ oc new-app --image-stream=my-app --name=my-app
+$ oc expose service my-app --hostname=my-app.adb
+----
