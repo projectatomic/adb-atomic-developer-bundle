@@ -100,7 +100,7 @@ sed -i -e 's/SecurityContextDeny,//' /etc/kubernetes/apiserver
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Container Development Kit (CDK)\"" >> /etc/os-release
 echo "VARIANT_ID=\"cdk\"" >> /etc/os-release
-echo "VARIANT_VERSION=\"2.2\"" >> /etc/os-release
+echo "VARIANT_VERSION=\"2.3\"" >> /etc/os-release
 
 echo "127.0.0.1     rhel-cdk" >> /etc/hosts
 
