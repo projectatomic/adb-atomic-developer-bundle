@@ -275,27 +275,39 @@ You may wish to review the link:docs/using.adoc[Using Atomic Developer
 Bundle] documentation before starting ADB, especially if you are using
 host-based tools.
 
-=== Manually Download the Vagrant Box Image
+=== Manually Download the Vagrant Box
 
 Alternatively, you can manually download the vagrant box from
 http://cloud.centos.org/centos/7/atomic/images/[cloud.centos.org] using
 your web browser or curl. For example:
 
 ----
-# To get the libvirt image
-$ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<latest>.box
+# To get the libvirt box
+$ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<version>-CentOS7-LibVirt.box
 
-# To get the virtual box image
-$ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<latest>.box
+# To get the virtualbox box
+$ wget http://cloud.centos.org/centos/7/atomic/images/AtomicDeveloperBundle-<version>-CentOS7-VirtualBox.box
 ----
 
-After you download the image, you can add it to `vagrant` with
-this command:
+After you download the box, you can add it to `vagrant` with following command:
+----
+$ vagrant box add projectatomic/adb <local path to the downloaded box>
+----
 
+[NOTE]
+====
+If you want to use a customized name for the box, you need to:
+
+* Specify your `<box-name>` in place of `projectatomic/adb` as in:
 ----
-# Add the image to vagrant
-$ vagrant box add adb <local path to the downloded image>
+$ vagrant box add <box-name> <local path to the downloaded box>
 ----
+* Add the `<box-name>` as the value of the `BOX` environment variable with the following command:
+----
+export BOX=<box-name>
+----
+====
+
 
 [[set-up-adb-behind-an-http-proxy]]
 == Step 6. (Optional) Set up ADB behind an HTTP proxy

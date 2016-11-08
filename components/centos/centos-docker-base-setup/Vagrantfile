@@ -1,7 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrant file for libvirt/kvm and virtualbox provider
+BOX_NAME = 'projectatomic/adb'
+
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-sshfs)
 errors = []
 
@@ -16,7 +17,8 @@ unless errors.empty?
 end
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "projectatomic/adb"
+  # Use environment variable BOX or default 'projectatomic/adb'
+  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
 
   # Setup a DHCP based private network
   config.vm.network "private_network", type: "dhcp"

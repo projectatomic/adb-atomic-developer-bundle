@@ -29,7 +29,8 @@ unless errors.empty?
 end
 
 Vagrant.configure(2) do |config|
-  config.vm.box = 'cdkv2'
+  # Use environment variable BOX or default 'cdkv2'
+  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
 
   config.vm.provider "virtualbox" do |v, override|
     v.memory = VM_MEMORY

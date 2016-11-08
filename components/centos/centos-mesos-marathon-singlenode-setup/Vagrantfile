@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+BOX_NAME = 'projectatomic/adb'
 
 IP_ADDRESS="10.2.2.2"
 
@@ -18,7 +19,8 @@ unless errors.empty?
 end
 
 Vagrant.configure("2") do |config|
-	config.vm.box = "projectatomic/adb"
+  # Use environment variable BOX or default 'projectatomic/adb'
+  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
 
   config.vm.provider "virtualbox" do |v, override|
     v.memory = 2048
@@ -76,27 +78,27 @@ Vagrant.configure("2") do |config|
                     - mesos-slave
 
               - name: Configure IP address for mesos-slave
-                copy: 
+                copy:
                     content: '{{ ip_address }}'
                     dest: /etc/mesos-slave/ip
 
               - name: Configure Port Ranges for mesos-slave
-                copy: 
+                copy:
                     content: 'ports:[1024-32000]'
                     dest: /etc/mesos-slave/resources
 
               - name: Increase timeout to account for docker pull delay
-                copy: 
+                copy:
                     content: '5mins'
                     dest: /etc/mesos-slave/executor_registration_timeout
 
               - name: Add docker containerizer
                 copy:
-                    content: 'docker,mesos' 
+                    content: 'docker,mesos'
                     dest: /etc/mesos-slave/containerizers
 
               - name: Configure IP address for Marathon
-                copy: 
+                copy:
                     content: '{{ ip_address }}'
                     dest: /etc/marathon/conf/hostname
 
@@ -106,8 +108,8 @@ Vagrant.configure("2") do |config|
               - name: Installing zookeeper, mesos, marathon, docker, git, atomicapp
                 yum: name={{item}} state=present
                 with_items:
-                    - mesosphere-zookeeper 
-                    - mesos 
+                    - mesosphere-zookeeper
+                    - mesos
                     - marathon
                     - docker
                     - git
