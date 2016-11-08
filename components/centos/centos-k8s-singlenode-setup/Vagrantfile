@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+BOX_NAME = 'projectatomic/adb'
+
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-sshfs)
 errors = []
 
@@ -16,7 +18,8 @@ end
 
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
-  config.vm.box = "projectatomic/adb"
+  # Use environment variable BOX or default 'projectatomic/adb'
+  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"

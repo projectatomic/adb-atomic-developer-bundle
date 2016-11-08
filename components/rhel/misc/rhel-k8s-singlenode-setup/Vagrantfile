@@ -1,5 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+BOX_NAME = 'cdkv2'
+
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
 errors = []
 
@@ -13,9 +15,11 @@ unless errors.empty?
   fail Vagrant::Errors::VagrantError.new, msg
 end
 
+
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
-  config.vm.box = "cdkv2"
+  # Use environment variable BOX or default 'cdkv2'
+  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
 
   if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
     config.registration.username = ENV['SUB_USERNAME']

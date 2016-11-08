@@ -24,15 +24,29 @@ toc::[]
 ----
 $ mkdir directory && cd directory
 ----
-.  Get the latest CDK box and add it to Vagrant. You can download the CDK
-and find further information about CDK
-http://developers.redhat.com/products/cdk/overview/[here]. For detailed instructions on how to install CDK refer to the https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.2/paged/installation-guide[CDK Installation Guide].
+
+.  Get the latest CDK box using Developer Subscription. You can download
+the CDK and find further information about CDK
+http://developers.redhat.com/products/cdk/overview/[here]. For detailed instructions on how to install CDK refer to the
+https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.2/paged/installation-guide[CDK Installation Guide].
 
 +
-NOTE: The name you assign to the box using the --name parameter in the `$ vagrant box add --name cdkv2 \
-  ~/Downloads/rhel-cdk-kubernetes-7.2-*.x86_64.vagrant-libvirt.box` command, must correspond to the name used by the Vagrantfile used to initialize the box. By default, this is cdkv2 for the Vagrantfiles provided with Container Development Kit.
+[NOTE]
+====
+If you want to use a customized name for the box, you need to:
 
-.  Download the vagrantfile.
+* Specify your `<box-name>` in place of `cdkv2` as in:
+----
+$ vagrant box add --name <box-name> <Downloaded Folder>/rhel-cdk-kubernetes-7.2-*.x86_64.vagrant-libvirt.box
+----
+* Add the `<box-name>` as the value of the `BOX` environment variable with the following command:
+----
+export BOX=<box-name>
+----
+====
++
+
+.  Download the Vagrantfile.
 +
 ----
 $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/rhel/misc/rhel-k8s-singlenode-setup/Vagrantfile > Vagrantfile
