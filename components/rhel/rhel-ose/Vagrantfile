@@ -5,6 +5,9 @@
 # This variable is ignored for Hyper-V provider.
 PUBLIC_ADDRESS="10.1.2.2"
 
+#Image tag for OCP
+IMAGE_TAG="v3.3.1.3"
+
 # Number of virtualized CPUs
 VM_CPU = ENV['VM_CPU'] || 2
 
@@ -72,7 +75,7 @@ Vagrant.configure(2) do |config|
 
   # explicitly enable and start OpenShift
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} /usr/bin/sccli openshift
+    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} IMAGE_TAG=#{IMAGE_TAG} /usr/bin/sccli openshift
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
