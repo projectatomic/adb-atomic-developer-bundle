@@ -5,8 +5,8 @@
 # This variable is ignored for Hyper-V provider.
 PUBLIC_ADDRESS="10.1.2.2"
 
-#Image tag for OCP
-IMAGE_TAG="v3.3.1.3"
+#Modify IMAGE_TAG if you need a new OCP version e.g. IMAGE_TAG="v3.3.1.3"
+IMAGE_TAG=""
 
 # Number of virtualized CPUs
 VM_CPU = ENV['VM_CPU'] || 2
@@ -86,7 +86,7 @@ Vagrant.configure(2) do |config|
     echo "To modify the number of cores and/or available memory set the environment variables"
     echo "VM_CPU and/or VM_MEMORY respectively."
     echo
-    echo "You can now access the OpenShift console on: https://${OSIP}:8443/console"
+    echo "You can now access the OpenShift console on: https://${OS_IP}:8443/console"
     echo
     echo "To download and install OC binary, run:"
     echo "vagrant service-manager install-cli openshift"
