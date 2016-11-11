@@ -1,12 +1,12 @@
 = Vagrantfile: CentOS Docker Base
 :toc:
 
-This Vagrantfile is the default suggested configuration for the ADB.
+This Vagrantfile is the default suggested configuration for ADB.
 This file sets up private networking that will be used to expose the
 docker daemon to the host. This Vagrantfile is useful for anyone using
 host-based tools, such as the
 https://wiki.eclipse.org/Linux_Tools_Project/Docker_Tooling[Eclipse
-docker tooling] or the docker CLI, with the ADB.
+docker tooling] or the docker CLI, with ADB.
 
 [[quickstart]]
 == Quickstart

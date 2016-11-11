@@ -165,9 +165,11 @@ document].
 To download ADB and set up a provider-specific container development
 environment:
 +
-.. Create a directory for the Vagrant box
+.. Create a directory for the Vagrant box.
 +
-`$ mkdir directory && cd directory`
+----
+$ mkdir directory && cd directory
+----
 
 .. Download any of the following vagrantfiles, to configure the
 development environment you need.
@@ -175,32 +177,32 @@ development environment you need.
 https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-docker-base-setup/Vagrantfile[Docker
 specific container development environment] use:
 +
-....
+----
 $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-docker-base-setup/Vagrantfile > Vagrantfile
-....
+----
 * To configure a
 https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile[Kubernetes
 specific container development environment] use:
 +
-....
+----
 $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-k8s-singlenode-setup/Vagrantfile > Vagrantfile
-....
+----
 * To configure an
 https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-openshift-setup/Vagrantfile[OpenShift
 Origin specific container development environment] use:
 +
-....
+----
 $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-openshift-setup/Vagrantfile > Vagrantfile
-....
+----
 * To configure an
 https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile[Apache
 Mesos Marathon specific container development environment] use:
 +
-....
+----
 $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-bundle/master/components/centos/centos-mesos-marathon-singlenode-setup/Vagrantfile > Vagrantfile
-....
+----
 
-. Start ADB:
+. Start ADB.
 +
 ----
 vagrant up
@@ -245,6 +247,8 @@ specific build requirements that are not enabled in those boxes.
 * link:docs/installing.adoc[Installing ADB]
 * link:docs/using.adoc[How to use ADB]
 ** link:docs/cockpit.adoc[Using Cockpit with ADB]
+* link:docs/staging.adoc[Staging your application]
+* link:docs/troubleshooting.adoc[Troubleshooting ADB]
 * link:docs/updating.adoc[Updating ADB]
 * link:docs/building.adoc[Building the Vagrant box] for Developers
 
@@ -265,6 +269,9 @@ Documentation is written using
 http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[ASCIIDoc].
 You can create and edit content in your favorite text editor with
 http://asciidoctor.org/docs/editing-asciidoc-with-live-preview/[live preview].
+
+For detailed information about contributing to the projects,
+see link:CONTRIBUTING.adoc[how to contribute].
 
 == Additional online resources
 

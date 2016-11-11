@@ -2,7 +2,7 @@
 :toc:
 :toc-placement!:
 
-Depending on your implementation of the ADB, you might be able to
+Depending on your implementation of ADB, you might be able to
 directly update your Vagrant box. In some cases, you will need to
 perform a clean installation or follow additional steps to complete the
 update.
@@ -66,13 +66,6 @@ clean installation.
 
 . Monitor the mailing list and other announcement points to determine
 if a new image is available.
-
-. If you are updating ADB on a Windows machine, run the following
-command to delete the .vagrant.d directory:
-+
-....
-# rm -rf C:/Users/<user_name>/.vagrant.d/
-....
 
 . Download the latest image and perform a clean install as described
 in the link:installing.adoc[installation documentation].

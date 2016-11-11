@@ -8,16 +8,31 @@ Use this document to identify and resolve basic ADB issues that you encounter.
 toc::[]
 '''
 
-== Troubleshooting Landrush
-https://github.com/vagrant-landrush/landrush/blob/master/README.md[Landrush] is a platform-agnostic DNS server used by ADB to provide name based
-access to services, such as Openshift, running in the ADB.
+== Installation and Update
+
+This section contains issues related to installing, configuring, and updating ADB.
+
+=== On a Windows machine, Vagrant fails to initialize after updating to the latest ADB version
+
+In addition to the standard link:updating.adoc[steps to update ADB], you need to run the
+following command to delete the .vagrant.d directory:
+
+----
+# rm -rf C:/Users/<user_name>/.vagrant.d/
+----
+
+== Landrush
+
+https://github.com/vagrant-landrush/landrush/blob/master/README.md[Landrush] is a
+platform-agnostic DNS server used by ADB to provide name based access to services,
+such as Openshift, running in ADB.
 
 In ADB, you use Landrush as a vagrant plugin. Refer to the
 link:installing.rst[Installation document] for details on downloading
 Landrush.
 
 
-=== I am unable to access the Internet or override the Landrush upstream DNS? +
+=== I am unable to access the Internet or override the Landrush upstream DNS
 
 By default, Landrush uses Google's DNS server, with the IP address
 8.8.8.8, to resolve DNS queries that are not for Landrush managed
@@ -38,9 +53,9 @@ For further details, refer to the *Guest is unable to access the Internet* and
 the *Unmatched Queries* sections in the https://github.com/vagrant-landrush/landrush/blob/master/README.md[Landrush documentation].
 
 
-=== I cannot access OpenShift console from my browser. +
+=== I cannot access the OpenShift console from my browser
 
-Landrush enables you to access services running in the ADB, such as
+Landrush enables you to access services running in ADB, such as
 OpenShift, from the browser. When you start ADB, it provides Landrush
 with the IP address and the hostname it wishes to use. Landrush always
 uses the latest information available. Occasionally, using multiple
@@ -81,7 +96,7 @@ cdk                            cdk.vm
 ....
 
 
-=== OpenShift Web console fails to reconnect when you switch networks or reconnect to VPN. +
+=== OpenShift Web console fails to reconnect when you switch networks or reconnect to VPN
 
 Linux users are most likely to encounter this problem because
 **NetworkManager** overwrites Landrush’s entry in the `/etc/resolve.conf` file, on enterprise Linux. The **NetworkManager** controls the
@@ -97,7 +112,7 @@ nameserver 127.0.0.1
 ....
 
 
-=== I use libvirt and am unable to connect to the OpenShift console or the other applications running in the ADB, or I use Libvirt but want to use VirtualBox for ADB. +
+=== I use libvirt and am unable to connect to the OpenShift console or the other applications running in ADB, or I use Libvirt but want to use VirtualBox for ADB
 
 Linux users may be affected by this issue. If you use libvirt provider,
 `libvirtd` uses `dnsmasq` as part of it's internal DNS resolution for
@@ -109,7 +124,6 @@ libvirt.
 Perform these steps to resolve this issue:
 
 NOTE: The following steps must be run as root.
-
 
 . Stop the libvirt and dnsmasq process:
 +

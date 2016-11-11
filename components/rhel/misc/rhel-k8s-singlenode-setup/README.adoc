@@ -52,8 +52,8 @@ $ vagrant up
 You may wish to `vagrant ssh` into the CDK and verify that Kubernetes is
 setup using the `kubectl` CLI as follows:
 
-....
+----
 $ kubectl get nodes
 NAME        LABELS                             STATUS
 127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
-....
+----
