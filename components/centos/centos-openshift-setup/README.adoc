@@ -3,7 +3,7 @@
 
 This Vagrantfile:
 
-* Sets up the ADB for development with OpenShift
+* Sets up ADB for development with OpenShift
 * Sets up private networking that is used to expose various services to
 the host
 * Provisions an instance of http://www.openshift.org//[OpenShift Origin]
