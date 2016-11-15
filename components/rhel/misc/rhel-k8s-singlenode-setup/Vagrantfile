@@ -18,18 +18,11 @@ end
 
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
-  # Use environment variable BOX or default 'cdkv2'
-  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
-
-  if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
-    config.registration.username = ENV['SUB_USERNAME']
-    config.registration.password = ENV['SUB_PASSWORD']
-  end
-
-  # Proxy Information from environment
-  ENV['PROXY'] ? (config.registration.proxy = PROXY = ENV['PROXY']) : PROXY = ''
-  ENV['PROXY_USER'] ? (config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER']) : PROXY_USER = ''
-  ENV['PROXY_PASSWORD'] ? (config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD']) : PROXY_PASSWORD = ''
+  config.vm.box = if ENV.key?('BOX')
+                  ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']
+                else
+                  BOX_NAME
+                end
 
   config.vm.provider "libvirt" do |libvirt, override|
     libvirt.driver = "kvm"
@@ -53,6 +46,20 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "private_network", type: "dhcp"
 
+  if ENV.has_key?('SUB_USERNAME') && ENV.has_key?('SUB_PASSWORD')
+    config.registration.username = ENV['SUB_USERNAME']
+    config.registration.password = ENV['SUB_PASSWORD']
+  end
+
+  # Proxy Information from environment
+  if ENV.key?('PROXY')
+    config.registration.proxy = PROXY = ENV['PROXY']
+    config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER'] if ENV.key?('PROXY_USER')
+    config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD'] if ENV.key?('PROXY_PASSWORD')
+  else
+    PROXY = PROXY_USER = PROXY_PASSWORD = ''
+  end
+
   # vagrant-sshfs
   config.vm.synced_folder '.', '/vagrant', disabled: true
   if Vagrant::Util::Platform.windows?
@@ -61,6 +68,7 @@ Vagrant.configure(2) do |config|
   else
     config.vm.synced_folder ENV['HOME'], ENV['HOME'], type: 'sshfs', sshfs_opts_append: '-o umask=000 -o uid=1000 -o gid=1000'
   end
+
   config.vm.provision "shell", inline: <<-SHELL
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL

@@ -3,6 +3,8 @@
 
 # The private network IP of the VM. You will use this IP to connect to OpenShift.
 # This variable is ignored for Hyper-V provider.
+BOX_NAME = 'cdkv2'
+
 PUBLIC_ADDRESS="10.1.2.2"
 
 #Image tag for OCP
@@ -29,8 +31,11 @@ unless errors.empty?
 end
 
 Vagrant.configure(2) do |config|
-  # Use environment variable BOX or default 'cdkv2'
-  config.vm.box = (ENV.key?('BOX') ? (ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']) : BOX_NAME)
+  config.vm.box = if ENV.key?('BOX')
+                    ENV['BOX'].empty? ? BOX_NAME : ENV['BOX']
+                  else
+                    BOX_NAME
+                  end
 
   config.vm.provider "virtualbox" do |v, override|
     v.memory = VM_MEMORY
@@ -60,9 +65,13 @@ Vagrant.configure(2) do |config|
   end
 
   # Proxy Information from environment
-  ENV['PROXY'] ? (config.registration.proxy = PROXY = ENV['PROXY']) : PROXY = ''
-  ENV['PROXY_USER'] ? (config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER']) : PROXY_USER = ''
-  ENV['PROXY_PASSWORD'] ? (config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD']) : PROXY_PASSWORD = ''
+  if ENV.key?('PROXY')
+    config.registration.proxy = PROXY = ENV['PROXY']
+    config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER'] if ENV.key?('PROXY_USER')
+    config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD'] if ENV.key?('PROXY_PASSWORD')
+  else
+    PROXY = PROXY_USER = PROXY_PASSWORD = ''
+  end
 
   # vagrant-sshfs
   config.vm.synced_folder '.', '/vagrant', disabled: true
@@ -72,6 +81,7 @@ Vagrant.configure(2) do |config|
   else
     config.vm.synced_folder ENV['HOME'], ENV['HOME'], type: 'sshfs', sshfs_opts_append: '-o umask=000 -o uid=1000 -o gid=1000'
   end
+
   config.vm.provision "shell", inline: <<-SHELL
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
