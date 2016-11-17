@@ -45,6 +45,11 @@ Vagrant.configure(2) do |config|
     v.suspend_mode = "managedsave"
   end
 
+  config.vm.provider "hyperv" do |v, override|
+    v.memory = VM_MEMORY
+    v.cpus   = VM_CPU
+  end
+
   config.vm.network "private_network", ip: "#{PUBLIC_ADDRESS}"
 
   # vagrant-registration
