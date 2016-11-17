@@ -41,6 +41,12 @@ Vagrant.configure(2) do |config|
     # Enable use of more than one virtual CPU in a virtual machine.
     vbox.customize ["modifyvm", :id, "--ioapic", "on"]
   end
+
+  config.vm.provider "hyperv" do |hyperv, override|
+    hyperv.memory = 1024
+    hyperv.cpus = 2
+  end
+
   config.vm.network "private_network", type: "dhcp"
 
   # vagrant-sshfs
