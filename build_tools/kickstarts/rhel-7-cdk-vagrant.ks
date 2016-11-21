@@ -82,6 +82,9 @@ hyperv-daemons
 %post
 # Originally taken entirely from original upstream Atomic project kickstart
 
+#Workaround for #591 and  https://issues.jboss.org/browse/CDK-26
+sed -i 's/ myhostname//' /etc/nsswitch.conf
+
 # Workaround for BZ1336857
 restorecon -v /usr/bin/docker*
 
