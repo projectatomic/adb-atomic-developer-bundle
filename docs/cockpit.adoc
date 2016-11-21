@@ -11,7 +11,7 @@ Specifically for containers, it can:
 * Start and stop containers
 * Pull and delete images
 
-[[accessing-cockpit-in-the-adb]]
+[[accessing-cockpit]]
 == Accessing Cockpit in ADB
 
 These instructions are written assuming you are at a command prompt on

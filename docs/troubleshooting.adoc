@@ -7,7 +7,7 @@ Use this document to identify and resolve basic ADB issues that you encounter.
 '''
 toc::[]
 '''
-
+[[install-update]]
 == Installation and Update
 
 This section contains issues related to installing, configuring, and updating ADB.
@@ -21,6 +21,7 @@ following command to delete the .vagrant.d directory:
 # rm -rf C:/Users/<user_name>/.vagrant.d/
 ----
 
+[[landrrush]]
 == Landrush
 
 https://github.com/vagrant-landrush/landrush/blob/master/README.md[Landrush] is a
@@ -28,7 +29,7 @@ platform-agnostic DNS server used by ADB to provide name based access to service
 such as Openshift, running in ADB.
 
 In ADB, you use Landrush as a vagrant plugin. Refer to the
-link:installing.rst[Installation document] for details on downloading
+link:installing.adoc[Installation document] for details on downloading
 Landrush.
 
 

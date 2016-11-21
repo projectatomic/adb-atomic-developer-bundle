@@ -33,11 +33,12 @@ Once you start ADB you can use it as:
 * a Linux virtual machine.
 
 For a quick high level glimpse at ADB and how you can use it refer to
-the https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/README.adoc[Readme].
-For detailed instructions on how to install ADB refer to the
-link:docs/installing.adoc[Installation Document].
+the link:../README.adoc[Readme].
 
-[[using-adb-with-host-based-tools-eclipse-and-clis]]
+For detailed instructions on how to install ADB refer to the
+link:installing.adoc[Installation Document].
+
+[[using-host-based-tools]]
 == Using ADB with host-based tools (Eclipse and CLIs)
 
 Many users have preferred development environments built from tools
@@ -100,7 +101,7 @@ Specifies the image to be used.
 the version of the image to be used.
 
 .  Start ADB using `vagrant up`. You will find detailed installation
-instructions in the link:docs/installing.adoc[Installation document].
+instructions in the link:installing.adoc[Installation document].
 
 === Configure your environment
 
@@ -194,7 +195,7 @@ point, you are ready to use ADB with Eclipse.
 +
 NOTE: Testing has been done with Eclipse 4.5.0.
 
-[[using-the-vm-via-ssh]]
+[[using-ssh]]
 == Using the VM via SSH
 
 You can access the VM by using `ssh` to login to it with the following command:
@@ -214,7 +215,6 @@ to manage the orchestration services inside ADB. With `sccli`, you can start, st
 restart, and get the status of orchestration providers like OpenShift, Docker,
 and Kubernetes.
 
-[[using-atomic-app-and-nulecule]]
 === Using Atomic App and Nulecule
 
 You can use Atomic App and Nulecule to run ADB. Details on these projects can be
@@ -289,7 +289,7 @@ You can also use
 https://github.com/dotless-de/vagrant-vbguest[vagrant-vbguest] plugin to
 install Virtualbox guest additions in ADB Vagrant box.
 
-[[some-useful-commands]]
+[[useful-commands]]
 == Some useful commands
 
 `vagrant halt`::
