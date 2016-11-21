@@ -19,8 +19,7 @@ https://github.com/projectatomic/adb-atomic-developer-bundle/blob/v1.6.0/compone
 == Quickstart
 
 .  Get the latest ADB box and add it to vagrant as described in the
-https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.adoc[ADB
-installation instructions].
+link:../../../docs/installing.adoc[Installing Atomic Developer Bundle].
 
 .  Create a directory for the Vagrant Box.
 +
@@ -52,8 +51,7 @@ version] you need, for the variable. For instance, `IMAGE_TAG="v1.2.1"`
 $ vagrant up
 ----
 
-.  Proceed with using ADB as described in link:../../../docs/using.adoc[Using
-Atomic Developer Bundle].
+.  Proceed with using ADB as described in link:../../../docs/using.adoc[Using Atomic Developer Bundle].
 
 [additiona-openshit-config]
 == Additional configuration for OpenShift

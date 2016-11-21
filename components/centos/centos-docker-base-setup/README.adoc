@@ -12,8 +12,7 @@ docker tooling] or the docker CLI, with ADB.
 == Quickstart
 
 .  Get latest ADB box and add it to vagrant as described in
-link:../../../docs/installing.adoc[Installing the Atomic Developer
-Bundle].
+link:../../../docs/installing.adoc[Installing Atomic Developer Bundle].
 
 .  Create a directory for the Vagrant Box.
 +
@@ -33,5 +32,4 @@ $ curl -sL https://raw.githubusercontent.com/projectatomic/adb-atomic-developer-
 $ vagrant up
 ----
 
-.  Proceed with using ADB as described in link:../../../docs/using.adoc[Using
-Atomic Developer Bundle].
+.  Proceed with using ADB as described in link:../../../docs/using.adoc[Using Atomic Developer Bundle].

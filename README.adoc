@@ -11,8 +11,8 @@ orchestrators while providing a path that promotes best practices.
 '''
 toc::[]
 '''
-
-== Advantage of ADB
+[[advantages]]
+== Advantages of ADB
 
 As a container developer, you want to use ADB for these reasons:
 
@@ -42,7 +42,7 @@ instead of reinventing the wheel.
 ADB is a virtual machine that is executed with Vagrant and some Vagrant
 plugins.
 
-[[when-would-adb-typically-be-used]]
+[[when-to-use]]
 == When would ADB typically be used?
 
 A developer begins using ADB, in most cases, once they have a working
@@ -67,7 +67,7 @@ Alternatively, build a Nulecule description of the application.
 The http://docs.projectatomic.io/container-best-practices/[Container
 Best Practices] document in this project may also be of interest.
 
-[[what-is-the-typical-usage-pattern]]
+[[typical-usage-pattern]]
 == What is the typical usage pattern?
 
 ADB supports three basic modes of usage. The modes vary by how much they
@@ -96,7 +96,7 @@ all of the software ADB ships with.
 
 More information about link:docs/using.adoc[using ADB] is available.
 
-[[what-does-adb-utilize]]
+[[adb-related-projects]]
 == What does ADB utilize?
 
 ADB is built on top of https://www.centos.org/[CentOS 7] and the
@@ -129,7 +129,7 @@ You need to use the customized Vagrantfiles provided in ADB project to
 set up the above mentioned environments. For further details refer to
 the Installation steps in the next section.
 
-[[how-do-i-install-and-run-adb]]
+[[quick-install-run]]
 == How do I install and run ADB?
 
 Below is an installation overview using the most common options.
@@ -152,15 +152,13 @@ $ vagrant plugin install vagrant-service-manager vagrant-sshfs landrush
 Some operating systems may need additional dependencies to be
 installed before you proceed with the installation of the vagrant
 plugins. For details refer to the detailed
-https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.adoc[Installation
-document].
+link:docs/installing.adoc[Installation document].
 
 . Download the customized Vagrantfiles provided by the ADB project.
 These Vagrantfiles will download ADB and automatically set up
 provider-specific container development environments. They are listed
 below and more details are available in the
-https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/installing.adoc[Installation
-document].
+link:docs/installing.adoc[Installation document].
 +
 To download ADB and set up a provider-specific container development
 environment:
@@ -228,7 +226,7 @@ Additional goals, objectives and work in progress can be found on the
 Project Atomic https://trello.com/b/j1rEolFe/container-tools[trello
 board].
 
-[[deliverables-and-downloading]]
+[[deliverables]]
 == What are the deliverables and where are they delivered?
 
 ADB is delivered as a Vagrant box for various (currently libvirt and
@@ -252,7 +250,7 @@ specific build requirements that are not enabled in those boxes.
 * link:docs/updating.adoc[Updating ADB]
 * link:docs/building.adoc[Building the Vagrant box] for Developers
 
-[[interested-in-contributing-to-this-project]]
+[[contributing]]
 == Interested in Contributing to this project?
 
 We welcome new ideas, suggestions, issues and pull requests. Want to be
@@ -273,6 +271,7 @@ http://asciidoctor.org/docs/editing-asciidoc-with-live-preview/[live preview].
 For detailed information about contributing to the projects,
 see link:CONTRIBUTING.adoc[how to contribute].
 
+[[additional-resources]]
 == Additional online resources
 
 * Using OpenShift in ADB:

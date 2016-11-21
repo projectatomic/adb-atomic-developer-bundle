@@ -35,8 +35,8 @@ The `plugins` directory contains Vagrant plugins and respective README files:
 
 * `vagrant-registration`
   ** GitHub: https://github.com/projectatomic/adb-vagrant-registration
-  ** README: https://github.com/projectatomic/adb-vagrant-registration/blob/master/README.md
+  ** README: https://github.com/projectatomic/adb-vagrant-registration/blob/master/README.adoc
 
 * `vagrant-sshfs`
   ** GitHub: https://github.com/dustymabe/vagrant-sshfs
-  ** README: https://github.com/dustymabe/vagrant-sshfs/blob/master/README.md
+  ** README: https://github.com/dustymabe/vagrant-sshfs/blob/master/README.adoc

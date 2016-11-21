@@ -28,7 +28,7 @@ not saved on your host machine:
 # vagrant destroy
 ....
 
-[[update-adb-from-atlas.hashicorp.com]]
+[[update-from-atlas-hashicorp]]
 == Update ADB from atlas.hashicorp.com
 
 If you use ADB images from atlas.hashicorp.com, you can perform a direct
@@ -57,7 +57,7 @@ command:
 # vagrant box update
 ....
 
-[[update-adb-from-cloud.centos.org]]
+[[update-from-cloud-centos]]
 == Update ADB from cloud.centos.org
 
 If you use ADB images from cloud.centos.org, you must manually remove

@@ -8,7 +8,7 @@ This document describes how to install ADB and required dependencies.
 toc::[]
 '''
 
-[[install-a-virtualization-provider]]
+[[install-virt-provider]]
 == Step 1. Install a virtualization provider
 
 Two virtualization providers have been tested with ADB; VirtualBox and
@@ -34,7 +34,7 @@ The choice as to which to use should be driven by your preferences and
 environmental concerns and is outside of the scope of this document.
 Both will work equally well in their default configuration. You may wish
 to read the section on file synchronization in the
-https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.adoc[Using ADB documentation] when making this decision.
+link:using.adoc[Using ADB documentation] when making this decision.
 
 * VirtualBox installation instructions are available
 https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux[online
@@ -67,7 +67,7 @@ The choice as to which to use should be driven by your preferences and
 environmental concerns and is outside of the scope of this document.
 Both will work equally well in their default configuration. You may wish
 to read the section onfile synchronization in the
-https://github.com/projectatomic/adb-atomic-developer-bundle/blob/master/docs/using.adoc[Using ADB documentation] when making this decision.
+link:using.adoc[Using ADB documentation] when making this decision.
 
 * VirtualBox installation instructions are available
 https://www.virtualbox.org/manual/ch02.html#startingvboxonlinux[online
@@ -163,7 +163,7 @@ $ sudo systemctl start libvirtd
 $ sudo systemctl enable libvirtd
 ----
 
-[[install-additional-dependencies]]
+[[install-dependencies]]
 == Step 3. Install additional dependencies
 
 For some operating systems, you might need to install additional
@@ -285,7 +285,7 @@ export BOX=<box-name>
 ----
 ====
 
-[[set-up-adb-behind-an-http-proxy]]
+[[adb-behind-http-proxy]]
 == Step 6. (Optional) Set up ADB behind an HTTP proxy
 
 ADB can be set up behind a proxy server. Set the following proxy parameters in the
@@ -303,13 +303,14 @@ In an unauthenticated proxy environment, the `proxy_user` and `proxy_password`
 configurations can be omitted.
 
 == Step 7. Start ADB
+
 Start ADB by running the `vagrant up` command.
 
 ----
 $ vagrant up
 ----
 
-This will start the ADB and set it up to work with the provider of
+This will start ADB and set it up to work with the provider of
 choice, for use with host-based tools or via `vagrant ssh`.
 
 [NOTE]
@@ -321,7 +322,6 @@ $ vagrant up --provider virtualbox
 ----
 ====
 
-At this point your Atomic Developer Bundle installation is complete. You may wish
-to review the link:docs/using.adoc[Using Atomic Developer
-Bundle] documentation before starting ADB, especially if you are using
-host-based tools.
+At this point your Atomic Developer Bundle installation is complete. You
+can find link:using.adoc[ADB usage information] in the documentation
+directory.
