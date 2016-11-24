@@ -86,13 +86,8 @@ Vagrant.configure(2) do |config|
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
 
-  # prevent the automatic start of openshift via service-manager by just enabling Docker
-  config.servicemanager.services = "docker"
-
-  # explicitly enable and start OpenShift
-  config.vm.provision "shell", run: "always", inline: <<-SHELL
-    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} IMAGE_TAG=#{IMAGE_TAG} /usr/bin/sccli openshift
-  SHELL
+  config.servicemanager.services = "openshift"
+  config.servicemanager.openshift_image_tag = IMAGE_TAG unless IMAGE_TAG.empty?
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     #Get the routable IP address of OpenShift
