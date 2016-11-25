@@ -27,7 +27,7 @@ $ mkdir directory && cd directory
 .  Get the latest CDK box using Developer Subscription. You can download
 the CDK and find further information about CDK
 http://developers.redhat.com/products/cdk/overview/[here]. For detailed instructions on how to install CDK refer to the
-https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.2/paged/installation-guide[CDK Installation Guide].
+https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.3/paged/installation-guide[CDK Installation Guide].
 
 . Add the box to Vagrant with the following command:
 +
