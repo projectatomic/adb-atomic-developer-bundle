@@ -314,3 +314,16 @@ Destroys the Vagrant box permanently.
 WARNING: Using `vagrant destroy` will destroy any data you stored in
 the Vagrant box. You will not be able to restart this instance and will
 have to create a new one using `vagrant up`.
+
+`vagrant global status`::
+Displays the state of all active Vagrant environments on your system. Use this to see the status of your Vagrant environment. +
+You can use `vagrant global status --prune` to prune invalid entries, based on stale results.
+
+`vagrant plugin list`::
+Verifies the vagrant plugins installed on your system. Use this to see a list of the vagrant plugins in your system.
+
+`vagrant box list`::
+Lists the vagrant boxes on your system. You can use this to verify that your box is installed.
+
+`vagrant provision`::
+Use this to provision the service of your choice if it fails to start on `Vagrant up`.
