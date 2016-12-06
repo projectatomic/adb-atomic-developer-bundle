@@ -1,6 +1,43 @@
 = Revision History
 :toc:
 
+[[v2.4.0-dec-08-2016]]
+==  2.4.0 December 08, 2016
+
+* Fix typo in vagrant global-status instruction @budhrg
+* Fix #600, adding a few more useful commands to the Using Doc @Preeticp
+* Fixed section IDs and relative links @thatdocslady
+* Fix issue with OPENSHIFT_HOSTNAME not showing for 'oc login' @gbraad
+* Fix #566 Updated Proxy section with the relevant steps from VSM @Preeticp
+* Fix #570 Consistent format for setting Vagrantfile configurations @budhrg
+* Fix for #591. Fixing nsswitch.conf in RHEL CDK kickstart file @LalatenduMohanty
+* Issue #582, Modifying IMAGE_TAG to be a null string @LalatenduMohanty
+* Fix #545 Make box name configurable in Vagrantfile @budhrg
+* Fix #588 No section for hyperv in OSE Vagrantfile @praveenkumar
+* Formatting fixes and style convention adjustments @thatdocslady
+* Added documentation on staging your application with the local OpenShift registry @thatdocslady
+* Remove rst format doc now adoc is available for same @praveenkumar
+* Adding OCP tag in the RHEL-OSE Vagrantfile for CDK @LalatenduMohanty
+* Fix #577 Update CDK version to next release (2.3) @praveenkumar
+* Modifying the OpenSHift vagrant up output to use VSM install-cli feature @LalatenduMohanty
+* Fix #575 Update OSP tag with latest release @praveenkumar
+* Refactored SSH section based on feedback @thatdocslady
+* Fix #540 \~/.vagrant.d/Vagrantfile does not affect vagrant-registration @budhrg
+* Minor formatting and grammar fix @Preeticp
+* Fix #564; added note saying - name of CDK box must correspond to the name used by the vagrantfile @Preeticp
+* Cleaned up formatting and structure issues that arose from the asciidoc conversion @thatdocslady
+* Fixes #523, #525, #518, #494 @Preeticp
+* Enable live-rendering of TOC in GitHub for adoc files @thatdocslady
+* Converted all doc files to asciidoc @thatdocslady
+* Fix #554 Updated OSE to Openshift container platform @budhrg
+* Fix #550 add .cdk file should be in cdk.zip for devsuite @praveenkumar
+* Added note about updating ADB on Windows machines and adjusted prerequisites and formatting @thatdocslady
+* Fix #548 update OSE tag @praveenkumar
+ *Updating additional dependencies for landrush (Fedora -> Fedora 23/24)
+* Fix #481 Restructured ADB doc, removed Vagrantfile section since mentioned in Readme and Installation docs and moved Installing ADB behind Proxy section to Installation doc @Preeticp
+* Update CDK version to 2.2 @praveenkumar
+* Fix wording in Vagrant up message for Openshift Vagrantfile @budhrg
+
 [[v2.3.1-sep-08-2016]]
 ==  2.3.1 September 08, 2016
 
