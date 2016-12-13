@@ -1,0 +1,96 @@
+= Migrating your application between OpenShift environments
+
+:toc:
+:toc-placement!:
+
+This section describes the process of migrating your application between environments.
+
+'''
+toc::[]
+'''
+
+== When to migrate the application
+
+At some point you might need to transfer your application to a different environment.
+For example, in case you want to move from your development environment to a production
+environment, or if you want to make the application available to other developers.
+
+While you use ADB to develop your application, you define various configuration settings
+that support your application code. When you want to migrate your application, you export
+these settings to a configuration file and deploy it together with the code in the
+new environment.
+
+This configuration-driven approach allows you to manage each service of your application
+according to its configurations and share these configurations across environments.
+
+In OpenShift this type of migration is called Application Promotion. For general information about this process,
+see the https://docs.openshift.org/latest/dev_guide/application_lifecycle/promoting_applications.html[Promoting Applications Across Environments]
+
+
+== Exporting the application assets from the local environment
+
+In addition to migrating your application code, you need to export the configuration
+settings to a JSON file. These configuration settings represent metadata of the service,
+such as repository URL, route, build-config, networking, and so on.
+
+To export the configuration, run the following command for each container or
+service in your application:
+
+----
+oc export is,bc,dc,svc,route -o json > <service-name>.json
+----
+
+The following configuration objects are exported to the configuration file:
+
+//TODO: Add descriptions of each parameter
+
+* ImageStream (is)
+* BuildConfig (bc)
+* DeploymentConfig (dc)
+* Service (svc)
+* Route (route)
+
+//TODO: Need info about the other elements of the JSON file, example https://github.com/jbossdemocentral/coolstore-microservice/blob/master/openshift-templates/sso-service.json
+
+After you create the configuration file, review the file and make sure that
+any environment-specific settings are represented by variables.
+
+//TODO: Need example of env-specific variables
+
+== Preparing the application assets for deployment
+
+Before you can deploy the application in the new environment, you need to create a
+source-controlled repository with all the application assets.
+
+Depending on your organizational requirements, you can set up the application containers
+in a single repository or multiple repositories.
+
+=== Single-repository application
+
+If your application contains one or few services and you want to minimize the number
+of repositories to manage, you can set up the application in a single repository with
+each container or service in a sub-directory.
+
+You can view the https://github.com/jbossdemocentral/coolstore-microservice[coolstore-microservice]
+application for an example of a single-repository approach. Each service is managed in
+a sub-directory, and the configuration files are stored in a dedicated https://github.com/jbossdemocentral/coolstore-microservice/tree/master/openshift-templates[templates]
+directory.
+
+=== Multi-repository application
+
+If your application includes many containers or services and you want to
+maximize flexibility in managing them, you can create a repository for each service
+and a parent repository that contains the overall setup of the application.
+
+You can view the https://github.com/redhat-helloworld-msa[helloworld-msa] application for
+an example of the multi-repository approach. Each service is managed in a separate
+repository along with its configuration file, and the https://github.com/redhat-helloworld-msa/helloworld-msa[helloworld-msa]
+repository contains the global configuration and documentation files.
+
+== Deploying the application to the new environment
+
+When you are ready to deploy the application, you need to bootstrap the environment to the
+repository that you created and test the build. You might also need to push or pull the
+image to the new registry.
+
+//TODO: Need recommended command/examples of this step
