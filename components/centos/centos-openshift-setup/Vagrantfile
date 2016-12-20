@@ -3,14 +3,6 @@
 
 BOX_NAME = 'projectatomic/adb'
 
-# The Docker registry from where we pull the OpenShift Docker image
-DOCKER_REGISTRY="docker.io"
-
-# The name of the OpenShift image available on dockerhub.
-IMAGE_NAME="openshift/origin"
-# Tag of the OpenShift image available on dockerhub.
-IMAGE_TAG="v1.2.0"
-
 # The top level domain for your VM and the created application routes
 TLD = 'adb'
 
@@ -92,6 +84,7 @@ Vagrant.configure(2) do |config|
   else
     config.vm.synced_folder ENV['HOME'], ENV['HOME'], type: 'sshfs', sshfs_opts_append: '-o umask=000 -o uid=1000 -o gid=1000'
   end
+
   config.vm.provision "shell", inline: <<-SHELL
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
@@ -106,10 +99,10 @@ Vagrant.configure(2) do |config|
     sed -i.orig -e "s/OPENSHIFT_SUBDOMAIN=.*/OPENSHIFT_SUBDOMAIN='#{TLD}'/g" /etc/sysconfig/openshift_option
   SHELL
 
-  config.vm.provision "shell", run: "always", inline: <<-SHELL
-    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} \
-    DOCKER_REGISTRY=#{DOCKER_REGISTRY} IMAGE_TAG=#{IMAGE_TAG} IMAGE_NAME=#{IMAGE_NAME} /usr/bin/sccli openshift
-  SHELL
+  config.servicemanager.services = "openshift"
+  config.servicemanager.openshift_docker_registry = "docker.io"
+  config.servicemanager.openshift_image_name = "openshift/origin"
+  config.servicemanager.openshift_image_tag = "v1.2.0"
 
   config.vm.provision "shell", run: "always", privileged: false, inline: <<-SHELL
     echo "You can now access OpenShift console on: https://#{OPENSHIFT_HOSTNAME}:8443/console"
