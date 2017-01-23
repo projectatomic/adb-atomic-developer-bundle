@@ -67,5 +67,4 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo setsebool -P virt_sandbox_use_fusefs 1
   SHELL
-  # config.servicemanager.services = 'docker'
 end

@@ -5,6 +5,9 @@ BOX_NAME = 'cdkv2'
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
 errors = []
 
+# Initialize proxy variables
+proxy = proxy_user = proxy_password = ''
+
 def message(name)
   "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it."
 end
@@ -14,7 +17,6 @@ unless errors.empty?
   msg = errors.size > 1 ? "Errors: \n* #{errors.join("\n* ")}" : "Error: #{errors.first}"
   fail Vagrant::Errors::VagrantError.new, msg
 end
-
 
 # Vagrantfile for single node k8s setup
 Vagrant.configure(2) do |config|
@@ -53,11 +55,9 @@ Vagrant.configure(2) do |config|
 
   # Proxy Information from environment
   if ENV.key?('PROXY')
-    config.registration.proxy = PROXY = ENV['PROXY']
-    config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER'] if ENV.key?('PROXY_USER')
-    config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD'] if ENV.key?('PROXY_PASSWORD')
-  else
-    PROXY = PROXY_USER = PROXY_PASSWORD = ''
+    config.registration.proxy = proxy = ENV['PROXY']
+    config.registration.proxyUser = proxy_user = ENV['PROXY_USER'] if ENV.key?('PROXY_USER')
+    config.registration.proxyPassword = proxy_password = ENV['PROXY_PASSWORD'] if ENV.key?('PROXY_PASSWORD')
   end
 
   # vagrant-sshfs
@@ -78,7 +78,7 @@ Vagrant.configure(2) do |config|
 
   # Explicitly enable and start kubernetes
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} /usr/bin/sccli kubernetes
+    PROXY=#{proxy} PROXY_USER=#{proxy_user} PROXY_PASSWORD=#{proxy_password} /usr/bin/sccli kubernetes
     echo "kubernetes single node cluster setup successfully"
   SHELL
 end
