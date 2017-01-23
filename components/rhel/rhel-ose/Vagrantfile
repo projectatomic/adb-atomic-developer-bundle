@@ -20,6 +20,9 @@ VM_MEMORY = ENV['VM_MEMORY'] || 3072
 REQUIRED_PLUGINS = %w(vagrant-service-manager vagrant-registration vagrant-sshfs)
 errors = []
 
+# Initialize proxy variables
+proxy = proxy_user = proxy_password = ''
+
 def message(name)
   "#{name} plugin is not installed, run `vagrant plugin install #{name}` to install it."
 end
@@ -66,11 +69,9 @@ Vagrant.configure(2) do |config|
 
   # Proxy Information from environment
   if ENV.key?('PROXY')
-    config.registration.proxy = PROXY = ENV['PROXY']
-    config.registration.proxyUser = PROXY_USER = ENV['PROXY_USER'] if ENV.key?('PROXY_USER')
-    config.registration.proxyPassword = PROXY_PASSWORD = ENV['PROXY_PASSWORD'] if ENV.key?('PROXY_PASSWORD')
-  else
-    PROXY = PROXY_USER = PROXY_PASSWORD = ''
+    config.registration.proxy = proxy = ENV['PROXY']
+    config.registration.proxyUser = proxy_user = ENV['PROXY_USER'] if ENV.key?('PROXY_USER')
+    config.registration.proxyPassword = proxy_password = ENV['PROXY_PASSWORD'] if ENV.key?('PROXY_PASSWORD')
   end
 
   # vagrant-sshfs
@@ -91,7 +92,7 @@ Vagrant.configure(2) do |config|
 
   # explicitly enable and start OpenShift
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    PROXY=#{PROXY} PROXY_USER=#{PROXY_USER} PROXY_PASSWORD=#{PROXY_PASSWORD} IMAGE_TAG=#{IMAGE_TAG} /usr/bin/sccli openshift
+    PROXY=#{proxy} PROXY_USER=#{proxy_user} PROXY_PASSWORD=#{proxy_password} IMAGE_TAG=#{IMAGE_TAG} /usr/bin/sccli openshift
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
