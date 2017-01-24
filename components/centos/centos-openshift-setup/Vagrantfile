@@ -9,7 +9,7 @@ DOCKER_REGISTRY="docker.io"
 # The name of the OpenShift image available on dockerhub.
 IMAGE_NAME="openshift/origin"
 # Tag of the OpenShift image available on dockerhub.
-IMAGE_TAG="v1.2.0"
+IMAGE_TAG="v1.3.2"
 
 # The top level domain for your VM and the created application routes
 TLD = 'adb'
