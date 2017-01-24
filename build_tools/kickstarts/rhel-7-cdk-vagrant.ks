@@ -103,7 +103,7 @@ sed -i -e 's/SecurityContextDeny,//' /etc/kubernetes/apiserver
 # https://github.com/projectatomic/adb-atomic-developer-bundle/issues/183
 echo "VARIANT=\"Container Development Kit (CDK)\"" >> /etc/os-release
 echo "VARIANT_ID=\"cdk\"" >> /etc/os-release
-echo "VARIANT_VERSION=\"2.3\"" >> /etc/os-release
+echo "VARIANT_VERSION=\"2.4\"" >> /etc/os-release
 
 echo "127.0.0.1     rhel-cdk" >> /etc/hosts
 
@@ -202,7 +202,7 @@ sleep 120
 # Modify this as needed based on what you want to pre-pull
 # The tag renaming may not be strictly needed but having an image name
 # that points to an internal hostname will likely confuse people
-OPENSHIFT_TAG="v3.3.1.3"
+OPENSHIFT_TAG="v3.4.0.39"
 
 docker pull openshift3/ose:$OPENSHIFT_TAG
 docker pull openshift3/ose-haproxy-router:$OPENSHIFT_TAG
