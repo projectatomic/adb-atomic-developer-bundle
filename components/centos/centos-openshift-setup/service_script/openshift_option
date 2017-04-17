@@ -1,0 +1,6 @@
+# /etc/sysconfig/openshift_options
+
+# Modify these options if you want to change openshift route and hostname
+OPTIONS="-r adb.vm -host 10.1.2.2"
+IMAGE="openshift/origin:v1.1.1"
+DOCKER_REGISTRY="docker.io"

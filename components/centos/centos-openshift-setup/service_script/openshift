@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+
+# Prepare, configure and start OpenShift
+
+set -o pipefail
+set -o nounset
+
+export ORIGIN_DIR="/var/lib/origin"
+export OPENSHIFT_DIR=${ORIGIN_DIR}/openshift.local.config/master
+export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig
+
+
+# The Docker registry from where we pull the OpenShift Enterprise Docker image
+echo "export KUBECONFIG=${OPENSHIFT_DIR}/admin.kubeconfig" > /etc/profile.d/kubeconf.sh
+
+function usage
+{
+    echo "usage: openshift [[[-r route ] [-host hostname]] | [-h]]"
+}
+
+# Command line options
+
+while [ $# -gt 0 ]; do
+    case $1 in
+        -r | --route )          shift
+                                route=$1
+                                ;;
+        -host | --hostname )    shift 
+                                host=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+
+########################################################################
+# Helper function to start OpenShift as container
+#
+# All passed paramters are passed through ti
+########################################################################
+start_openshift() {
+        docker run --name "openshift" --privileged --net=host --pid=host \
+        -v /:/rootfs:ro \
+        -v /var/run:/var/run:rw \
+        -v /sys:/sys:ro \
+        -v /var/lib/docker:/var/lib/docker:rw \
+        -v ${ORIGIN_DIR}/openshift.local.volumes:${ORIGIN_DIR}/openshift.local.volumes:z \
+        -v ${ORIGIN_DIR}/openshift.local.config:${ORIGIN_DIR}/openshift.local.config:z \
+        -v ${ORIGIN_DIR}/openshift.local.etcd:${ORIGIN_DIR}/openshift.local.etcd:z \
+        openshift start "$@"
+}
+
+########################################################################
+# Helper function to remove existing openshift container
+########################################################################
+rm_openshift_container() {
+    if docker inspect openshift &>/dev/null; then
+        docker rm -f -v openshift > /dev/null 2>&1
+    fi
+}
+
+########################################################################
+# Helper function to wait for OpenShift config file generation
+########################################################################
+wait_for_config_files() {
+  echo "[INFO] Waiting for OpenShift config files to be created"
+  for i in {1..6}; do
+    if [ ! -f ${1} ] || [ ! -f ${2} ]; then
+      echo "[INFO] ..."
+      sleep 5
+    else
+      break
+    fi
+  done
+  if [ ! -f ${1} ] || [ ! -f ${2} ]; then
+    >&2 echo "[ERROR] Unable to create OpenShift config files"
+    docker logs openshift
+    exit 1
+  fi
+}
+
+########################################################################
+# Main
+########################################################################
+# Copy OpenShift CLI tools to the VM
+binaries=(oc oadm)
+for n in ${binaries[@]}; do
+        [ -f /usr/bin/${n} ] && continue
+        echo "[INFO] Copying the OpenShift '${n}' binary to host /usr/bin/${n}"
+        docker run --rm --entrypoint=/bin/cat openshift /usr/bin/${n} > /usr/bin/${n}
+        chmod +x /usr/bin/${n}
+done
+echo "export OPENSHIFT_DIR=${ORIGIN_DIR}/openshift.local.config/master" > /etc/profile.d/openshift.sh
+
+# In a re-provision scenario we want to make sure the old container is removed
+rm_openshift_container
+
+# First start OpenShift to just write the config files
+master_config=${OPENSHIFT_DIR}/master-config.yaml
+node_config=${ORIGIN_DIR}/openshift.local.config/node-$(hostname)/node-config.yaml
+
+if [ ! -f $master_config ]; then
+
+    # Prepare directories for bind-mounting
+    dirs=(openshift.local.volumes openshift.local.config openshift.local.etcd)
+    for d in ${dirs[@]}; do
+            mkdir -p ${ORIGIN_DIR}/${d} && chcon -Rt svirt_sandbox_file_t ${ORIGIN_DIR}/${d}
+    done
+
+    echo "[INFO] Preparing OpenShift config"
+    start_openshift --write-config=${ORIGIN_DIR}/openshift.local.config > /dev/null 2>&1
+    wait_for_config_files ${master_config} ${node_config}
+
+    # Now we need to make some adjustments to the config
+    echo "[INFO] Configuring OpenShift via ${master_config}"
+    sed -i.orig -e "s/\(.*subdomain:\).*/\1 $route/" ${master_config} \
+    -e "s/\(.*masterPublicURL:\).*/\1 https:\/\/$host:8443/g" \
+    -e "s/\(.*publicURL:\).*/\1 https:\/\/$host:8443\/console\//g" \
+    -e "s/\(.*assetPublicURL:\).*/\1 https:\/\/$host:8443\/console\//g"
+
+    # Remove the container
+    rm_openshift_container
+fi
+
+# Now we start the server pointing to the prepared config files
+echo "[INFO] Starting OpenShift server"
+start_openshift --master-config="${master_config}" --node-config="${node_config}"
